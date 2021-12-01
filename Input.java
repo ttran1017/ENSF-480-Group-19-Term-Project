@@ -20,12 +20,20 @@ public class Input {
 
     //pop up dialog box with two options, one will return true and the other will return false
     public static boolean getBoolInput(){
-        int temp = JOptionPane.showConfirmDialog(null, "true","false", JOptionPane.YES_NO_OPTION);
+        int temp = JOptionPane.showConfirmDialog(null, "Choose yes or no", "no", JOptionPane.YES_NO_OPTION);
         boolean returnBool = false;
-        if(temp>1){
+        if(temp == JOptionPane.YES_OPTION){
             returnBool = true;
         }
         return returnBool;
+    }
+
+
+    //MAIN FUNCTION FOR TESTING OTHER FUNCTIONS, ALL FUNCTIONS SEEM TO WORK AS INTENDED
+    public static void main(String[] args){
+        System.out.println(getStringInput());
+        System.out.println(getIntInput());
+        System.out.println(getBoolInput());
     }
 
 }
