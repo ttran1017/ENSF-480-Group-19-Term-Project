@@ -12,9 +12,15 @@ public class Input {
 
     //receives an input string from a pop up dialog box and returns it as an integer
     public static int getIntInput(){
-        String temp = JOptionPane.showInputDialog("Hello what is input lol");
-        int returnInt = Integer.parseInt(temp);
-        return returnInt;
+        int returnInt;
+        while(true){
+            try{
+                String temp = JOptionPane.showInputDialog("input funny numbers hehehehe");
+                returnInt = Integer.parseInt(temp);
+                return returnInt;
+            } catch (Exception e){
+            }
+        } 
     }
 
 
