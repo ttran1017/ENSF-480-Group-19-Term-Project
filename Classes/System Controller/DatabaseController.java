@@ -23,7 +23,7 @@ public class DatabaseController {
      * @param password 
      * @return
      */
-    public booean verifyRegistration(String username, String password) {
+    public boolean verifyRegistration(String username, String password) {
         // TODO implement here
         return null;
     }
