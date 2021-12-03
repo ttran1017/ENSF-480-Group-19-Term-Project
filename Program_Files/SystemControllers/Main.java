@@ -48,3 +48,5 @@ public class Main {
         }
     }
 }
+
+//javac -cp ./lib/mysql-connector-java-8.0.23.jar;./SystemControllers/DatabaseController.java ./SystemControllers/Main.java
