@@ -1,6 +1,14 @@
 package InteractionControllers;
 
+import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 //Class that handles all inputs
 //uses a pop up bubble to handle gathering inputs
@@ -41,11 +49,33 @@ public class Input {
         return selected;
     }
 
+    public static ArrayList<String> getMultiStringInput(String prompt, String[] options)
+    {
+        ArrayList<JTextField> fields = new ArrayList<JTextField>();
+        ArrayList<String> returnVal = new ArrayList<String>();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        for(String option : options)
+        {
+            panel.add(new JLabel(option));
+            if(option.toLowerCase().equals("password"))
+                fields.add(new JPasswordField(10));
+            else
+                fields.add(new JTextField(10));
+            panel.add(Box.createHorizontalGlue());
+            panel.add(fields.get(fields.size()-1));
+        }
+        JOptionPane.showConfirmDialog(null, panel , prompt, JOptionPane.OK_CANCEL_OPTION);
+        for(JTextField field : fields)
+        {
+            returnVal.add(field.getText());
+        }
+        return returnVal;
+    }
+
     //MAIN FUNCTION FOR TESTING OTHER FUNCTIONS, ALL FUNCTIONS SEEM TO WORK AS INTENDED
     public static void main(String[] args){
-        System.out.println(getStringInput("hello input uwu"));
-        System.out.println(getIntInput("uwu integer time !1"));
-        System.out.println(getBoolInput("88w88 u lik spiders?"));
+        Input.getMultiStringInput("Test", new String[]{"Email","Username","Password"});
     }
 
 }
