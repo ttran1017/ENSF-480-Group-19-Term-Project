@@ -4,10 +4,12 @@ import InteractionControllers.*;
 
 public class Main {
     private static Account user = null;
+    private static boolean continueProgram = true;
 
+    // main loop - DO NOT MODIFY
     public static void main(String[] args)
     {
-        while(true)
+        while(continueProgram)
         {
             if(user == null)                    // Unregistered User
             {
@@ -15,36 +17,79 @@ public class Main {
             }
             else if(user.accountType() == 1)    // Registered User
             {
-                Output.outputMessage("User Account Menu");
+                handleUser();
             }
             else                                // Manager
             {
-                Output.outputMessage("Manager Account menu");
+                handleManager();
             }
         }
     }
 
     public static void handleUnregistered()
     {
-        String option = (String)Input.getDropdownInput("Unregistered User Options", "Select From:", new String[]{"View Properties","Register","Login"});
+        String option = (String)Input.getDropdownInput(
+            "Unregistered User Options", 
+            "Select From:", 
+            new String[]{
+                "View Properties",
+                "Register",
+                "Login",
+                "Exit",
+                }
+            );
         switch(option)
         {
             case "View Properties":
-            {
-                Output.outputMessage("You chose to view properties!");
+                // TODO
                 break;
-            }
             case "Register":
-            {
                 AccountHandler.createAccount();
                 break;
-            }
             case "Login":
-            {
                 user = AccountHandler.login();
                 System.out.println(user);
                 break;
-            }
+            case "Exit":
+                continueProgram = false;
+                break;
         }
+    }
+
+    public static void handleUser()
+    {
+        String option = (String)Input.getDropdownInput(
+            "Registered User Options", 
+            "Select From:", 
+            new String[]{
+                "Update Filter",
+                "Change Subscription",
+                "View Property",
+                "Register Property",
+                "Post Property",
+                "Update Property"}
+            );
+        switch(option)
+        {
+            case "Update Filter":
+            break;
+            //TO BE IMPLEMENTED
+        }
+
+    }
+
+    public static void handleManager()
+    {
+        String option = (String)Input.getDropdownInput(
+            "Manager Options", 
+            "Select From:", 
+            new String[]{
+                "Update Fees",
+                "View Property Info",
+                "View Renter Info",
+                "View Landlord Info",
+                "Generate Summary",
+                "Modify Listing"}
+            );
     }
 }
