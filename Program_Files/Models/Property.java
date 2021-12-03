@@ -9,6 +9,19 @@ public class Property {
     public Property() {
     }
 
+    //normal constructor with all information
+    public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
+        propertyID = id;
+        ownerEmail = email;
+        propertyType = type;
+        propertyAddress = address;
+        propertyQuadrant = quad;
+        numBedrooms = bed;
+        numBathrooms = bath;
+        isFurnished = furnished;
+        daysRemainingPosted = days;
+    }
+
     
     private int propertyID;
     public String ownerEmail;
@@ -20,9 +33,6 @@ public class Property {
     private boolean isFurnished;
     private int daysRemainingPosted = 0;
 
-    
-    public void Property() {
-                    }
 
     
     public int getPropertyID() {
