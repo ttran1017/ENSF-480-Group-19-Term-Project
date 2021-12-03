@@ -1,4 +1,4 @@
-package System Controller;
+package SystemController;
 
 import java.util.*;
 
