@@ -7,9 +7,10 @@ import Interfaces.*;
 
 public class ManagerAccount extends Account{
 
-    private DatabaseController database;
+    private DatabaseController database = DatabaseController.getInstance();
 
     public ManagerAccount() {
+        setAccountType(2);
     }
     
     

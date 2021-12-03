@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Account {
     
-    private int accountType = 0;
+    private int accountType;
 
     public int accountType()
     {
