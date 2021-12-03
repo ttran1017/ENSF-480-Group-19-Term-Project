@@ -23,6 +23,10 @@ public class UserAccount extends Account {
 
     public void registerProperty()
     {
-        
+    }
+
+    public void updateListing()
+    {
+
     }
 }

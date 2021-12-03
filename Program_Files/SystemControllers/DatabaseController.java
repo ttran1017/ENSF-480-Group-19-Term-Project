@@ -1,10 +1,29 @@
 package SystemControllers;
 
+import java.sql.*;
+
 public final class DatabaseController {
 
     private static DatabaseController INSTANCE;
+    private static final String DBURL = "jdbc:mysql://localhost/prms_database";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "12qwaszx";
 
     private DatabaseController() {
+        try{
+            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
+
+            Statement myStmt = database.createStatement();
+
+            ResultSet myRs = myStmt.executeQuery("select * from accounts");
+
+            while(myRs.next()){
+                System.out.println(myRs.getString("username")+", "+myRs.getString("password"));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
     public static DatabaseController getInstance()
@@ -35,4 +54,8 @@ public final class DatabaseController {
         return 1;
     }
 
+    public static void main(String[] args)
+    {
+        DatabaseController databsae = DatabaseController.getInstance();
+    }
 }

@@ -29,7 +29,7 @@ public final class PropertyHub implements Subject {
         return INSTANCE;
     }
 
-    public static void createProperty(String email) {
+    public static Property createProperty(String email) {
         String type = (String)Input.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
@@ -56,6 +56,7 @@ public final class PropertyHub implements Subject {
         );
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
+        return null;
     }
 
     
