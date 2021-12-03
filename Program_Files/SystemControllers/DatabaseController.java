@@ -4,6 +4,7 @@ import Interfaces.*;
 import Models.Account;
 
 import java.util.*;
+import java.sql.*;
 
 
 public final class DatabaseController {
@@ -11,6 +12,20 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
 
     private DatabaseController() {
+        try{
+            Connection database= DriverManager.getConnection("jdbc:mysql://LocalInstance:3306/prms_database");
+
+            Statement myStmt = database.createStatement();
+
+            ResultSet myRs = myStmt.executeQuery("select * from accounts");
+
+            while(myRs.next()){
+                System.out.println(myRs.getString("username")+", "+myRs.getString("password"));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
     public static DatabaseController getInstance()
