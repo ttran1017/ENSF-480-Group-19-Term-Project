@@ -11,15 +11,15 @@ public class Property {
 
     //normal constructor with all information
     public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
-        propertyID = id;
-        ownerEmail = email;
-        propertyType = type;
-        propertyAddress = address;
-        propertyQuadrant = quad;
-        numBedrooms = bed;
-        numBathrooms = bath;
-        isFurnished = furnished;
-        daysRemainingPosted = days;
+        this.propertyID = id;
+        this.ownerEmail = email;
+        this.propertyType = type;
+        this.propertyAddress = address;
+        this.propertyQuadrant = quad;
+        this.numBedrooms = bed;
+        this.numBathrooms = bath;
+        this.isFurnished = furnished;
+        this.daysRemainingPosted = days;
     }
 
     
