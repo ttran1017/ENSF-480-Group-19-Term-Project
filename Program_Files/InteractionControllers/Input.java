@@ -35,6 +35,12 @@ public class Input {
         return returnBool;
     }
 
+    public static Object getDropdownInput(String title, String prompt, Object[] options)
+    {
+        Object selected = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        return selected;
+    }
+
     //MAIN FUNCTION FOR TESTING OTHER FUNCTIONS, ALL FUNCTIONS SEEM TO WORK AS INTENDED
     public static void main(String[] args){
         System.out.println(getStringInput("hello input uwu"));
