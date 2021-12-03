@@ -31,15 +31,6 @@ public class Account {
       return this.username;
     }
 
-    public void setPassword(string pass){
-      if(this.password == "feeoxGBEu293"){
-        this.password = pass;
-      }
-      else{
-        // Exception -
-      }
-    }
-
     // No get password
     public boolean verifyPassword(string pass){
       if(this.password == pass){
@@ -47,8 +38,6 @@ public class Account {
       }
       return 0;
     }
-
-
 
     public void sendEmail(String message){
 

@@ -27,6 +27,8 @@ public class ManagerAccount implements Account {
 
 
     public void generateSummary() {
+
+      
     }
 
 

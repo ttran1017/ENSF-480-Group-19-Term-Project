@@ -11,24 +11,20 @@ public final class AccountHandler {
 
     public static void createAccount()
     {
+        String[] accountParams = ["Enter an Email", "Enter a Username", "Enter a Password"];
 
-        // Change to multiline input
-        String email = Input.getStringInput("Enter an Email");
-        String username = Input.getStringInput("Enter a Username");
-        String password = Input.getStringInput("Enter a Password");
+        ArrayList<String> accountDetails = Input.getMultiStringInput("Enter Account Details", accountParams);
 
-        int type = Input.getDropdownInput("Enter Account Type", String prompt, Object[] options);
-
-        // How to make
+        String email = accountDetails[0];
+        String username = accountDetails[1];
+        String password = accountDetails[2];
 
         // Check for valid email
-        if(Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
-          this.email = email;
-        }
-        else{
+        if(!Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
           Output.outputMessage("Invalid Email!");
           break;
         }
+        
         switch(database.verifyRegistration(email,username,password))
         {
             case 0:
@@ -44,6 +40,8 @@ public final class AccountHandler {
                 break;
         }
     }
+
+
 
     public static Account login()
     {
