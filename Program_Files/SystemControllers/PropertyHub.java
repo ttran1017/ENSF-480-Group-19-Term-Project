@@ -42,7 +42,7 @@ public final class PropertyHub implements Subject {
                 "Condominium"
             }
         );
-        String address = Input.getStringInput("Enter Street Address (w/o Quadrant)");
+        String address = Input.getStringInput("Enter Street Address (W/O Quadrant)");
         String quadrant = (String)Input.getDropdownInput(
             "Quadrant Select", 
             "Select Type:",
@@ -56,7 +56,8 @@ public final class PropertyHub implements Subject {
         );
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
-        return null;
+        int id = database.addProperty(address,quadrant,numBedroom,numBathrooms);
+        Property newProperty = Property(type,address,quadrant,numBedrooms,numBathrooms);
     }
 
     
