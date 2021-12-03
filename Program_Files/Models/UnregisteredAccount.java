@@ -1,68 +1,26 @@
-package Model;
+package Models;
 
 import java.util.*;
 
-/**
- * 
- */
+import Interfaces.Account;
+
+
 public class UnregisteredAccount implements Account {
 
-    /**
-     * Default constructor
-     */
+    
+    private int accountType = 0;    
+    private String username = null;
+    private String password = null;
+    private String email = null;
+
     public UnregisteredAccount() {
     }
 
-    /**
-     * 
-     */
-    private int accountType = 0;
-
-    /**
-     * 
-     */
-    private String username = NULL;
-
-    /**
-     * 
-     */
-    private String password = NULL;
-
-    /**
-     * 
-     */
-    private String email = NULL;
-
-    /**
-     * @return
-     */
-    public void viewProperties() {
-        // TODO implement here
-        return null;
+        
+    public void viewProperties() {           
     }
 
-    /**
-     * @return
-     */
-    public void sendEmail() {
-        // TODO implement here
-        return null;
+    
+    public void sendEmail() {    
     }
-
-    /**
-     * @return
-     */
-    public void sendEmail() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public void viewProperties() {
-        // TODO implement here
-        return null;
-    }
-
 }

@@ -1,95 +1,41 @@
-package Model;
+package Models;
 
 import java.util.*;
+import SystemControllers.*;
+import Interfaces.*;
 
-/**
- * 
- */
-public class ManagerAccount extends Account {
 
-    /**
-     * Default constructor
-     */
-    public ManagerAccount() {
-    }
+public class ManagerAccount implements Account {
 
-    /**
-     * 
-     */
     private DatabaseController database;
 
-
-    /**
-     * @return
-     */
-    public void updateFeePeriod() {
-        // TODO implement here
-        return null;
+    public ManagerAccount() {
+    }
+    
+    
+    public void updateFeePeriod() { 
     }
 
-    /**
-     * @return
-     */
+    
     public void updateFees() {
-        // TODO implement here
-        return null;
     }
 
-    /**
-     * @return
-     */
-    public void generateSummary() {
-        // TODO implement here
-        return null;
+    
+    public void generateSummary() {    
     }
 
-    /**
-     * @return
-     */
-    public void editListingStatus() {
-        // TODO implement here
-        return null;
+    
+    public void editListingStatus() {  
     }
 
-    /**
-     * @return
-     */
-    public void viewLandlordInfo() {
-        // TODO implement here
-        return null;
+    
+    public void viewLandlordInfo() {   
     }
 
-    /**
-     * @return
-     */
-    public void viewRenterInfo() {
-        // TODO implement here
-        return null;
+    
+    public void viewRenterInfo() {    
     }
 
-    /**
-     * @return
-     */
-    public void ManagerAccount() {
-        // TODO implement here
-        return null;
+    public void sendEmail() {
     }
-
-    /**
-     * @return
-     */
-    public database getDatabaseController() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param controller 
-     * @return
-     */
-    public void setDatabaseController(database controller) {
-        // TODO implement here
-        return null;
-    }
-
 }
