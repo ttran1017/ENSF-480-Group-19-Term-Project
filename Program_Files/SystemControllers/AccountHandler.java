@@ -11,9 +11,10 @@ public final class AccountHandler {
 
     public static void createAccount()
     {
-        String email = Input.getStringInput("Enter an Email");
-        String username = Input.getStringInput("Enter a Username");
-        String password = Input.getStringInput("Enter a Password");
+        ArrayList<String> accountInfo = Input.getMultiStringInput("Login Form", new String[]{"Email","Username","Password"});
+        String email = accountInfo.get(0);
+        String username = accountInfo.get(1);
+        String password = accountInfo.get(2);
         switch(database.verifyRegistration(email,username,password))
         {
             case 0:

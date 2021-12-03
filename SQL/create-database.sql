@@ -28,11 +28,11 @@ CREATE TABLE `Properties` (
   KEY `FK_account_id` (`account_id`),
   CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-INSERT INTO `Properties` VALUES (1,3,'apartment',2,1,'SW');
-INSERT INTO `Properties` VALUES (2,4,'attached house',3,2,'SE');
-INSERT INTO `Properties` VALUES (3,2,'detached house',4,3,'SE');
-INSERT INTO `Properties` VALUES (4,2,'townhouse',3,2,'NE');
-INSERT INTO `Properties` VALUES (5,1,'condominium',2,1,'NW');
+INSERT INTO Properties VALUES (1,3,'apartment',2,1,TRUE,'SW');
+INSERT INTO Properties VALUES (2,4,'attached house',3,2,TRUE,'SE');
+INSERT INTO Properties VALUES (3,2,'detached house',4,3,FALSE,'SE');
+INSERT INTO Properties VALUES (4,2,'townhouse',3,2,FALSE,'NE');
+INSERT INTO Properties VALUES (5,1,'condominium',2,1,TRUE,'NW');
 
 
 

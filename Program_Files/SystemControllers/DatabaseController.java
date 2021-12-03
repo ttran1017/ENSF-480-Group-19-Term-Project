@@ -6,14 +6,16 @@ import Models.Account;
 import java.util.*;
 import java.sql.*;
 
-
 public final class DatabaseController {
 
     private static DatabaseController INSTANCE;
+    private static final String DBURL = "jdbc:mysql://localhost/prms_database";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "12qwaszx";
 
     private DatabaseController() {
         try{
-            Connection database= DriverManager.getConnection("jdbc:mysql://LocalInstance:3306/prms_database");
+            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
 
             Statement myStmt = database.createStatement();
 
@@ -56,4 +58,8 @@ public final class DatabaseController {
         return 1;
     }
 
+    public static void main(String[] args)
+    {
+        DatabaseController databsae = DatabaseController.getInstance();
+    }
 }

@@ -20,4 +20,13 @@ public class UserAccount extends Account {
         this.password = password;
         setAccountType(1);
     }
+
+    public void registerProperty()
+    {
+    }
+
+    public void updateListing()
+    {
+
+    }
 }
