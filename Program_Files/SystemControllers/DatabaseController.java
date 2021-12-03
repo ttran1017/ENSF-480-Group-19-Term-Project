@@ -51,7 +51,22 @@ public final class DatabaseController {
     public int addAccount(String email, String username, String password)
     {
         // Adds this shit to the SQL database
+        // Returns Account ID
         return 1;
+    }
+
+    public int addProperty(
+        String email, 
+        String propType, 
+        String propAddr, 
+        String propQuad, 
+        int numBed, 
+        int numBath, 
+        boolean isFurnished, 
+        int daysRemaaining)
+    {
+        return 0;
+        // Returns ID
     }
 
     public static void main(String[] args)
