@@ -1,55 +1,44 @@
 package SystemControllers;
 
 import Interfaces.*;
+import Models.Account;
+
 import java.util.*;
 
 
-public class DatabaseController {
+public final class DatabaseController {
 
-    
-    public DatabaseController() {
+    private static DatabaseController INSTANCE;
+
+    private DatabaseController() {
     }
 
-    
-    private DatabaseController instance;
-
-    
-    public boolean verifyRegistration(String username, String password) {
-        // TODO implement here
-        return false;
+    public static DatabaseController getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new DatabaseController();
+        }
+        return INSTANCE;
     }
 
-    
-    public boolean verifyLogin(String username, String password) {
-        // TODO implement here
-        return false;
+    public int verifyLogin(String username, String password)
+    {
+        // VERIFY LOGIN DETAILS IN DATABASE
+        // RETURNS ACCOUNT ID IF FOUND -1 OTHERWISE
+        return 1;
     }
 
-    
-    public void uploadAccount(String username, String password) {
+    public int verifyRegistration(String email, String username, String password)
+    {
+        // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING
+        return 0;
     }
 
-    
-    public ArrayList<Account> getAllAccounts() {
-        // TODO implement here
-        return null;
-    }
-
-    
-    public ArrayList<Properties> getAllProperties() {
-        // TODO implement here
-        return null;
-    }
-
-    
-    public DatabaseController getOnlyInstance() {
-        // TODO implement here
-        return null;
-    }
-
-    
-    private void DatabaseController() {
-        // TODO implement here
+    public int addAccount(String email, String username, String password)
+    {
+        // Adds this shit to the SQL database
+        return 1;
     }
 
 }

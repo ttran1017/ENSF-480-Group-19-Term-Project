@@ -1,63 +1,46 @@
 package SystemControllers;
-import Interfaces.*;
+import Models.*;
+import InteractionControllers.*;
+
 import java.util.*;
 
+public final class AccountHandler {
 
-public class AccountHandler {
+    private static DatabaseController database = DatabaseController.getInstance();
+    private static HashMap<Integer, Account> accountList = new HashMap<Integer, Account>();
 
-    
-    public AccountHandler() {
+    public static void createAccount()
+    {
+        String email = Input.getStringInput("Enter an Email");
+        String username = Input.getStringInput("Enter a Username");
+        String password = Input.getStringInput("Enter a Password");
+        switch(database.verifyRegistration(email,username,password))
+        {
+            case 0:
+                int accountId = database.addAccount(email, username, password);
+                accountList.put(accountId, new UserAccount(email,username,password));
+                Output.outputMessage("Account Creation Success");
+                break;
+            case 1:
+                Output.outputMessage("Invalid Email!");
+                break;
+            case 2:
+                Output.outputMessage("Invalid Username");
+                break;
+        }
     }
 
-    private ArrayList<Account> accountList;
-
-    private DatabaseController database;
-
-
-
-
-    
-    public void register() {
-        // TODO implement here
+    public static Account login()
+    {
+        String username = Input.getStringInput("Enter a Username");
+        String password = Input.getStringInput("Enter a Password");
+        int accountID = database.verifyLogin(username, password);
+        if(accountID == -1)
+        {
+            Output.outputMessage("Login Failed");
+            return null;
+        }
+        Output.outputMessage("Login Successful");
+        return accountList.get(accountID);
     }
-
-    
-    public void registerAccount() {
-        // TODO implement here
-    }
-
-
-    public Account loginAccount() {
-        return null;
-        // TODO implement here
-    }
-
-    
-    public void Operation2() {
-        // TODO implement here
-    }
-
-    
-    public void Operation3() {
-        // TODO implement here
-    }
-
-    
-    private boolean createAccount(String username, String password) {
-        // TODO implement here
-        return false;
-    }
-
-    
-    private boolean verifyLoginDetails(String username, String password) {
-        // TODO implement here
-        return false;
-    }
-
-    
-    private Account getAccountByID(int id) {
-        // TODO implement here
-        return null;
-    }
-
 }
