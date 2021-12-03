@@ -54,6 +54,7 @@ public class Account {
       }
     }
 
+    // No get password
     public boolean verifyPassword(string pass){
       if(this.password == pass){
         return 1;
@@ -75,8 +76,5 @@ public class Account {
 
       return;
     }
-
-
-
 
 }

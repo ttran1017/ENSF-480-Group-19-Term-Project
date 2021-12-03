@@ -11,14 +11,29 @@ public final class AccountHandler {
 
     public static void createAccount()
     {
+
+        // Change to multiline input
         String email = Input.getStringInput("Enter an Email");
         String username = Input.getStringInput("Enter a Username");
         String password = Input.getStringInput("Enter a Password");
+
+        int type = Input.getDropdownInput("Enter Account Type", String prompt, Object[] options);
+
+        // How to make
+
+        // Check for valid email
+        if(Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
+          this.email = email;
+        }
+        else{
+          Output.outputMessage("Invalid Email!");
+          break;
+        }
         switch(database.verifyRegistration(email,username,password))
         {
             case 0:
                 int accountId = database.addAccount(email, username, password);
-                accountList.put(accountId, new UserAccount(email,username,password));
+                accountList.put(accountId, new Account(email,username,password, type));
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:

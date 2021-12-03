@@ -30,15 +30,11 @@ public class UserAccount extends Account {
     }
 
     public void registerProperty(String propType, String propAddr, String propQuad, int numBed, int numBath, boolean isFurnished){
-      Property property = new Property(propType, propAddr, propQuad, numBed, numBath, isFurnished);
+      Property property = new Property(propType, propAddr, propQuad, numBed, numBath, isFurnished); // Use PropertyHub
       ownedProperties.add(property);
     }
 
     public void updateListing(){
-
-    }
-
-    public uploadProperty(){
 
     }
 
