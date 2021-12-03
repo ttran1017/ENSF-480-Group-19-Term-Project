@@ -10,7 +10,7 @@ public class Account {
 
     private int accountType = 0;
     private String username;
-    private String password = "feeoxGBEu293";
+    private String password;
     private String email;
 
     public int accountType()
@@ -23,22 +23,8 @@ public class Account {
         this.accountType = type;
     }
 
-    public void setEmail(String email)
-    {
-        if(Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
-          this.email = email;
-        }
-        else{
-          // Exception
-        }
-    }
-
     public String getEmail(){
       return this.email;
-    }
-
-    public void setUsername(string user){
-      this.username = user;
     }
 
     public String getUsername(){

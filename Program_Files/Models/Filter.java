@@ -123,6 +123,6 @@ class FilterBuilder{
   }
 
   Filter build(){
-    return new Filter(propType, propQuad, minBedroom, maxBedroom, minYear, maxYear, )
+    return new Filter(propType, propQuad, minBedroom, maxBedroom, isFurnished, minYear, maxYear);
   }
 }
