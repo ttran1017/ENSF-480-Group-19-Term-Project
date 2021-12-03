@@ -1,72 +1,87 @@
 package SystemControllers;
 
 import java.util.*;
+
+import InteractionControllers.Input;
 import Models.*;
 import Interfaces.*;
 import Interfaces.Observer;
 
+public final class PropertyHub implements Subject {
 
-public class PropertyHub implements Subject {
-
+    private static PropertyHub INSTANCE;
+    private DatabaseController database;
+    private ArrayList<Property> propertyList;
+    private ArrayList<PropertyViewer> viewers;
     
-    public PropertyHub() {
+    private PropertyHub() {
+        database = DatabaseController.getInstance();
+        propertyList = new ArrayList<>();
+        viewers = new ArrayList<>();
     }
 
-    
-    private ArrayList<Property> propertyList;
+    public static PropertyHub getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new PropertyHub();
+        }
+        return INSTANCE;
+    }
 
-    
-    private DatabaseController database;
-
-    
-    private ArrayList<PropertyViewer> viewers;
-
-
-
-
-    
-    public void createProperty(String propType, String propAddr, String propQuad, int numBed, int numBath, boolean isFurnished) {
-        // TODO implement here
+    public static void createProperty(String email) {
+        String type = (String)Input.getDropdownInput(
+            "Property Type Select", 
+            "Select Type:",
+            new String[]
+            {
+                "Apartment",
+                "Attatched House",
+                "Detched House",
+                "Townhouse",
+                "Condominium"
+            }
+        );
+        String address = Input.getStringInput("Enter Street Address (w/o Quadrant)");
+        String quadrant = (String)Input.getDropdownInput(
+            "Quadrant Select", 
+            "Select Type:",
+            new String[]
+            {
+                "NE",
+                "NW",
+                "SE",
+                "SW"
+            }
+        );
+        int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
+        int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
     }
 
     
     public void addToDatabase(Property property) {
-        // TODO implement here
     }
 
     
     public void updateSystemBalance() {
-        // TODO implement here
     }
 
     
     public ArrayList<Property> getPropertyList() {
-        // TODO implement here
         return null;
     }
 
     
     public Property getPropertyByID(int id) {
-        // TODO implement here
         return null;
     }
 
-    @Override
     public void addObserver(Observer o) {
-        // TODO Auto-generated method stub
-        
     }
 
-    @Override
     public void removeObserver(Observer o) {
-        // TODO Auto-generated method stub
-        
     }
 
-    @Override
     public void notifyAllObservers() {
-        // TODO Auto-generated method stub
-        
     }
-
 }
