@@ -11,7 +11,7 @@ public class Property {
 
     //normal constructor with all information
     public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
-        this.propertyID = id;
+        this.propertyID = ID;
         this.ownerEmail = email;
         this.propertyType = type;
         this.propertyAddress = address;
@@ -36,83 +36,7 @@ public class Property {
 
     
     public int getPropertyID() {
-                return 0;
-    }
-
-    
-    public String getOwnerEmail() {
-                return "";
-    }
-
-    
-    public String getPropertyType() {
-                return "";
-    }
-
-    
-    public String getPropertyAddress() {
-                return "";
-    }
-
-    
-    public String getPropertyQuadrant() {
-                return "";
-    }
-
-    
-    public int getNumBedrooms() {
-                return 0;
-    }
-
-    
-    public int getNumBathrooms() {
-                return 0;
-    }
-
-    
-    public boolean getIsFurnished() {
-                return false;
-    }
-
-    
-    public int getDaysRemainingPosted() {
-                return 0;
-    }
-
-    
-    public void setPropertyId(int propID) {
-    }
-
-    
-    public void setOwnerEmail(String email) {
-    }
-
-    
-    public void setPropertyType(String propType) {
-    }
-
-    
-    public void setPropertyAddress(String address) {
-    }
-
-    
-    public void setPropertyQuadrant(String quad) {
-    }
-
-    
-    public void setNumBedrooms(int bedrooms) {
-    }
-
-    
-    public void setNumBathrooms(int bathrooms) {
-    }
-
-    
-    public void setIsFurnished(boolean furnished) {
-    }
-
-    
-    public void setDaysRemainingPosted(int days) {
+        return propertyID;
     }
 
 }

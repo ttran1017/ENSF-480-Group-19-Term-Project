@@ -23,7 +23,7 @@ public final class AccountHandler {
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
-                Output.outputMessage("Invalid Email!");
+                Output.outputMessage("Invalid Email");
                 break;
             case 2:
                 Output.outputMessage("Invalid Username");
