@@ -10,12 +10,11 @@ import Interfaces.Observer;
 public final class PropertyHub implements Subject {
 
     private static PropertyHub INSTANCE;
-    private static DatabaseController database;
+    private static DatabaseController database = DatabaseController.getInstance();
     private HashMap<Integer, Property> propertyList;
     private ArrayList<PropertyViewer> viewers;
     
     private PropertyHub() {
-        database = DatabaseController.getInstance();
         propertyList = new HashMap<Integer, Property>();
         viewers = new ArrayList<>();
     }
@@ -30,17 +29,10 @@ public final class PropertyHub implements Subject {
     }
 
     public static Property createProperty(String email) {
-        String type = (String)Input.getDropdownInput(
+        PropertyType type = (PropertyType)Input.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
-            new String[]
-            {
-                "Apartment",
-                "Attatched House",
-                "Detched House",
-                "Townhouse",
-                "Condominium"
-            }
+            PropertyType.values()
         );
         String address = Input.getStringInput("Enter Street Address (W/O Quadrant)");
         String quadrant = (String)Input.getDropdownInput(
@@ -97,7 +89,7 @@ public final class PropertyHub implements Subject {
         getInstance().notifyAllObservers();
     }
     
-    public static ArrayList<Property> getPropertyList() {
+    public ArrayList<Property> getPropertyList() {
         return new ArrayList<Property>(getInstance().propertyList.values());
     }
 
