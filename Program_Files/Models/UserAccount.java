@@ -11,6 +11,7 @@ public class UserAccount extends Account {
     private String password;
     private ArrayList<Property> ownedProperties;
     private PropertyViewer viewer;
+    private FilterBuilder filterBuilder;
     private Filter filter;
     private boolean subscription;
 
@@ -20,10 +21,6 @@ public class UserAccount extends Account {
         this.password = password;
         setAccountType(1);
     }
-
-    // Filter
-
-    // property viewer
 
     public ArrayList<Property> getProperties(){
       return this.ownedProperties;
@@ -36,6 +33,26 @@ public class UserAccount extends Account {
 
     public void updateListing(){
 
+    }
+
+    public void updateFilterPropType(String m){
+      this.filter = filterBuilder.setPropertyType(m);
+    }
+
+    public void updateFilterPropQuad(String m){
+      this.filter = filterBuilder.setPropertyQuad(m);
+    }
+
+    public void updateFilterMinBedroom(int n){
+      this.filter = filterBuilder.setMinBedroom(n);
+    }
+
+    public void updateFilterMaxBedroom(int n){
+      this.filter = filterBuilder.setMaxBedroom(n);
+    }
+
+    public void updateFilterIsFurnished(boolean b){
+      this.filter = filterBuilder.setIsFurnished(b);
     }
 
     public void setSubscription(boolean v){

@@ -24,7 +24,7 @@ public final class AccountHandler {
           Output.outputMessage("Invalid Email!");
           break;
         }
-        
+
         switch(database.verifyRegistration(email,username,password))
         {
             case 0:
