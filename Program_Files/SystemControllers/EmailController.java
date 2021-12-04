@@ -20,6 +20,11 @@ public class EmailController {
         // TODO implement here
     }
 
+    // Send to address that a property has been posted with a specified ID
+    public static void sendNotification(String address, int ID)
+    {
+    }
+
 
     public static void setupMeeting(String address) {
         // TODO implement here
