@@ -2,12 +2,14 @@ package Models;
 
 import java.util.*;
 
+import Interfaces.PropertyType;
+
 
 public class Property {
 
     private int propertyID;
     public String ownerEmail;
-    private String propertyType;
+    private PropertyType propertyType;
     private String propertyAddress;
     private String propertyQuadrant;
     private String propertyStatus;
@@ -16,13 +18,23 @@ public class Property {
     private boolean isFurnished;
     private int daysRemaining = 0;
     
+    //TESTING TOOLS
+    private static int counter = 0;
     public Property() {
+        ownerEmail = ('A' + counter) + "@cashmoney.com";
+        propertyType = PropertyType.values()[counter%5];
+        propertyID = counter++;
+        propertyAddress = "dsad";
+        propertyQuadrant = "NE";
+        numBedrooms = counter;
+        numBathrooms = counter;
+        isFurnished = true;
     }
 
     //normal constructor with all information
     public Property(
         String email, 
-        String type, 
+        PropertyType type, 
         String address, 
         String quad,
         String status, 
@@ -44,18 +56,18 @@ public class Property {
 
     public int getPropertyID() { return this.propertyID; }
     public String getOwnerEmail() {return this.ownerEmail; }
-    public String getPropertyType() { return this.propertyType; }
+    public PropertyType getPropertyType() { return this.propertyType; }
     public String getPropertyAddress() { return this.propertyAddress; } 
-    public String getPropertyQuadrant() { return this.getPropertyQuadrant(); }
+    public String getPropertyQuadrant() { return this.propertyQuadrant; }
     public int getNumBedrooms() { return this.numBedrooms; }
-    public int getNumBathrooms() { return this.getNumBathrooms(); }
+    public int getNumBathrooms() { return this.numBathrooms; }
     public boolean getIsFurnished() { return this.isFurnished; }
     public int getDaysRemaining() { return daysRemaining; }
     public String getPropertyStatus() { return propertyStatus; }
 
     public void setPropertyId(int propID) { this.propertyID = propID; }
     public void setOwnerEmail(String email) { this.ownerEmail = email; }
-    public void setPropertyType(String propType) { this.propertyType = propType; }
+    public void setPropertyType(PropertyType propType) { this.propertyType = propType; }
     public void setPropertyAddress(String address) { this.propertyAddress = address; }
     public void setPropertyQuadrant(String quad) { this.propertyQuadrant = quad; }
     public void setNumBedrooms(int bedrooms) { this.numBedrooms = bedrooms; }

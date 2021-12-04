@@ -2,8 +2,7 @@ package InteractionControllers;
 
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.Box;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,6 +13,8 @@ import javax.swing.JTextField;
 //uses a pop up bubble to handle gathering inputs
 
 public class Input {
+
+    private static final int FIELD_SIZE = 5;
     //receives an input string from a pop up dialog box and returns it
     public static String getStringInput(String prompt){
         String returnString = JOptionPane.showInputDialog(prompt);
@@ -54,15 +55,14 @@ public class Input {
         ArrayList<JTextField> fields = new ArrayList<JTextField>();
         ArrayList<String> returnVal = new ArrayList<String>();
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(0,2));
         for(String option : options)
         {
             panel.add(new JLabel(option));
             if(option.toLowerCase().equals("password"))
-                fields.add(new JPasswordField(10));
+                fields.add(new JPasswordField(FIELD_SIZE));
             else
-                fields.add(new JTextField(10));
-            panel.add(Box.createHorizontalGlue());
+                fields.add(new JTextField(FIELD_SIZE));
             panel.add(fields.get(fields.size()-1));
         }
         JOptionPane.showConfirmDialog(null, panel , prompt, JOptionPane.OK_CANCEL_OPTION);
