@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import InteractionControllers.Input;
+import InteractionControllers.Output;
 import Models.*;
 import Interfaces.*;
 import Interfaces.Observer;
@@ -63,10 +64,44 @@ public final class PropertyHub implements Subject {
         return newProperty;
     }
 
-    public static void PostProperty(ArrayList<Property> properties)
+    public static void PostProperty(String email, ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
-        Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        if(IDs == null)
+        {
+            Output.outputMessage("No Properties to Display");
+            return;
+        }
+        int selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
+        {
+            FeeController.charge();
+            Property myProp;
+            for(int i = 0; i < properties.size(); i++)
+            {
+                if(properties.get(i).getPropertyID() == selectedID)
+                {
+                    properties.get(i).setDaysRemaining(FeeController.getPeriod());
+                    myProp = properties.get(i);
+                    break;
+                }
+            }
+            getInstance().propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
+            database.updateListing(
+                null, 
+                email, 
+                null, 
+                null, 
+                -1, 
+                -1, 
+                -1, 
+                myProp.getIsFurnished(), 
+                FeeController.getPeriod());
+        }
+        else
+        {
+            Output.outputMessage("Transaction cancelled");
+        }
     }
     
     public static ArrayList<Property> getPropertyList() {
