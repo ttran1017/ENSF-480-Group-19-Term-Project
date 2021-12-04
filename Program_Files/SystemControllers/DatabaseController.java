@@ -97,7 +97,6 @@ public final class DatabaseController {
         return 0;
     }
 
-
     //int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days)
     public void updateListing(
         int propertyId, 

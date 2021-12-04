@@ -37,8 +37,6 @@ public final class AccountHandler {
         }
     }
 
-
-
     public static Account login()
     {
         String username = Input.getStringInput("Enter a Username");
