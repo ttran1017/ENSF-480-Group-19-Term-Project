@@ -76,7 +76,7 @@ public final class PropertyHub implements Subject {
         if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
         {
             FeeController.charge();
-            Property myProp;
+            Property myProp = null;
             for(int i = 0; i < properties.size(); i++)
             {
                 if(properties.get(i).getPropertyID() == selectedID)
@@ -88,11 +88,11 @@ public final class PropertyHub implements Subject {
             }
             getInstance().propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
             database.updateListing(
+                selectedID,
                 null, 
                 null, 
                 null, 
                 null, 
-                -1, 
                 -1, 
                 -1, 
                 myProp.getIsFurnished(), 
@@ -102,20 +102,20 @@ public final class PropertyHub implements Subject {
         {
             Output.outputMessage("Transaction cancelled");
         }
-        notifyAllObservers();
+        getInstance().notifyAllObservers();
     }
     
     public static ArrayList<Property> getPropertyList() {
         return new ArrayList<Property>(getInstance().propertyList.values());
     }
 
-    public static void addObserver(Observer o) {
+    public void addObserver(Observer o) {
     }
 
-    public static void removeObserver(Observer o) {
+    public void removeObserver(Observer o) {
     }
 
-    public static void notifyAllObservers() {
+    public void notifyAllObservers() {
     }
 
     public static void main(String[] args)

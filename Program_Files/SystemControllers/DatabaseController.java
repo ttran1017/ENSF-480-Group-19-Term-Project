@@ -97,7 +97,18 @@ public final class DatabaseController {
         return 0;
     }
 
-    public void updateListing(int propertyId,String type, int numBedrooms, int numBathrooms, boolean furnished, String cityQuadrant)
+
+    //int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days)
+    public void updateListing(
+        int propertyId, 
+        String email, 
+        String type, 
+        String address,
+        String cityQuadrant,
+        int numBedrooms, 
+        int numBathrooms, 
+        boolean furnished,
+        int days)
     {
         try{
             Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
@@ -117,7 +128,10 @@ public final class DatabaseController {
         }
         return ;
     }
-  
+
+    // ===============================================
+    // TO BE IMPLEMENTED BY SINA
+    // ===============================================
     public int addProperty(
         String email, 
         String propType, 
@@ -131,6 +145,11 @@ public final class DatabaseController {
         return 0;
         // Returns ID
     }
+    public int getFee() { return -1; };
+    public int getPeriod() { return -1; };
+    public void updateFee(int fee) {};
+    public void updatePeriod(int period) {};
+    public void updateBalance(int deposit) {};
 
     public static void main(String[] args)
     {

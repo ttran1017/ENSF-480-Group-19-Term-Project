@@ -5,22 +5,18 @@ import InteractionControllers.*;
 import java.util.*;
 
 public final class AccountHandler {
-
     private static DatabaseController database = DatabaseController.getInstance();
     private static HashMap<Integer, Account> accountList = new HashMap<Integer, Account>();
 
     public static void createAccount()
     {
-
-
- 
         ArrayList<String> accountInfo = Input.getMultiStringInput("Login Form", new String[]{"Email","Username","Password"});
         String email = accountInfo.get(0);
       
        // Check for valid email
-        if(!Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
+        if(EmailController.checkFormat(email)){
           Output.outputMessage("Invalid Email!");
-          break;
+          return;
         }
       
         String username = accountInfo.get(1);
@@ -29,7 +25,7 @@ public final class AccountHandler {
         {
             case 0:
                 int accountId = database.addAccount(email, username, password);
-                accountList.put(accountId, new Account(email,username,password, type));
+                accountList.put(accountId, new UserAccount(email, username, password));
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
