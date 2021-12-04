@@ -2,9 +2,7 @@ package SystemControllers;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import InteractionControllers.Input;
-import InteractionControllers.Output;
+import InteractionControllers.*;
 import Models.*;
 import Interfaces.*;
 import Interfaces.Observer;
@@ -12,14 +10,13 @@ import Interfaces.Observer;
 public final class PropertyHub implements Subject {
 
     private static PropertyHub INSTANCE;
-    private static DatabaseController database;
+    private static DatabaseController database = DatabaseController.getInstance();
     private HashMap<Integer, Property> propertyList;
-    private ArrayList<PropertyViewer> viewers;
+    private ArrayList<Observer> observers;
     
     private PropertyHub() {
-        database = DatabaseController.getInstance();
         propertyList = new HashMap<Integer, Property>();
-        viewers = new ArrayList<>();
+        observers = new ArrayList<Observer>();
     }
 
     public static PropertyHub getInstance()
@@ -32,17 +29,10 @@ public final class PropertyHub implements Subject {
     }
 
     public static Property createProperty(String email) {
-        String type = (String)Input.getDropdownInput(
+        PropertyType type = (PropertyType)Input.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
-            new String[]
-            {
-                "Apartment",
-                "Attatched House",
-                "Detched House",
-                "Townhouse",
-                "Condominium"
-            }
+            PropertyType.values()
         );
         String address = Input.getStringInput("Enter Street Address (W/O Quadrant)");
         String quadrant = (String)Input.getDropdownInput(
@@ -58,8 +48,9 @@ public final class PropertyHub implements Subject {
         );
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
-        int id = database.addProperty(email, type, address,quadrant,numBedrooms,numBathrooms, false, 0);
-        Property newProperty = new Property(id, email, type, address, quadrant, numBedrooms, numBathrooms, false, 0);
+        boolean isFurnished = Input.getBoolInput("Is Property Furrnished?");
+        Property newProperty = new Property(email, type, address, quadrant, "Suspended", numBedrooms, numBathrooms, isFurnished, 0);
+        int id = database.addProperty(newProperty);
         getInstance().propertyList.put(id, newProperty);
         return newProperty;
     }
@@ -76,53 +67,57 @@ public final class PropertyHub implements Subject {
         if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
         {
             FeeController.charge();
-            Property myProp;
+            // UPDATES THE USER'S INFO
             for(int i = 0; i < properties.size(); i++)
             {
                 if(properties.get(i).getPropertyID() == selectedID)
                 {
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
-                    myProp = properties.get(i);
                     break;
                 }
             }
+            // UPDATES THE PROPERTY HUB'S INFO
             getInstance().propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
-            database.updateListing(
-                null, 
-                null, 
-                null, 
-                null, 
-                -1, 
-                -1, 
-                -1, 
-                myProp.getIsFurnished(), 
-                FeeController.getPeriod());
+            // UPDATES THE DATABASE'S INFO
+            Property myProp = getInstance().propertyList.get(selectedID);
+            database.updateListing(myProp);
         }
         else
         {
             Output.outputMessage("Transaction cancelled");
         }
-        notifyAllObservers();
+        getInstance().notifyAllObservers();
     }
     
-    public static ArrayList<Property> getPropertyList() {
+    public ArrayList<Property> getPropertyList() {
         return new ArrayList<Property>(getInstance().propertyList.values());
     }
 
-    public static void addObserver(Observer o) {
+    public void addObserver(Observer o) {
+        observers.add(o);
     }
 
-    public static void removeObserver(Observer o) {
+    public void removeObserver(Observer o) {
+        observers.remove(o);
     }
 
-    public static void notifyAllObservers() {
+    public void notifyAllObservers(Property property) {
+        for(Observer o : observers)
+        {
+            o.update(property);
+        }
     }
 
     public static void main(String[] args)
     {
         ArrayList<Property> props = new ArrayList<Property>();
-        props.add(new Property(1, "email", "type", "address", "quad", 1, 1, false, 0));
-        props.add(new Property(69, "email", "type", "address", "quad", 1, 1, false, 0));
+        props.add(PropertyHub.createProperty("gogo@gmail.com"));
         PostProperty(props);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        // TODO Auto-generated method stub
+        
     }
 }

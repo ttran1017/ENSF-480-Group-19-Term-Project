@@ -1,9 +1,7 @@
 package SystemControllers;
 
-import Interfaces.*;
-import Models.Account;
-
-import java.util.*;
+import Models.UserAccount;
+import Models.Property;
 import java.sql.*;
 
 public final class DatabaseController {
@@ -12,11 +10,11 @@ public final class DatabaseController {
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
+    private Connection database;
 
     private DatabaseController() {
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            Statement myStmt = database.createStatement();
+            database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -37,7 +35,6 @@ public final class DatabaseController {
         // VERIFY LOGIN DETAILS IN DATABASE
         // RETURNS ACCOUNT ID IF FOUND -1 OTHERWISE
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
                 if (myRs.getString("account_id")!=null) {
@@ -55,7 +52,6 @@ public final class DatabaseController {
     {
         // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING 0 if unique 1 match email 2 match username
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+"or email="+email);
             while (myRs2.next()) {
@@ -78,12 +74,13 @@ public final class DatabaseController {
         return 0;
     }
 
-    public int addAccount(String email, String username, String password)
+    public int addAccount(UserAccount account)
     {
-        // Adds this shit to the SQL database
-
+        // Hey Sina just to make our code more modular, I decided that we should pass in full accounts and properties into DatabaseController thanks
+        String email = account.getEmail();
+        String username = account.getUsername();
+        String password = account.getPassword();
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             myStmt.executeQuery("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
             ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
@@ -97,40 +94,42 @@ public final class DatabaseController {
         return 0;
     }
 
-    public void updateListing(int propertyId,String type, int numBedrooms, int numBathrooms, boolean furnished, String cityQuadrant)
+    //int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days)
+    // STILL REQUIRES
+    // -EMAIL
+    // -ADDRESS
+    // -DAYS PUBLISHED
+    // -STATUS
+    public void updateListing(Property property)
     {
         try{
             Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
-            if (type!=null)
-                myStmt.executeQuery("update `Properties` set type ="+type+" where property_id="+propertyId);
-            if (numBedrooms!=-1)
-                myStmt.executeQuery("update `Properties` set `# of bedrooms` ="+numBedrooms+" where property_id="+propertyId);
-            if (numBathrooms!=-1)
-                myStmt.executeQuery("update `Properties` set `# of bathrooms` ="+numBathrooms+" where property_id="+propertyId);
-            if (cityQuadrant != null)
-                myStmt.executeQuery("update `Properties` set `city quadrant` ="+cityQuadrant+" where property_id="+propertyId);
-            myStmt.executeQuery("update `Properties` set `is furnished` ="+furnished+" where property_id="+propertyId);
+            myStmt.executeQuery("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
         return ;
     }
-  
-    public int addProperty(
-        String email, 
-        String propType, 
-        String propAddr, 
-        String propQuad, 
-        int numBed, 
-        int numBath, 
-        boolean isFurnished, 
-        int daysRemaaining)
+
+    // ===============================================
+    // TO BE IMPLEMENTED BY SINA
+    // ===============================================
+    public int addProperty(Property property)
     {
         return 0;
         // Returns ID
     }
+    public int getFee() { return -1; };
+    public int getPeriod() { return -1; };
+    public void updateFee(int fee) {};
+    public void updatePeriod(int period) {};
+    public void updateBalance(int deposit) {};
 
     public static void main(String[] args)
     {

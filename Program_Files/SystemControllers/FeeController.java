@@ -2,7 +2,6 @@ package SystemControllers;
 
 import java.util.*;
 
-
 public class FeeController {
     private static DatabaseController database = DatabaseController.getInstance();
     private static int fee = database.getFee();
@@ -18,20 +17,20 @@ public class FeeController {
         return period;
     }
 
-    public static void setFee(int fee)
+    public static void setFee(int newFee)
     {
-        this.fee = fee;
-        database.updatefee(this.fee);
+        fee = newFee;
+        database.updateFee(newFee);
     }
 
-    public static void updatePeriod(int period)
+    public static void updatePeriod(int newPeriod)
     {
-        this.period = period;
-        database.updatePeriod(this.period);
+        period = newPeriod;
+        database.updatePeriod(newPeriod);
     }
 
     public static void charge()
     {
-        database.increaseBalance();
+        database.updateBalance(fee);
     }
 }

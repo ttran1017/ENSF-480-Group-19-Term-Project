@@ -5,7 +5,6 @@ import InteractionControllers.*;
 import java.util.*;
 
 public final class AccountHandler {
-
     private static DatabaseController database = DatabaseController.getInstance();
     private static HashMap<Integer, Account> accountList = new HashMap<Integer, Account>();
 
@@ -13,13 +12,21 @@ public final class AccountHandler {
     {
         ArrayList<String> accountInfo = Input.getMultiStringInput("Login Form", new String[]{"Email","Username","Password"});
         String email = accountInfo.get(0);
+      
+       // Check for valid email
+        if(!EmailController.checkFormat(email)){
+          Output.outputMessage("Invalid Email!");
+          return;
+        }
+      
         String username = accountInfo.get(1);
         String password = accountInfo.get(2);
         switch(database.verifyRegistration(email,username))
         {
             case 0:
-                int accountId = database.addAccount(email, username, password);
-                accountList.put(accountId, new UserAccount(email,username,password));
+                UserAccount temp = new UserAccount(email, username, password);
+                int accountId = database.addAccount(temp);
+                accountList.put(accountId, temp);
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
@@ -43,5 +50,10 @@ public final class AccountHandler {
         }
         Output.outputMessage("Login Successful");
         return accountList.get(accountID);
+    }
+
+    public static void main(String[] args)
+    {
+        createAccount();
     }
 }

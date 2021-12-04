@@ -1,11 +1,8 @@
 package Models;
 
-import java.util.*;
+public abstract class Account {
 
-
-public class Account {
-    
-    private int accountType;
+    private int accountType = 0;
 
     public int accountType()
     {

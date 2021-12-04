@@ -9,32 +9,33 @@ public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
 
-    public ManagerAccount() {
-        setAccountType(2);
-    }
-    
-    
-    public void updateFeePeriod() { 
+    public ManagerAccount(String email, String username, String password) {
+      setAccountType(2);
     }
 
-    
+
+    public void updateFeePeriod() {
+    }
+
+
     public void updateFees() {
     }
 
-    
-    public void generateSummary() {    
+
+    public void generateSummary() {
+
     }
 
-    
-    public void editListingStatus() {  
+
+    public void editListingStatus() {
     }
 
-    
-    public void viewLandlordInfo() {   
+
+    public void viewLandlordInfo() {
     }
 
-    
-    public void viewRenterInfo() {    
+
+    public void viewRenterInfo() {
     }
 
     public void sendEmail() {
