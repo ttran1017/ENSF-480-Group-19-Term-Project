@@ -102,29 +102,20 @@ public final class PropertyHub implements Subject {
         {
             Output.outputMessage("Transaction cancelled");
         }
+        notifyAllObservers();
     }
     
     public static ArrayList<Property> getPropertyList() {
         return new ArrayList<Property>(getInstance().propertyList.values());
     }
 
-    public void updateSystemBalance() {
+    public static void addObserver(Observer o) {
     }
 
-    
-
-    
-    public Property getPropertyByID(int id) {
-        return null;
+    public static void removeObserver(Observer o) {
     }
 
-    public void addObserver(Observer o) {
-    }
-
-    public void removeObserver(Observer o) {
-    }
-
-    public void notifyAllObservers() {
+    public static void notifyAllObservers() {
     }
 
     public static void main(String[] args)
