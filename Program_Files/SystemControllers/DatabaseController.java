@@ -81,6 +81,7 @@ public final class DatabaseController {
     public int addAccount(String email, String username, String password)
     {
         // Adds this shit to the SQL database
+
         try{
             Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
@@ -115,6 +116,20 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return ;
+    }
+  
+    public int addProperty(
+        String email, 
+        String propType, 
+        String propAddr, 
+        String propQuad, 
+        int numBed, 
+        int numBath, 
+        boolean isFurnished, 
+        int daysRemaaining)
+    {
+        return 0;
+        // Returns ID
     }
 
     public static void main(String[] args)
