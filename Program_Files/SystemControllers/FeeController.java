@@ -2,7 +2,6 @@ package SystemControllers;
 
 import java.util.*;
 
-
 public class FeeController {
     private static DatabaseController database = DatabaseController.getInstance();
     private static int fee = database.getFee();

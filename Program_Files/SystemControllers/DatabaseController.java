@@ -1,9 +1,7 @@
 package SystemControllers;
 
-import Interfaces.*;
-import Models.Account;
-
-import java.util.*;
+import Models.UserAccount;
+import Models.Property;
 import java.sql.*;
 
 public final class DatabaseController {
@@ -78,10 +76,13 @@ public final class DatabaseController {
         return 0;
     }
 
-    public int addAccount(String email, String username, String password)
+    public int addAccount(UserAccount account)
     {
         // Adds this shit to the SQL database
-
+        // Hey Sina just to make our code more modular, I decided that we should pass in full accounts and properties into DatabaseController thanks
+        String email = account.getEmail();
+        String username = account.getUsername();
+        String password = account.getPassword();
         try{
             Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
@@ -98,29 +99,21 @@ public final class DatabaseController {
     }
 
     //int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days)
-    public void updateListing(
-        int propertyId, 
-        String email, 
-        String type, 
-        String address,
-        String cityQuadrant,
-        int numBedrooms, 
-        int numBathrooms, 
-        boolean furnished,
-        int days)
+    // STILL REQUIRES
+    // -EMAIL
+    // -ADDRESS
+    // -DAYS PUBLISHED
+    // -STATUS
+    public void updateListing(Property property)
     {
         try{
             Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
-            if (type!=null)
-                myStmt.executeQuery("update `Properties` set type ="+type+" where property_id="+propertyId);
-            if (numBedrooms!=-1)
-                myStmt.executeQuery("update `Properties` set `# of bedrooms` ="+numBedrooms+" where property_id="+propertyId);
-            if (numBathrooms!=-1)
-                myStmt.executeQuery("update `Properties` set `# of bathrooms` ="+numBathrooms+" where property_id="+propertyId);
-            if (cityQuadrant != null)
-                myStmt.executeQuery("update `Properties` set `city quadrant` ="+cityQuadrant+" where property_id="+propertyId);
-            myStmt.executeQuery("update `Properties` set `is furnished` ="+furnished+" where property_id="+propertyId);
+            myStmt.executeQuery("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
+            myStmt.executeQuery("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -131,15 +124,7 @@ public final class DatabaseController {
     // ===============================================
     // TO BE IMPLEMENTED BY SINA
     // ===============================================
-    public int addProperty(
-        String email, 
-        String propType, 
-        String propAddr, 
-        String propQuad, 
-        int numBed, 
-        int numBath, 
-        boolean isFurnished, 
-        int daysRemaaining)
+    public int addProperty(Property property)
     {
         return 0;
         // Returns ID
