@@ -52,6 +52,7 @@ public class Main {
 
     public static void handleUser()
     {
+        UserAccount sAccount = (UserAccount)user;
         String option = (String)Input.getDropdownInput(
             "Registered User Options", 
             "Select From:", 
@@ -66,7 +67,19 @@ public class Main {
         switch(option)
         {
             case "Update Filter":
-            break;
+                break;
+            case "Change Subscription":
+                break;
+            case "View Property":
+                sAccount.viewProperties();
+                break;
+            case "Register Property":
+                sAccount.registerProperty();
+                break;
+            case "Post Property":
+                break;
+            case "Update Property":
+                break;
             //TO BE IMPLEMENTED
         }
 
