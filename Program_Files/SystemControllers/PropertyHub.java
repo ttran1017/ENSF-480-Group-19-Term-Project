@@ -64,7 +64,7 @@ public final class PropertyHub implements Subject {
         return newProperty;
     }
 
-    public static void PostProperty(String email, ArrayList<Property> properties)
+    public static void PostProperty(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
         if(IDs == null)
@@ -89,7 +89,7 @@ public final class PropertyHub implements Subject {
             getInstance().propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
             database.updateListing(
                 null, 
-                email, 
+                null, 
                 null, 
                 null, 
                 -1, 
