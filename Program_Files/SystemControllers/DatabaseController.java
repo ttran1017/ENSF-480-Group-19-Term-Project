@@ -46,7 +46,7 @@ public final class DatabaseController {
         return 1;
     }
 
-    public int verifyRegistration(String email, String username, String password)
+    public int verifyRegistration(String email, String username)
     {
         // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING
         return 0;
