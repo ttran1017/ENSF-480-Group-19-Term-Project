@@ -32,8 +32,13 @@ public class UserAccount extends Account {
       ownedProperties.add(myProperty);
     }
 
-    public void updateListing(){
+    public void updateListing(int propertyId,String type, int numBedrooms, int numBathrooms, boolean furnished, String cityQuadrant){
 
+      DatabaseController dbc;
+
+      dbc.getInstance();
+
+      dbc.updateListing(int propertyId,String type, int numBedrooms, int numBathrooms, boolean furnished, String cityQuadrant);
     }
 
     public void updateFilterPropType(String m){
