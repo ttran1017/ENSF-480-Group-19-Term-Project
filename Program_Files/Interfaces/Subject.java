@@ -1,4 +1,5 @@
 package Interfaces;
+import Models.Property;
 
 public interface Subject {
 
@@ -8,6 +9,6 @@ public interface Subject {
     public void removeObserver(Observer o);
 
     
-    public void notifyAllObservers();
+    public void notifyAllObservers(Property property);
 
 }

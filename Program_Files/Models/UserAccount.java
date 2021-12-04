@@ -16,6 +16,7 @@ public class UserAccount extends Account {
       this.email = email;
       this.username = username;
       this.password = password;
+      this.ownedProperties = new ArrayList<Property>();
       this.viewer = new PropertyViewer(email);
       setAccountType(1);
   }
@@ -25,13 +26,22 @@ public class UserAccount extends Account {
     Property property = PropertyHub.createProperty(email);
     ownedProperties.add(property);
   }
-  
+
+  public void uploadProperty(){
+    PropertyHub.PostProperty(ownedProperties);
+  }
+
   public void updateListing(){
   }
   
   public void updateFilter()
   {
     viewer.updateFilter();
+  }
+
+  public void viewProperties()
+  {
+    viewer.viewProperties();
   }
   
   public String getEmail(){ return email; }

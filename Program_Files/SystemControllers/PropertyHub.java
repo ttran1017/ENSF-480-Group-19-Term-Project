@@ -2,6 +2,9 @@ package SystemControllers;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.mysql.cj.protocol.a.authentication.MysqlOldPasswordPlugin;
+
 import InteractionControllers.*;
 import Models.*;
 import Interfaces.*;
@@ -81,12 +84,12 @@ public final class PropertyHub implements Subject {
             // UPDATES THE DATABASE'S INFO
             Property myProp = getInstance().propertyList.get(selectedID);
             database.updateListing(myProp);
+            getInstance().notifyAllObservers(myProp);
         }
         else
         {
             Output.outputMessage("Transaction cancelled");
         }
-        getInstance().notifyAllObservers();
     }
     
     public ArrayList<Property> getPropertyList() {
@@ -113,11 +116,5 @@ public final class PropertyHub implements Subject {
         ArrayList<Property> props = new ArrayList<Property>();
         props.add(PropertyHub.createProperty("gogo@gmail.com"));
         PostProperty(props);
-    }
-
-    @Override
-    public void notifyAllObservers() {
-        // TODO Auto-generated method stub
-        
     }
 }
