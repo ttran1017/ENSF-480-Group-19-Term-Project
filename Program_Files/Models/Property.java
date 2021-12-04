@@ -19,7 +19,17 @@ public class Property {
     }
 
     //normal constructor with all information
-    public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
+    public Property(
+        int ID, 
+        String email, 
+        String type, 
+        String address, 
+        String quad, 
+        int bed, 
+        int bath, 
+        boolean furnished, 
+        int days)
+        {
         this.propertyID = ID;
         this.ownerEmail = email;
         this.propertyType = type;
@@ -31,10 +41,6 @@ public class Property {
         this.daysRemaining = days;
     }
 
-    
-
-
-    
     public int getPropertyID() {
                 return this.propertyID;
     }

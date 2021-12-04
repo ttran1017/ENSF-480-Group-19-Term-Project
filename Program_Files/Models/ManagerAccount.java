@@ -10,10 +10,6 @@ public class ManagerAccount extends Account{
     private DatabaseController database = DatabaseController.getInstance();
 
     public ManagerAccount(String email, String username, String password) {
-      // init DatabaseController
-      this.email = email;
-      this.username = username;
-      this.password = password;
       setAccountType(2);
     }
 

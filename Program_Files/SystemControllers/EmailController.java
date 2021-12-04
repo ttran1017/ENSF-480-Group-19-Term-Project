@@ -1,5 +1,7 @@
 package SystemControllers;
+import InteractionControllers.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 
 public class EmailController {
@@ -28,4 +30,11 @@ public class EmailController {
         // TODO implement here
     }
 
+    public static boolean checkFormat(String email)
+    {
+        if(Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
+            return true;
+        }
+        return false;
+    }
 }

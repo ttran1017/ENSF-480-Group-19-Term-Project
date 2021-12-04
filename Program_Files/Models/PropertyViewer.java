@@ -8,6 +8,7 @@ import java.util.*;
 public class PropertyViewer implements Observer {
 
     private ArrayList<Property> viewableProperties;
+    private Filter fiter;
     
     public PropertyViewer() {
     }
