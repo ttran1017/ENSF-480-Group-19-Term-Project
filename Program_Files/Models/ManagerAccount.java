@@ -5,9 +5,9 @@ import SystemControllers.*;
 import Interfaces.*;
 
 
-public class ManagerAccount implements Account {
+public class ManagerAccount extends Account{
 
-    private DatabaseController database;
+    private DatabaseController database = DatabaseController.getInstance();
 
     public ManagerAccount(String email, String username, String password) {
       // init DatabaseController

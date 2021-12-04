@@ -5,11 +5,6 @@ import java.util.*;
 
 public class Property {
 
-    
-    public Property() {
-    }
-
-    
     private int propertyID;
     public String ownerEmail;
     private String propertyType;
@@ -18,91 +13,115 @@ public class Property {
     private int numBedrooms;
     private int numBathrooms;
     private boolean isFurnished;
-    private int daysRemainingPosted = 0;
+    private int daysRemaining = 0;
+    
+    public Property() {
+    }
+
+    //normal constructor with all information
+    public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
+        this.propertyID = ID;
+        this.ownerEmail = email;
+        this.propertyType = type;
+        this.propertyAddress = address;
+        this.propertyQuadrant = quad;
+        this.numBedrooms = bed;
+        this.numBathrooms = bath;
+        this.isFurnished = furnished;
+        this.daysRemaining = days;
+    }
 
     
-    public void Property() {
-                    }
+
 
     
     public int getPropertyID() {
-                return 0;
+                return this.propertyID;
     }
 
     
     public String getOwnerEmail() {
-                return "";
+                return this.ownerEmail;
     }
 
     
     public String getPropertyType() {
-                return "";
+                return this.propertyType;
     }
 
     
     public String getPropertyAddress() {
-                return "";
+                return this.propertyAddress;
     }
 
     
     public String getPropertyQuadrant() {
-                return "";
+                return this.getPropertyQuadrant();
     }
 
     
     public int getNumBedrooms() {
-                return 0;
+                return this.numBedrooms;
     }
 
     
     public int getNumBathrooms() {
-                return 0;
+                return this.getNumBathrooms();
     }
 
     
     public boolean getIsFurnished() {
-                return false;
+                return this.isFurnished;
     }
 
     
-    public int getDaysRemainingPosted() {
-                return 0;
+    public int getDaysRemaining() {
+        return daysRemaining;
     }
 
     
     public void setPropertyId(int propID) {
+        this.propertyID = propID;
     }
 
     
     public void setOwnerEmail(String email) {
+        this.ownerEmail = email;
     }
 
     
     public void setPropertyType(String propType) {
+        this.propertyType = propType;
     }
 
     
     public void setPropertyAddress(String address) {
+        this.propertyAddress = address;
     }
 
     
     public void setPropertyQuadrant(String quad) {
+        this.propertyQuadrant = quad;
     }
 
     
     public void setNumBedrooms(int bedrooms) {
+        this.numBedrooms = bedrooms;
     }
 
     
     public void setNumBathrooms(int bathrooms) {
+        this.numBathrooms = bathrooms;
     }
 
     
     public void setIsFurnished(boolean furnished) {
+        this.isFurnished = furnished;
     }
 
     
-    public void setDaysRemainingPosted(int days) {
+    public void setDaysRemaining(int days) {
+        this.daysRemaining = days;
     }
 
 }

@@ -7,11 +7,11 @@ import java.util.*;
 
 public class PropertyViewer implements Observer {
 
+    private ArrayList<Property> viewableProperties;
     
     public PropertyViewer() {
     }
     
-    private ArrayList<Property> viewableProperties;
 
     public static void staticViewProperties() {
     }
