@@ -1,7 +1,6 @@
 package Models;
 
 import Interfaces.Observer;
-import Interfaces.Subject;
 import SystemControllers.EmailController;
 import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
