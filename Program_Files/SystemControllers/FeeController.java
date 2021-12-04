@@ -4,19 +4,34 @@ import java.util.*;
 
 
 public class FeeController {
+    private static DatabaseController database = DatabaseController.getInstance();
+    private static int fee = database.getFee();
+    private static int period = database.getPeriod();
 
-    
-    public FeeController() {
+    public static int getFee()
+    {
+        return fee;
     }
 
-    
-    public DatabaseController database;
-
-
-    
-    public static boolean chargeFee() {
-        // TODO implement here
-        return false;
+    public static int getPeriod()
+    {
+        return period;
     }
 
+    public static void setFee(int fee)
+    {
+        this.fee = fee;
+        database.updatefee(this.fee);
+    }
+
+    public static void updatePeriod(int period)
+    {
+        this.period = period;
+        database.updatePeriod(this.period);
+    }
+
+    public static void charge()
+    {
+        database.increaseBalance();
+    }
 }

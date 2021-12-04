@@ -15,7 +15,7 @@ public final class AccountHandler {
         String email = accountInfo.get(0);
         String username = accountInfo.get(1);
         String password = accountInfo.get(2);
-        switch(database.verifyRegistration(email,username,password))
+        switch(database.verifyRegistration(email,username))
         {
             case 0:
                 int accountId = database.addAccount(email, username, password);
@@ -23,7 +23,7 @@ public final class AccountHandler {
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
-                Output.outputMessage("Invalid Email!");
+                Output.outputMessage("Invalid Email");
                 break;
             case 2:
                 Output.outputMessage("Invalid Username");

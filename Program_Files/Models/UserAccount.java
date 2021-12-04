@@ -2,6 +2,7 @@ package Models;
 
 import java.util.*;
 import Interfaces.*;
+import SystemControllers.PropertyHub;
 
 
 public class UserAccount extends Account {
@@ -23,10 +24,12 @@ public class UserAccount extends Account {
 
     public void registerProperty()
     {
+        Property myProperty = PropertyHub.createProperty(email);
+        ownedProperties.add(myProperty);
     }
 
-    public void updateListing()
+    public void PostProperty()
     {
-
+        
     }
 }
