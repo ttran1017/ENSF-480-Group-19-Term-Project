@@ -11,7 +11,7 @@ public class Property {
 
     //normal constructor with all information
     public Property(int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days){
-        this.propertyID = id;
+        this.propertyID = ID;
         this.ownerEmail = email;
         this.propertyType = type;
         this.propertyAddress = address;
@@ -36,83 +36,92 @@ public class Property {
 
     
     public int getPropertyID() {
-                return 0;
+                return this.propertyID;
     }
 
     
     public String getOwnerEmail() {
-                return "";
+                return this.ownerEmail;
     }
 
     
     public String getPropertyType() {
-                return "";
+                return this.propertyType;
     }
 
     
     public String getPropertyAddress() {
-                return "";
+                return this.propertyAddress;
     }
 
     
     public String getPropertyQuadrant() {
-                return "";
+                return this.getPropertyQuadrant();
     }
 
     
     public int getNumBedrooms() {
-                return 0;
+                return this.numBedrooms;
     }
 
     
     public int getNumBathrooms() {
-                return 0;
+                return this.getNumBathrooms();
     }
 
     
     public boolean getIsFurnished() {
-                return false;
+                return this.isFurnished;
     }
 
     
     public int getDaysRemainingPosted() {
-                return 0;
+                return this.getDaysRemainingPosted();
     }
 
     
     public void setPropertyId(int propID) {
+        this.propertyID = propID;
     }
 
     
     public void setOwnerEmail(String email) {
+        this.ownerEmail = email;
     }
 
     
     public void setPropertyType(String propType) {
+        this.propertyType = propType;
     }
 
     
     public void setPropertyAddress(String address) {
+        this.propertyAddress = address;
     }
 
     
     public void setPropertyQuadrant(String quad) {
+        this.propertyQuadrant = quad;
     }
 
     
     public void setNumBedrooms(int bedrooms) {
+        this.numBedrooms = bedrooms;
     }
 
     
     public void setNumBathrooms(int bathrooms) {
+        this.numBathrooms = bathrooms;
     }
 
     
     public void setIsFurnished(boolean furnished) {
+        this.isFurnished = furnished;
     }
 
     
     public void setDaysRemainingPosted(int days) {
+        this.daysRemainingPosted = days;
     }
 
 }
