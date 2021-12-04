@@ -76,7 +76,7 @@ public class Property {
 
     
     public int getDaysRemaining() {
-        return this.getDaysRemaining();
+        return daysRemaining;
     }
 
     
