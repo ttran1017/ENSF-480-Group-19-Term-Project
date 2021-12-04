@@ -1,5 +1,6 @@
 package SystemControllers;
 import java.util.*;
+import InteractionControllers.*;
 
 
 public class EmailController {
@@ -10,12 +11,16 @@ public class EmailController {
 
 
    // private static Socket socket;
-//Fee 
-//Filter
-//Email
 
     public static void sendEmail(String address) {
-        // TODO implement here
+
+      // Check for valid email
+       if(!Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
+         Output.outputMessage("Invalid Email!");
+         break;
+       }
+
+       // TODO
     }
 
 

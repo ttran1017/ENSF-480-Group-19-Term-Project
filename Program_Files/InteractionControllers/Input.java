@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import java.time.LocalDate;
+
 //Class that handles all inputs
 //uses a pop up bubble to handle gathering inputs
 
@@ -18,6 +20,16 @@ public class Input {
     public static String getStringInput(String prompt){
         String returnString = JOptionPane.showInputDialog(prompt);
         return returnString;
+    }
+
+    public static LocalDate getDateInput(String prompt){
+      prompt = prompt + "\nPlease format as dd-mm-yyyy";
+
+      String dateInString = JOptionPane.showInputDialog(prompt);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d,MM,yyyy", Locale.ENGLISH);
+      LocalDate returnDate = LocalDate.parse(dateInString, formatter);
+
+      return returnDate;
     }
 
     //receives an input string from a pop up dialog box and returns it as an integer
@@ -30,7 +42,7 @@ public class Input {
                 return returnInt;
             } catch (Exception e){
             }
-        } 
+        }
     }
 
     //pop up dialog box with two options, one will return true and the other will return false

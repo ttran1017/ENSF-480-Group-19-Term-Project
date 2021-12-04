@@ -41,6 +41,21 @@ public class UserAccount extends Account {
       dbc.updateListing(int propertyId,String type, int numBedrooms, int numBathrooms, boolean furnished, String cityQuadrant);
     }
 
+    public void updateListingState(String m){
+      if(m == "Active"){
+
+      }
+      else if(m == "Rented"){
+
+      }
+      else if(m == "Cancelled"){
+
+      }
+      else if(m == "Suspended"){
+
+      }
+    }
+
     public void updateFilterPropType(String m){
       this.filter = filterBuilder.setPropertyType(m);
     }
