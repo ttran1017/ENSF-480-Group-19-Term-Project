@@ -65,7 +65,7 @@ public final class PropertyHub implements Subject {
 
     public static void PostProperty(ArrayList<Property> properties)
     {
-        List<Integer> IDs = properties.stream().filter(prop -> prop.isPosted()).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
+        List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
         Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
     }
     
