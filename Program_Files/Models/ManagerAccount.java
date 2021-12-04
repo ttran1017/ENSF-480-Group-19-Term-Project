@@ -24,7 +24,6 @@ public class ManagerAccount extends Account{
 
     public void generateSummary() {
 
-      
     }
 
 

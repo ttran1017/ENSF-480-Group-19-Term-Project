@@ -24,8 +24,9 @@ public final class AccountHandler {
         switch(database.verifyRegistration(email,username))
         {
             case 0:
-                int accountId = database.addAccount(email, username, password);
-                accountList.put(accountId, new UserAccount(email, username, password));
+                UserAccount temp = new UserAccount(email, username, password);
+                int accountId = database.addAccount(temp);
+                accountList.put(accountId, temp);
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
@@ -36,8 +37,6 @@ public final class AccountHandler {
                 break;
         }
     }
-
-
 
     public static Account login()
     {

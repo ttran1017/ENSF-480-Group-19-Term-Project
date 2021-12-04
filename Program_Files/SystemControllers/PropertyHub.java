@@ -2,9 +2,7 @@ package SystemControllers;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import InteractionControllers.Input;
-import InteractionControllers.Output;
+import InteractionControllers.*;
 import Models.*;
 import Interfaces.*;
 import Interfaces.Observer;
@@ -58,8 +56,9 @@ public final class PropertyHub implements Subject {
         );
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
-        int id = database.addProperty(email, type, address,quadrant,numBedrooms,numBathrooms, false, 0);
-        Property newProperty = new Property(id, email, type, address, quadrant, numBedrooms, numBathrooms, false, 0);
+        boolean isFurnished = Input.getBoolInput("Is Property Furrnished?");
+        Property newProperty = new Property(email, type, address, quadrant, "Suspended", numBedrooms, numBathrooms, isFurnished, 0);
+        int id = database.addProperty(newProperty);
         getInstance().propertyList.put(id, newProperty);
         return newProperty;
     }
@@ -76,27 +75,20 @@ public final class PropertyHub implements Subject {
         if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
         {
             FeeController.charge();
-            Property myProp = null;
+            // UPDATES THE USER'S INFO
             for(int i = 0; i < properties.size(); i++)
             {
                 if(properties.get(i).getPropertyID() == selectedID)
                 {
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
-                    myProp = properties.get(i);
                     break;
                 }
             }
+            // UPDATES THE PROPERTY HUB'S INFO
             getInstance().propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
-            database.updateListing(
-                selectedID,
-                null, 
-                null, 
-                null, 
-                null, 
-                -1, 
-                -1, 
-                myProp.getIsFurnished(), 
-                FeeController.getPeriod());
+            // UPDATES THE DATABASE'S INFO
+            Property myProp = getInstance().propertyList.get(selectedID);
+            database.updateListing(myProp);
         }
         else
         {
@@ -121,8 +113,7 @@ public final class PropertyHub implements Subject {
     public static void main(String[] args)
     {
         ArrayList<Property> props = new ArrayList<Property>();
-        props.add(new Property(1, "email", "type", "address", "quad", 1, 1, false, 0));
-        props.add(new Property(69, "email", "type", "address", "quad", 1, 1, false, 0));
+        props.add(PropertyHub.createProperty("gogo@gmail.com"));
         PostProperty(props);
     }
 }
