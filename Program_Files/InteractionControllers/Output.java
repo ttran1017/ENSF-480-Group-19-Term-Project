@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import Models.Property;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,13 +15,10 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.plaf.basic.BasicSliderUI.ComponentHandler;
 
 public class Output {
     
@@ -34,7 +29,6 @@ public class Output {
 
     public static void displayProperties(ArrayList<Property> properties)
     {
-        //JFrame frame = new JFrame("Property Display");
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(0,3));
         for(Property prop : properties)
@@ -49,7 +43,7 @@ public class Output {
             propDisplay.add(new JLabel("Property Address: "+prop.getPropertyAddress()+" "+prop.getPropertyQuadrant()));
             propDisplay.add(new JLabel("No. Of Bedrooms: "+prop.getNumBedrooms()));
             propDisplay.add(new JLabel("No. Of Bathrooms: "+prop.getNumBathrooms()));
-            propDisplay.add(new JLabel("Furnished?: "+ (prop.getIsFurnished() ? "Yes" : "No")));
+            propDisplay.add(new JLabel("Furnished? "+ (prop.getIsFurnished() ? "Yes" : "No")));
             propDisplay.add(Box.createRigidArea(new Dimension(150, 20)));
             try
             {
@@ -78,12 +72,5 @@ public class Output {
             props.add(new Property());
         }
         displayProperties(props);
-        // try {
-        //     File newFile = new File("assets/Apartment.png");
-        //     System.out.println("It works!");
-        // } catch (Exception e) {
-        //     //TODO: handle exception
-        //     System.out.println("Error");
-        // }
     }
 }
