@@ -27,9 +27,9 @@ public class UserAccount extends Account {
       return this.ownedProperties;
     }
 
-    public void registerProperty(String propType, String propAddr, String propQuad, int numBed, int numBath, boolean isFurnished){
-      Property property = new Property(propType, propAddr, propQuad, numBed, numBath, isFurnished); // Use PropertyHub
-      ownedProperties.add(property);
+    public void registerProperty(){
+      Property myProperty = PropertyHub.createProperty(this.email);
+      ownedProperties.add(myProperty);
     }
 
     public void updateListing(){

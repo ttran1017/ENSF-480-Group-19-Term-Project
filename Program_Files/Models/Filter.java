@@ -19,60 +19,6 @@ public class Filter {
       this.maxBedroom = maxBedroom;
       this.isFurnished = isFurnished;
     }
-
-
-    public boolean checkProperty(Property prop) {
-        return false;
-    }
-
-    public void Filter() {
-            }
-
-
-    public String getPropertyType() {
-                return "";
-    }
-
-
-    public String getPropertyQuad() {
-                return "";
-    }
-
-
-    public int getMinBedroom() {
-                return 0;
-    }
-
-
-    public int getMaxBedroom() {
-                return 0;
-    }
-
-
-    public boolean getIsFurnished() {
-                return false;
-    }
-
-
-    public void setPropertyType(String propType) {
-    }
-
-
-    public void setPropertyQuad(String quad) {
-    }
-
-
-    public void setMinBedroom(int min) {
-    }
-
-
-    public void setMaxBedroom(int max) {
-    }
-
-
-    public void setIsFurnished(boolean furnished) {
-    }
-
 }
 
 class FilterBuilder{
@@ -106,7 +52,6 @@ class FilterBuilder{
     this.isFurnished = m;
     return this;
   }
-
 
   Filter build(){
     return new Filter(propType, propQuad, minBedroom, maxBedroom, isFurnished);

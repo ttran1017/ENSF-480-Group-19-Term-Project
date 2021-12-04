@@ -11,18 +11,15 @@ public final class AccountHandler {
 
     public static void createAccount()
     {
-
-
- 
         ArrayList<String> accountInfo = Input.getMultiStringInput("Login Form", new String[]{"Email","Username","Password"});
         String email = accountInfo.get(0);
-      
+
        // Check for valid email
         if(!Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
           Output.outputMessage("Invalid Email!");
           break;
         }
-      
+
         String username = accountInfo.get(1);
         String password = accountInfo.get(2);
         switch(database.verifyRegistration(email,username))
