@@ -1,21 +1,28 @@
 package Models;
 
 import Interfaces.Observer;
+import Interfaces.Subject;
+import SystemControllers.EmailController;
 import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
 
 import java.util.*;
-
+import InteractionControllers.Output;
 
 public class PropertyViewer implements Observer {
+    private String ownerEmail;
+    private PropertyHub subject;
     private ArrayList<Property> viewableProperties;
-    private boolean subscription;
     private Filter filter;
+    private boolean subscribed;
     
-    public PropertyViewer() {
-        this.viewableProperties = PropertyHub.getInstance().getPropertyList();
-        this.subscription = true;
+    public PropertyViewer(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+        this.subscribed = true;
         this.filter = null;
+        this.subject = PropertyHub.getInstance();
+        viewableProperties = subject.getPropertyList();
+        subject.addObserver(this);
     }
     
     // CRITICALLY IMPORTANT !!
@@ -32,8 +39,15 @@ public class PropertyViewer implements Observer {
     }
     
     public void viewProperties() {
+        Output.displayProperties(viewableProperties);
     }
 
-    public void update() {
+    public void update(Property newProperty){
+        if(filter.check(newProperty))
+        {
+            viewableProperties.add(newProperty);
+            if(subscribed)
+                EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());  // Send email only when subscribed
+        }
     }
 }

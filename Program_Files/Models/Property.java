@@ -32,17 +32,8 @@ public class Property {
     }
 
     //normal constructor with all information
-    public Property(
-        String email, 
-        PropertyType type, 
-        String address, 
-        String quad,
-        String status, 
-        int bed, 
-        int bath, 
-        boolean furnished, 
-        int days)
-        {
+    public Property(String email, PropertyType type, String address, String quad,String status, int bed, int bath, boolean furnished, int days)
+    {
         this.ownerEmail = email;
         this.propertyType = type;
         this.propertyAddress = address;

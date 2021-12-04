@@ -12,11 +12,11 @@ public final class PropertyHub implements Subject {
     private static PropertyHub INSTANCE;
     private static DatabaseController database = DatabaseController.getInstance();
     private HashMap<Integer, Property> propertyList;
-    private ArrayList<PropertyViewer> viewers;
+    private ArrayList<Observer> observers;
     
     private PropertyHub() {
         propertyList = new HashMap<Integer, Property>();
-        viewers = new ArrayList<>();
+        observers = new ArrayList<Observer>();
     }
 
     public static PropertyHub getInstance()
@@ -94,12 +94,18 @@ public final class PropertyHub implements Subject {
     }
 
     public void addObserver(Observer o) {
+        observers.add(o);
     }
 
     public void removeObserver(Observer o) {
+        observers.remove(o);
     }
 
-    public void notifyAllObservers() {
+    public void notifyAllObservers(Property property) {
+        for(Observer o : observers)
+        {
+            o.update(property);
+        }
     }
 
     public static void main(String[] args)
@@ -107,5 +113,11 @@ public final class PropertyHub implements Subject {
         ArrayList<Property> props = new ArrayList<Property>();
         props.add(PropertyHub.createProperty("gogo@gmail.com"));
         PostProperty(props);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        // TODO Auto-generated method stub
+        
     }
 }

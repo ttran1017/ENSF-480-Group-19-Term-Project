@@ -1,11 +1,8 @@
 package Interfaces;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import Models.Property;
 
 public interface Observer {
-
-    
-    public void update();
-
+    public void update(Property newProperty);
 }

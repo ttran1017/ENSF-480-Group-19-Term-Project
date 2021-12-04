@@ -1,14 +1,15 @@
 package SystemControllers;
+import Interfaces.PropertyType;
 import Models.*;
 
 public class FilterBuilder {
-    private String propertyType = null;
+    private PropertyType propertyType = null;
     private String propertyQuad = null;
     private int minBedroom = -1;
     private int maxBedroom = -1;
     private boolean isFurnished = false;
   
-    public FilterBuilder setPropertyType(String propType) {
+    public FilterBuilder setPropertyType(PropertyType propType) {
       this.propertyType = propType;
       return this;
     }

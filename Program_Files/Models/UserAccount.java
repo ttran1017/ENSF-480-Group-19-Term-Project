@@ -11,13 +11,12 @@ public class UserAccount extends Account {
   private String password;
   private ArrayList<Property> ownedProperties;
   private PropertyViewer viewer;
-  private boolean subscription;
 
   public UserAccount(String email, String username, String password) {
       this.email = email;
       this.username = username;
       this.password = password;
-      this.viewer = new PropertyViewer();
+      this.viewer = new PropertyViewer(email);
       setAccountType(1);
   }
 
@@ -33,10 +32,6 @@ public class UserAccount extends Account {
   public void updateFilter()
   {
     viewer.updateFilter();
-  }
-  
-  public void setSubscription(boolean v){
-    this.subscription = v;
   }
   
   public String getEmail(){ return email; }
