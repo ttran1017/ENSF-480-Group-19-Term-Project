@@ -14,7 +14,7 @@ public final class AccountHandler {
         String email = accountInfo.get(0);
       
        // Check for valid email
-        if(EmailController.checkFormat(email)){
+        if(!EmailController.checkFormat(email)){
           Output.outputMessage("Invalid Email!");
           return;
         }
@@ -50,5 +50,10 @@ public final class AccountHandler {
         }
         Output.outputMessage("Login Successful");
         return accountList.get(accountID);
+    }
+
+    public static void main(String[] args)
+    {
+        createAccount();
     }
 }

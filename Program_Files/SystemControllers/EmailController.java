@@ -37,7 +37,7 @@ public class EmailController {
 
     public static boolean checkFormat(String email)
     {
-        if(Pattern.compile("^(.+)@(\\S+)$").matcher(email).matches()){
+        if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
             return true;
         }
         return false;

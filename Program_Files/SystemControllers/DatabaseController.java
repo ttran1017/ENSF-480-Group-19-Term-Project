@@ -10,11 +10,11 @@ public final class DatabaseController {
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
+    private Connection database;
 
     private DatabaseController() {
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            Statement myStmt = database.createStatement();
+            database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -35,7 +35,6 @@ public final class DatabaseController {
         // VERIFY LOGIN DETAILS IN DATABASE
         // RETURNS ACCOUNT ID IF FOUND -1 OTHERWISE
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
                 if (myRs.getString("account_id")!=null) {
@@ -53,7 +52,6 @@ public final class DatabaseController {
     {
         // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING 0 if unique 1 match email 2 match username
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+"or email="+email);
             while (myRs2.next()) {
@@ -78,13 +76,11 @@ public final class DatabaseController {
 
     public int addAccount(UserAccount account)
     {
-        // Adds this shit to the SQL database
         // Hey Sina just to make our code more modular, I decided that we should pass in full accounts and properties into DatabaseController thanks
         String email = account.getEmail();
         String username = account.getUsername();
         String password = account.getPassword();
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
             myStmt.executeQuery("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
             ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);

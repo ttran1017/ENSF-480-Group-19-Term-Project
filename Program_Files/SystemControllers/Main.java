@@ -12,17 +12,11 @@ public class Main {
         while(continueProgram)
         {
             if(user == null)                    // Unregistered User
-            {
                 handleUnregistered();
-            }
             else if(user.accountType() == 1)    // Registered User
-            {
                 handleUser();
-            }
             else                                // Manager
-            {
                 handleManager();
-            }
         }
     }
 
@@ -93,5 +87,3 @@ public class Main {
             );
     }
 }
-
-//javac -cp ./lib/mysql-connector-java-8.0.23.jar;./SystemControllers/DatabaseController.java ./SystemControllers/Main.java
