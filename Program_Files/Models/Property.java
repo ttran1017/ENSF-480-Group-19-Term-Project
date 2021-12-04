@@ -5,6 +5,15 @@ import java.util.*;
 
 public class Property {
 
+    private int propertyID;
+    public String ownerEmail;
+    private String propertyType;
+    private String propertyAddress;
+    private String propertyQuadrant;
+    private int numBedrooms;
+    private int numBathrooms;
+    private boolean isFurnished;
+    private int daysRemaining = 0;
     
     public Property() {
     }
@@ -19,19 +28,10 @@ public class Property {
         this.numBedrooms = bed;
         this.numBathrooms = bath;
         this.isFurnished = furnished;
-        this.daysRemainingPosted = days;
+        this.daysRemaining = days;
     }
 
     
-    private int propertyID;
-    public String ownerEmail;
-    private String propertyType;
-    private String propertyAddress;
-    private String propertyQuadrant;
-    private int numBedrooms;
-    private int numBathrooms;
-    private boolean isFurnished;
-    private int daysRemainingPosted = 0;
 
 
     
@@ -75,8 +75,8 @@ public class Property {
     }
 
     
-    public int getDaysRemainingPosted() {
-                return this.getDaysRemainingPosted();
+    public int getDaysRemaining() {
+        return daysRemaining;
     }
 
     
@@ -120,8 +120,8 @@ public class Property {
     }
 
     
-    public void setDaysRemainingPosted(int days) {
-        this.daysRemainingPosted = days;
+    public void setDaysRemaining(int days) {
+        this.daysRemaining = days;
     }
 
 }

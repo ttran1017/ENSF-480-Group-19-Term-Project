@@ -79,6 +79,7 @@ public final class DatabaseController {
     public int addAccount(String email, String username, String password)
     {
         // Adds this shit to the SQL database
+
         try{
             myStmt.executeQuery("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
             ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
@@ -90,6 +91,20 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return 0;
+    }
+
+    public int addProperty(
+        String email, 
+        String propType, 
+        String propAddr, 
+        String propQuad, 
+        int numBed, 
+        int numBath, 
+        boolean isFurnished, 
+        int daysRemaaining)
+    {
+        return 0;
+        // Returns ID
     }
 
     public static void main(String[] args)
