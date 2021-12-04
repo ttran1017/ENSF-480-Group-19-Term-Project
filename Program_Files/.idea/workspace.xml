@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="569ae939-09dd-40d0-82a0-c1807daf3c2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Program_Files.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemControllers/AccountHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemControllers/AccountHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemControllers/DatabaseController.java" afterDir="false" />
-    </list>
+    <list default="true" id="569ae939-09dd-40d0-82a0-c1807daf3c2b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1638582077345</updated>
       <workItem from="1638582078619" duration="1156000" />
-      <workItem from="1638583347096" duration="3714000" />
+      <workItem from="1638583347096" duration="4345000" />
     </task>
     <servers />
   </component>
