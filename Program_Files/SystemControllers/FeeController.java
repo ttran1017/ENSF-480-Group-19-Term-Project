@@ -1,5 +1,6 @@
 package SystemControllers;
 
+
 public class FeeController {
     private static DatabaseController database = DatabaseController.getInstance();
     private static int fee = database.getFee();
@@ -21,7 +22,7 @@ public class FeeController {
         database.updateFee(newFee);
     }
 
-    public static void updatePeriod(int newPeriod)
+    public static void setPeriod(int newPeriod)
     {
         period = newPeriod;
         database.updatePeriod(newPeriod);

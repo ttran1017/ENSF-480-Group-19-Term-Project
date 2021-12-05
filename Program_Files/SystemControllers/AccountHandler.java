@@ -18,7 +18,7 @@ public final class AccountHandler {
           Output.outputMessage("Invalid Email!");
           return;
         }
-      
+        
         String username = accountInfo.get(1);
         String password = accountInfo.get(2);
         switch(database.verifyRegistration(email,username))
