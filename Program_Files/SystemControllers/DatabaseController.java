@@ -6,6 +6,7 @@ import Interfaces.PropertyStatus;
 import Models.UserAccount;
 import Models.Property;
 import java.sql.*;
+import java.util.HashMap;
 
 public final class DatabaseController {
 
@@ -14,14 +15,121 @@ public final class DatabaseController {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
     private Connection database;
+    HashMap<Integer, accountInfo> accounts;
+    HashMap<Integer,propertyInfo> properties;
+    private Property selectedProperty;
+    private UserAccount selectedAccount;
 
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
+            accounts= new HashMap<Integer,accountInfo>();
+            properties= new HashMap<Integer,propertyInfo>();
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
+    }
+
+    public Property getProperty(int property_id) {
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs12 = myStmt.executeQuery("select * from properties where property_id="+property_id);
+            if (myRs12.next()){
+                selectedProperty.setPropertyId(property_id);
+                selectedProperty.setPropertyAddress(myRs12.getString("address"));
+                if (myRs12.getString("type")=="apartment")
+                    selectedProperty.setPropertyType(PropertyType.Apartment);
+                else if (myRs12.getString("type")=="attached house")
+                    selectedProperty.setPropertyType(PropertyType.AttachedHouse);
+                else if (myRs12.getString("type")=="detached house")
+                    selectedProperty.setPropertyType(PropertyType.DetachedHouse);
+                else if (myRs12.getString("type")=="townhouse")
+                    selectedProperty.setPropertyType(PropertyType.Townhouse);
+                else if (myRs12.getString("type")=="condo")
+                    selectedProperty.setPropertyType(PropertyType.Condo);
+                selectedProperty.setNumBedrooms(myRs12.getInt("# of bedrooms"));
+                selectedProperty.setNumBathrooms(myRs12.getInt("# of bathrooms"));
+                selectedProperty.setIsFurnished(myRs12.getBoolean("is furnished"));
+                if (myRs12.getString("city quadrant")=="NE")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
+                else if (myRs12.getString("city quadrant")=="NW")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NW);
+                else if (myRs12.getString("city quadrant")=="SE")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
+                else if (myRs12.getString("city quadrant")=="SW")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
+                selectedProperty.setDaysRemaining(myRs12.getInt("days"));
+                if (myRs12.getString("status")=="active")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Active);
+                else if (myRs12.getString("status")=="rented")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Rented);
+                else if (myRs12.getString("status")=="suspended")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Suspended);
+                else if (myRs12.getString("status")=="cancelled")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Cancelled);
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return selectedProperty;
+    }
+
+    public UserAccount getAccount(int account_id) {
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
+            if (myRs13.next()){
+                selectedAccount.setAccountID(account_id);
+                selectedAccount.setEmail(myRs13.getString("email"));
+                selectedAccount.setUsername(myRs13.getString("username"));
+                selectedAccount.setPassword(myRs13.getString("password"));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return selectedAccount;
+    }
+
+    public HashMap<Integer, accountInfo> getAccountsHashMap() {
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
+            while (myRs10.next()){
+                this.accounts.put(myRs10.getInt("account_id")
+                        ,new accountInfo(myRs10.getString("email")
+                                ,myRs10.getString("username")
+                                ,myRs10.getString("password")));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return accounts;
+    }
+
+    public HashMap<Integer, propertyInfo> getPropertiesHashMap() {
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs11 = myStmt.executeQuery("select * from properties");
+            while (myRs11.next()){
+                this.properties.put(myRs11.getInt("property_id")
+                        ,new propertyInfo(myRs11.getString("address")
+                                ,myRs11.getString("type")
+                                ,myRs11.getInt("# of bedrooms")
+                                ,myRs11.getInt("# of bathrooms")
+                                ,myRs11.getBoolean("is furnished")
+                                ,myRs11.getString("city quadrant")
+                                ,myRs11.getInt("days")
+                                ,myRs11.getString("status")));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return properties;
     }
 
     public static DatabaseController getInstance()
@@ -40,7 +148,7 @@ public final class DatabaseController {
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
-                if (myRs.getString("account_id")!=null) {
+                if (myRs.next()) {
                     return myRs.getInt("account_id");
                 }
                 else return -1;
@@ -58,7 +166,7 @@ public final class DatabaseController {
             Statement myStmt = database.createStatement();
             ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+"or email="+email);
             while (myRs2.next()) {
-                if (myRs2.getString("account_id")==null) {
+                if (myRs2.getInt("account_id")==-1) {
                     return 0;
                 }
                 else if (myRs2.getString("email")==email) {
@@ -87,7 +195,7 @@ public final class DatabaseController {
             Statement myStmt = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
             ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
-                if (myRs3.getString("account_id")!=null) {
+                if (myRs3.next()) {
                     return myRs3.getInt("account_id");
                 }        
         }
@@ -111,7 +219,7 @@ public final class DatabaseController {
             myStmt.executeUpdate("update `Properties` set `status` ="+property.getPropertyStatus()+" where property_id="+property.getPropertyID());
 
             ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getString("account_id"));
+            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getInt("account_id"));
         }
         catch (Exception exc) {
             exc.printStackTrace();

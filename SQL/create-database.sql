@@ -34,7 +34,7 @@ INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (4,'1435 korobeiniki Drive','attached house',3,2,TRUE,'SE',6,'active');
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'42 Wallaby Way','detached house',4,3,FALSE,'SE',3,'active');
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'15 Yemen Road','townhouse',3,2,FALSE,'NE',2,'active');
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','condominium',2,1,TRUE,'NW',1,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','condo',2,1,TRUE,'NW',1,'active');
 
 CREATE TABLE `Financing` (
   `fee` int(11) NOT NULL ,
