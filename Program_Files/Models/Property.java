@@ -1,11 +1,8 @@
 package Models;
 
-import java.util.*;
-
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
 import Interfaces.PropertyType;
-
 
 public class Property {
 
@@ -52,7 +49,8 @@ public class Property {
     }
 
     public int getPropertyID() { return this.propertyID; }
-    public String getOwnerEmail() {return this.ownerEmail; }
+    public int getOwnerID() { return this.ownerID; }
+    public String getOwnerEmail() { return this.ownerEmail; }
     public PropertyType getPropertyType() { return this.propertyType; }
     public PropertyQuadrant getPropertyQuadrant() { return this.propertyQuadrant; }
     public PropertyStatus getPropertyStatus() { return propertyStatus; }

@@ -16,7 +16,7 @@ public class EmailController {
 //Filter
 //Email
 
-    public static void sendEmail(String address) {
+    public static void sendEmail() {
         // TODO implement here
     }
 

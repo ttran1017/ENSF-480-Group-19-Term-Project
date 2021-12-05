@@ -1,8 +1,6 @@
 package Models;
 
 import Interfaces.Observer;
-import Interfaces.PropertyQuadrant;
-import Interfaces.PropertyType;
 import SystemControllers.EmailController;
 import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
@@ -32,27 +30,6 @@ public class PropertyViewer implements Observer {
     }
 
     /**
-     * View properties for unregistered user
-     * - Does not have a preexisting property list
-     */
-    public static void unregisteredViewProperties(ArrayList<Property> properties) 
-    {
-        //ArrayList<Property> properties = PropertyHub.getPropertyList();
-        Filter tempFilter = FilterBuilder.buildFilter();
-        properties = tempFilter.filterAll(properties);
-        Output.displayProperties(properties);
-    }
-    
-    /**
-     * Generic view method to view a property list
-     * @param properties Property list
-     */
-    public static void viewProperties(ArrayList<Property> properties)
-    {
-        Output.displayProperties(properties);
-    }
-
-    /**
      * To view ALL properties in system
      */
     public void viewProperties() 
@@ -74,13 +51,26 @@ public class PropertyViewer implements Observer {
         viewableProperties = filter.filterAll(newProperties);
     }
 
+
+    // STATIC METHODS
+    public static void unregisteredViewProperties() 
+    {
+        ArrayList<Property> properties = PropertyHub.getPropertyList();
+        Filter tempFilter = FilterBuilder.buildFilter();
+        properties = tempFilter.filterAll(properties);
+        Output.displayProperties(properties);
+    }
+    
+    /**
+     * Generic view method to view a property list
+     * @param properties Property list
+     */
+    public static void viewProperties(ArrayList<Property> properties)
+    {
+        Output.displayProperties(properties);
+    }
+
     public static void main(String[] args)
     {
-        ArrayList<Property> props = new ArrayList<Property>();
-        for(int i = 6; i < 69; i++)
-        {
-            props.add(new Property());
-        }
-        unregisteredViewProperties(props);
     }
 }
