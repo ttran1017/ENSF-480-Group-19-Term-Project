@@ -4,9 +4,11 @@ import Interfaces.PropertyType;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
 import Models.Account;
+import Models.ManagerAccount;
 import Models.UserAccount;
 import Models.Property;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class DatabaseController {
@@ -16,15 +18,13 @@ public final class DatabaseController {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
     private Connection database;
-    HashMap<Integer, UserAccount> accounts;
-    HashMap<Integer,Property> properties;
-    private Property selectedProperty;
-    private UserAccount selectedAccount;
+    private HashMap<Integer, Account> accounts;
+    private HashMap<Integer,Property> properties;
 
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            accounts= new HashMap<Integer,UserAccount>();
+            accounts= new HashMap<Integer,Account>();
             properties= new HashMap<Integer,Property>();
         }
         catch (Exception exc) {
@@ -33,12 +33,16 @@ public final class DatabaseController {
     }
 
     public Property getProperty(int property_id) {
+        Property selectedProperty=null;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs12 = myStmt.executeQuery("select * from properties where property_id="+property_id);
+            ResultSet myRs12 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where properties.property_id="+property_id);
             if (myRs12.next()){
                 selectedProperty.setPropertyId(property_id);
+                selectedProperty.setOwnerID(myRs12.getInt("account_id"));
+                selectedProperty.setOwnerEmail(myRs12.getString("email"));
                 selectedProperty.setPropertyAddress(myRs12.getString("address"));
+
                 if (myRs12.getString("type")=="apartment")
                     selectedProperty.setPropertyType(PropertyType.Apartment);
                 else if (myRs12.getString("type")=="attached house")
@@ -49,9 +53,11 @@ public final class DatabaseController {
                     selectedProperty.setPropertyType(PropertyType.Townhouse);
                 else if (myRs12.getString("type")=="condo")
                     selectedProperty.setPropertyType(PropertyType.Condo);
+
                 selectedProperty.setNumBedrooms(myRs12.getInt("# of bedrooms"));
                 selectedProperty.setNumBathrooms(myRs12.getInt("# of bathrooms"));
                 selectedProperty.setIsFurnished(myRs12.getBoolean("is furnished"));
+
                 if (myRs12.getString("city quadrant")=="NE")
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
                 else if (myRs12.getString("city quadrant")=="NW")
@@ -60,7 +66,9 @@ public final class DatabaseController {
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
                 else if (myRs12.getString("city quadrant")=="SW")
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
+
                 selectedProperty.setDaysRemaining(myRs12.getInt("days"));
+
                 if (myRs12.getString("status")=="active")
                     selectedProperty.setPropertyStatus(PropertyStatus.Active);
                 else if (myRs12.getString("status")=="rented")
@@ -77,12 +85,70 @@ public final class DatabaseController {
         return selectedProperty;
     }
 
+    public ArrayList<Property> getAllProperties(int account_id) {
+        Property selectedProperty=null;
+        ArrayList<Property> userProperties=null;
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs14 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where accounts.account_id="+account_id);
+            while (myRs14.next()){
+                selectedProperty.setPropertyId(myRs14.getInt("property_id"));
+                selectedProperty.setOwnerID(account_id);
+                selectedProperty.setOwnerEmail(myRs14.getString("email"));
+                selectedProperty.setPropertyAddress(myRs14.getString("address"));
+
+                if (myRs14.getString("type")=="apartment")
+                    selectedProperty.setPropertyType(PropertyType.Apartment);
+                else if (myRs14.getString("type")=="attached house")
+                    selectedProperty.setPropertyType(PropertyType.AttachedHouse);
+                else if (myRs14.getString("type")=="detached house")
+                    selectedProperty.setPropertyType(PropertyType.DetachedHouse);
+                else if (myRs14.getString("type")=="townhouse")
+                    selectedProperty.setPropertyType(PropertyType.Townhouse);
+                else if (myRs14.getString("type")=="condo")
+                    selectedProperty.setPropertyType(PropertyType.Condo);
+
+                selectedProperty.setNumBedrooms(myRs14.getInt("# of bedrooms"));
+                selectedProperty.setNumBathrooms(myRs14.getInt("# of bathrooms"));
+                selectedProperty.setIsFurnished(myRs14.getBoolean("is furnished"));
+
+                if (myRs14.getString("city quadrant")=="NE")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
+                else if (myRs14.getString("city quadrant")=="NW")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NW);
+                else if (myRs14.getString("city quadrant")=="SE")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
+                else if (myRs14.getString("city quadrant")=="SW")
+                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
+
+                selectedProperty.setDaysRemaining(myRs14.getInt("days"));
+
+                if (myRs14.getString("status")=="active")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Active);
+                else if (myRs14.getString("status")=="rented")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Rented);
+                else if (myRs14.getString("status")=="suspended")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Suspended);
+                else if (myRs14.getString("status")=="cancelled")
+                    selectedProperty.setPropertyStatus(PropertyStatus.Cancelled);
+
+                userProperties.add(selectedProperty);
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return userProperties;
+    }
+
     public UserAccount getAccount(int account_id) {
+        UserAccount selectedAccount=null;
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
             if (myRs13.next()){
                 selectedAccount.setAccountID(account_id);
+                selectedAccount.setAccountType(myRs13.getInt("account type"));
                 selectedAccount.setEmail(myRs13.getString("email"));
                 selectedAccount.setUsername(myRs13.getString("username"));
                 selectedAccount.setPassword(myRs13.getString("password"));
@@ -94,16 +160,25 @@ public final class DatabaseController {
         return selectedAccount;
     }
 
-    public HashMap<Integer, UserAccount> getAccountsHashMap() {
+    public HashMap<Integer, Account> getAccountsHashMap() {
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
             while (myRs10.next()){
-                this.accounts.put(myRs10.getInt("account_id")
-                        ,new UserAccount(myRs10.getString("email")
-                                , myRs10.getString("username")
-                                , myRs10.getString("password")) {
-                        });
+                if (myRs10.getInt("account type")==1){
+                    this.accounts.put(myRs10.getInt("account_id")
+                            ,new UserAccount(myRs10.getString("email")
+                                    , myRs10.getString("username")
+                                    , myRs10.getString("password")
+                                    , myRs10.getInt("account_id")));
+                }
+                else if (myRs10.getInt("account type")==2){
+                    this.accounts.put(myRs10.getInt("account_id")
+                            ,new ManagerAccount(myRs10.getString("email")
+                                    , myRs10.getString("username")
+                                    , myRs10.getString("password")
+                                    , myRs10.getInt("account_id")));
+                }
             }
         }
         catch (Exception exc) {
@@ -151,7 +226,8 @@ public final class DatabaseController {
                     status=PropertyStatus.Cancelled;
 
                 this.properties.put(myRs11.getInt("property_id")
-                        ,new Property(myRs11.getString("email")
+                        ,new Property(myRs11.getInt("account_id")
+                                ,myRs11.getString("email")
                                 ,type
                                 ,myRs11.getString("address")
                                 ,cityQuadrant
