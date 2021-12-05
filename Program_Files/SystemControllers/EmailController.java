@@ -2,6 +2,11 @@ package SystemControllers;
 import InteractionControllers.*;
 import java.util.*;
 import java.util.regex.Pattern;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+
+import java.net.PasswordAuthentication;
 import java.time.LocalDate;
 
 
@@ -18,13 +23,11 @@ public class EmailController {
    prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
   }
 
-  public static void sendEmail(String address, String subject, String msg) {
+  public static void sendEmail() {
 
-    // Check for valid email
-     if(!Pattern.compile("^(.+)@(\\S+)$").matcher(address).matches()){
-       Output.outputMessage("Invalid Email!");
-       break;
-     }
+    String address = Input.getStringInput("Enter an email:");
+    if(!EmailController.checkFormat(address))
+      return;
 
      // Create Session
      Session session = Session.getInstance(prop, new Authenticator() {
@@ -34,23 +37,26 @@ public class EmailController {
          }
      });
 
-     // Set message details
-     Message message = new MimeMessage(session);
-     message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
-     message.setRecipients(
-             Message.RecipientType.TO, InternetAddress.parse(address));
-     message.setSubject(subject);
-
-     // Add MimeBodyPart
-     MimeBodyPart mimeBodyPart = new MimeBodyPart();
-     mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-
-     Multipart multipart = new MimeMultipart();
-     multipart.addBodyPart(mimeBodyPart);
-
-     message.setContent(multipart);
+     ArrayList<String> emailData = Input.getMultiStringInput("Composing Email", new String[]{"Subject,Message"});
+     String subject = emailData.get(0);
+     String msg = emailData.get(1);
 
      try{
+       // Set message details
+       Message message = new MimeMessage(session);
+       message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
+       message.setRecipients(
+               Message.RecipientType.TO, InternetAddress.parse(address));
+       message.setSubject(subject);
+  
+       // Add MimeBodyPart
+       MimeBodyPart mimeBodyPart = new MimeBodyPart();
+       mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
+  
+       Multipart multipart = new MimeMultipart();
+       multipart.addBodyPart(mimeBodyPart);
+  
+       message.setContent(multipart);
        // Send mail
        Transport.send(message);
      }
@@ -59,16 +65,14 @@ public class EmailController {
      }
 
      // Let user know if successful
-     Out.outputMessage("Email sent successfully");
+     Output.outputMessage("Email sent successfully");
   }
 
-  public static void setupMeeting(String addr, LocalDate day) {
+  public static void setupMeeting(String address, LocalDate day) {
 
     // Check for valid email
-     if(!Pattern.compile("^(.+)@(\\S+)$").matcher(address).matches()){
-       Output.outputMessage("Invalid Email!");
-       break;
-     }
+    if(!EmailController.checkFormat(address))
+      return;
 
      // Create Session
      Session session = Session.getInstance(prop, new Authenticator() {
@@ -78,27 +82,27 @@ public class EmailController {
          }
      });
 
-     // Set message details
-     Message message = new MimeMessage(session);
-     message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
-     message.setRecipients(
-             Message.RecipientType.TO, InternetAddress.parse(address));
-     message.setSubject("ARRANGING MEETING");
-
-     // Add MimeBodyPart
-     MimeBodyPart mimeBodyPart = new MimeBodyPart();
-
-     String msg = "SET UP MEETING\n\n" + "A request to meet up at " + day.toString()
-     + " has been made.";
-
-     mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-
-     Multipart multipart = new MimeMultipart();
-     multipart.addBodyPart(mimeBodyPart);
-
-     message.setContent(multipart);
-
+     
      try{
+       // Set message details
+       Message message = new MimeMessage(session);
+       message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
+       message.setRecipients(
+               Message.RecipientType.TO, InternetAddress.parse(address));
+       message.setSubject("ARRANGING MEETING");
+  
+       // Add MimeBodyPart
+       MimeBodyPart mimeBodyPart = new MimeBodyPart();
+  
+       String msg = "SET UP MEETING\n\n" + "A request to meet up at " + day.toString()
+       + " has been made.";
+  
+       mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
+  
+       Multipart multipart = new MimeMultipart();
+       multipart.addBodyPart(mimeBodyPart);
+  
+       message.setContent(multipart);
        // Send mail
        Transport.send(message);
      }
@@ -107,8 +111,7 @@ public class EmailController {
      }
 
      // Let user know if successful
-     Out.outputMessage("Email sent successfully");
-
+     Output.outputMessage("Email sent successfully");
   }
 
   public static boolean checkFormat(String email)
@@ -117,10 +120,6 @@ public class EmailController {
           return true;
       }
       return false;
-  }
-  
-  public static void sendEmail() {
-    // TODO implement here
   }
 
   // Send to address that a property has been posted with a specified ID
