@@ -12,17 +12,6 @@ public class Filter {
     private int maxBathroom;
     private boolean isFurnished;
 
-    private int propertyID;
-    public String ownerEmail;
-    private String propertyType;
-    private String propertyAddress;
-    private String propertyQuadrant;
-    private int numBedrooms;
-    private int numBathrooms;
-    private boolean isFurnished;
-    private int daysRemaining = 0;
-
-
     public Filter(String propertyType, String propertyQuad, int minBedroom, int maxBedroom, int minBathroom, int maxBathroom, boolean isFurnished, boolean isNotFurnished) {
       this.propertyType = propertyType;
       this.propertyQuad = propertyQuad;
@@ -62,11 +51,6 @@ public class Filter {
 
       return 1;
     }
-
-
-
-
-
 }
 
 class FilterBuilder{
