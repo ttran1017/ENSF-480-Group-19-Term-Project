@@ -52,14 +52,15 @@ public class Main {
 
     public static void handleUser()
     {
-        UserAccount sAccount = (UserAccount)user;
+        UserAccount uAccount = (UserAccount)user;
         String option = (String)Input.getDropdownInput(
             "Registered User Options", 
             "Select From:", 
             new String[]{
                 "Update Filter",
                 "Change Subscription",
-                "View Property",
+                "View All Properties",
+                "View My Properties",
                 "Register Property",
                 "Post Property",
                 "Update Property"}
@@ -70,15 +71,20 @@ public class Main {
                 break;
             case "Change Subscription":
                 break;
-            case "View Property":
-                sAccount.viewProperties();
+            case "View All Properties":
+                uAccount.viewAllProperties();
+                break;
+            case "View My Properties":
+                uAccount.viewMyProperties();
                 break;
             case "Register Property":
-                sAccount.registerProperty();
+                uAccount.registerProperty();
                 break;
             case "Post Property":
+                uAccount.postProperty();
                 break;
             case "Update Property":
+                uAccount.updateProperty();
                 break;
             //TO BE IMPLEMENTED
         }
@@ -87,6 +93,7 @@ public class Main {
 
     public static void handleManager()
     {
+        ManagerAccount mAccount = (ManagerAccount)user;
         String option = (String)Input.getDropdownInput(
             "Manager Options", 
             "Select From:", 

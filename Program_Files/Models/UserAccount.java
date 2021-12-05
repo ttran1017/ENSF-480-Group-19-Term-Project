@@ -1,9 +1,7 @@
 package Models;
 
 import java.util.*;
-import Interfaces.*;
 import SystemControllers.PropertyHub;
-
 
 public class UserAccount extends Account {
   private String email;
@@ -22,16 +20,21 @@ public class UserAccount extends Account {
   }
 
   
-  public void registerProperty(){
-    Property property = PropertyHub.createProperty(email);
+  public void registerProperty()
+  {
+    Property property = PropertyHub.getInstance().createProperty(email);
     ownedProperties.add(property);
   }
 
-  public void uploadProperty(){
-    PropertyHub.PostProperty(ownedProperties);
+  public void postProperty()
+  {
+    PropertyHub.getInstance().postProperty(ownedProperties);
   }
 
-  public void updateListing(){
+  public void updateProperty()
+  {
+    viewMyProperties();
+    PropertyHub.getInstance().updateProperty(ownedProperties);
   }
   
   public void updateFilter()
@@ -39,7 +42,12 @@ public class UserAccount extends Account {
     viewer.updateFilter();
   }
 
-  public void viewProperties()
+  public void viewMyProperties()
+  {
+    PropertyViewer.viewProperties(ownedProperties);
+  }
+
+  public void viewAllProperties()
   {
     viewer.viewProperties();
   }
