@@ -148,11 +148,71 @@ public final class DatabaseController {
         }
         return -1;
     }
-    public int getFee() { return -1; };
-    public int getPeriod() { return -1; };
-    public void updateFee(int fee) {};
-    public void updatePeriod(int period) {};
-    public void updateBalance(int deposit) {};
+    public int getFee() {
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs7 = myStmt.executeQuery("select * from Financing");
+            return myRs7.getInt("fee");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return -1;
+    };
+    public int getPeriod() {
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs8 = myStmt.executeQuery("select * from Financing");
+            return myRs8.getInt("period");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return -1;
+    };
+
+    public int getBalance() {
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs9 = myStmt.executeQuery("select * from Financing");
+            return myRs9.getInt("balance");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return -1;
+    };
+
+    public void updateFee(int fee) {
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `Financing` set fee ="+fee);
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    };
+    public void updatePeriod(int period) {
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `Financing` set period ="+period);
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    };
+    public void updateBalance(int deposit) {
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `Financing` set balance ="+deposit);
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    };
 
     public static void main(String[] args)
     {
