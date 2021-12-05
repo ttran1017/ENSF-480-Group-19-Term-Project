@@ -1,8 +1,8 @@
 package Interfaces;
 
 public enum PropertyQuadrant {
-    NE,
-    NW,
-    SE,
-    SW
+    NE, // Northeast
+    NW, // Northwest
+    SE, // Southeast
+    SW  // Southwest
 }
