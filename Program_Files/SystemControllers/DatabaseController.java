@@ -82,7 +82,7 @@ public final class DatabaseController {
         String password = account.getPassword();
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeQuery("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
+            myStmt.executeUpdate("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
             ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
                 if (myRs3.getString("account_id")!=null) {
                     return myRs3.getInt("account_id");
@@ -94,36 +94,56 @@ public final class DatabaseController {
         return 0;
     }
 
-    //int ID, String email, String type, String address, String quad, int bed, int bath, boolean furnished, int days)
-    // STILL REQUIRES
-    // -EMAIL
-    // -ADDRESS
-    // -DAYS PUBLISHED
-    // -STATUS
     public void updateListing(Property property)
     {
         try{
-            Connection database= DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
             Statement myStmt = database.createStatement();
-            myStmt.executeQuery("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
-            myStmt.executeQuery("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeQuery("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeQuery("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
-            myStmt.executeQuery("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set address ="+property.getPropertyAddress()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `days` ="+property.getDaysRemaining()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `status` ="+property.getPropertyStatus()+" where property_id="+property.getPropertyID());
+
+            ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getString("account_id"));
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
-        return ;
+        return;
     }
 
-    // ===============================================
-    // TO BE IMPLEMENTED BY SINA
-    // ===============================================
     public int addProperty(Property property)
     {
-        return 0;
-        // Returns ID
+        int property_id=-1;
+        String address = property.getPropertyAddress();
+        String type = property.getPropertyType().getFilePath();
+        int numBedrooms = property.getNumBedrooms();
+        int numBathrooms = property.getNumBathrooms();
+        Boolean isFurnished = property.getIsFurnished();
+        String cityQuadrant = property.getPropertyQuadrant();
+        int days = property.getDaysRemaining();
+        String status = property.getPropertyStatus();
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email="+property.getOwnerEmail());
+            int account_id = myRs6.getInt("account_id");
+            myStmt.executeUpdate("INSERT INTO `Properties`" +
+                            "(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) " +
+                            "VALUES" + " ("+account_id+","+address+","+type+","+numBedrooms+","+numBathrooms+","+isFurnished+","+cityQuadrant+","+days+","+status+")");
+            ResultSet myRs5 = myStmt.executeQuery("select * from properties");
+            while (myRs5.next()) {
+                property_id = myRs5.getInt("property_id");
+            }
+            return property_id;
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return -1;
     }
     public int getFee() { return -1; };
     public int getPeriod() { return -1; };

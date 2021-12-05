@@ -18,20 +18,23 @@ INSERT INTO `Accounts`(email,username,password) VALUES ('hilllarius@hotmail.com'
 CREATE TABLE `Properties` (
   `property_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
+  `address` varchar(150) NOT NULL,
   `type` varchar(50) NOT NULL,
   `# of bedrooms` int(11) NOT NULL,
   `# of bathrooms` int(11) NOT NULL,
   `is furnished` boolean NOT NULL,
   `city quadrant` char(2) NOT NULL,
+  `days` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
   PRIMARY KEY (`property_id`),
   KEY `FK_account_id` (`account_id`),
-  CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO `Properties`(account_id,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`) VALUES (3,'apartment',2,1,TRUE,'SW');
-INSERT INTO `Properties`(account_id,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`) VALUES (4,'attached house',3,2,TRUE,'SE');
-INSERT INTO `Properties`(account_id,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`) VALUES (2,'detached house',4,3,FALSE,'SE');
-INSERT INTO `Properties`(account_id,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`) VALUES (2,'townhouse',3,2,FALSE,'NE');
-INSERT INTO `Properties`(account_id,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`) VALUES (1,'condominium',2,1,TRUE,'NW');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (3,'64 Zoo Lane','apartment',2,1,TRUE,'SW',5,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (4,'1435 korobeiniki Drive','attached house',3,2,TRUE,'SE',6,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'42 Wallaby Way','detached house',4,3,FALSE,'SE',3,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'15 Yemen Road','townhouse',3,2,FALSE,'NE',2,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','condominium',2,1,TRUE,'NW',1,'active');
 
 
 
