@@ -51,6 +51,14 @@ public class Filter {
 
       return 1;
     }
+
+    // public ArrayList<int> checkArray(ArrayList<Property> propArray){
+    //   Iterator it = propArray.iterator();
+    //
+    //   while(it.hasNext()){
+    //
+    //   }
+    // }
 }
 
 class FilterBuilder{
