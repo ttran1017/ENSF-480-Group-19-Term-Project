@@ -1,35 +1,36 @@
 package SystemControllers;
+import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyType;
 import Models.*;
 
 public class FilterBuilder {
     private PropertyType propertyType = null;
-    private String propertyQuad = null;
-    private int minBedroom = -1;
-    private int maxBedroom = -1;
-    private boolean isFurnished = false;
+    private PropertyQuadrant propertyQuad = null;
+    private Integer minBedroom = null;
+    private Integer maxBedroom = null;
+    private Boolean isFurnished = null;
   
     public FilterBuilder setPropertyType(PropertyType propType) {
       this.propertyType = propType;
       return this;
     }
   
-    public FilterBuilder setPropertyQuad(String propQuad) {
+    public FilterBuilder setPropertyQuad(PropertyQuadrant propQuad) {
       this.propertyQuad = propQuad;
       return this;
     }
   
-    public FilterBuilder setMinBedroom(int m) {
+    public FilterBuilder setMinBedroom(Integer m) {
       this.minBedroom = m;
       return this;
     }
   
-    public FilterBuilder setMaxBedroom(int m) {
+    public FilterBuilder setMaxBedroom(Integer m) {
       this.maxBedroom = m;
       return this;
     }
   
-    public FilterBuilder setIsFurnished(boolean m) {
+    public FilterBuilder setIsFurnished(Boolean m) {
       this.isFurnished = m;
       return this;
     }
