@@ -4,16 +4,17 @@ USE `PRMS_Database`;
 
 CREATE TABLE `Accounts` (
   `account_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(1) NOT NULL,
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`account_id`)
 );
 
-INSERT INTO `Accounts`(email,username,password) VALUES ('johndoe@yahoo.com','John_Doe24', '8545');
-INSERT INTO `Accounts`(email,username,password) VALUES ('hughmorris@gmail.com','HughXMorris' , 'dsgasdvvouo2q');
-INSERT INTO `Accounts`(email,username,password) VALUES ('justincredible@icloud.com','Justin_Credible', '51aesdg6');
-INSERT INTO `Accounts`(email,username,password) VALUES ('hilllarius@hotmail.com','HillLarius52', 'a435d45a4@%#');
+INSERT INTO `Accounts`(type,email,username,password) VALUES (1,'johndoe@yahoo.com','John_Doe24', '8545');
+INSERT INTO `Accounts`(type,email,username,password) VALUES (1,'hughmorris@gmail.com','HughXMorris' , 'dsgasdvvouo2q');
+INSERT INTO `Accounts`(type,email,username,password) VALUES (2,'justincredible@icloud.com','Justin_Credible', '51aesdg6');
+INSERT INTO `Accounts`(type,email,username,password) VALUES (2,'hilllarius@hotmail.com','HillLarius52', 'a435d45a4@%#');
 
 CREATE TABLE `Properties` (
   `property_id` int(11) NOT NULL AUTO_INCREMENT,
