@@ -35,7 +35,7 @@ public class Main {
         switch(option)
         {
             case "View Properties":
-                // TODO
+                //PropertyViewer.unregisteredViewProperties();
                 break;
             case "Register":
                 AccountHandler.createAccount();
