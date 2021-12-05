@@ -24,7 +24,7 @@ public class UserAccount extends Account {
   
   public void registerProperty()
   {
-    Property property = PropertyHub.getInstance().createProperty(email);
+    Property property = PropertyHub.getInstance().createProperty(this);
     ownedProperties.add(property);
   }
 

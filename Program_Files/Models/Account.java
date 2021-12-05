@@ -35,4 +35,9 @@ public abstract class Account {
     {
         this.accountID = id;
     }
+
+    public String getEmail()
+    {
+        return email;
+    }
 }

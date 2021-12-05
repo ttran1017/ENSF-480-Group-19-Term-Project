@@ -10,6 +10,7 @@ import Interfaces.PropertyType;
 public class Property {
 
     private int propertyID;
+    private int ownerID;
     public String ownerEmail;
     private PropertyType propertyType;
     private PropertyStatus propertyStatus;
@@ -36,8 +37,9 @@ public class Property {
     }
 
     //normal constructor with all information
-    public Property(String email, PropertyType type, String address, PropertyQuadrant quad, PropertyStatus status, int bed, int bath, Boolean furnished, int days)
+    public Property(int ownerID, String email, PropertyType type, String address, PropertyQuadrant quad, PropertyStatus status, int bed, int bath, Boolean furnished, int days)
     {
+        this.ownerID = ownerID;
         this.ownerEmail = email;
         this.propertyType = type;
         this.propertyAddress = address;

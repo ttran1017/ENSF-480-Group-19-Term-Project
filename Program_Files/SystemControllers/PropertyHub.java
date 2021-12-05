@@ -36,7 +36,7 @@ public final class PropertyHub implements Subject {
         return new ArrayList<Property>(getInstance().propertyList.values());
     }
 
-    public Property createProperty(String email) {
+    public Property createProperty(Account ownerAccount) {
         PropertyType type = (PropertyType)Input.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
@@ -51,7 +51,17 @@ public final class PropertyHub implements Subject {
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
         boolean isFurnished = Input.getBoolInput("Is Property Furnished?");
-        Property newProperty = new Property(email, type, address, quadrant, PropertyStatus.Cancelled, numBedrooms, numBathrooms, isFurnished, 0);
+        Property newProperty = new Property(
+            ownerAccount.getAccountID(), 
+            ownerAccount.getEmail(), 
+            type, 
+            address, 
+            quadrant, 
+            PropertyStatus.Cancelled, 
+            numBedrooms, 
+            numBathrooms, 
+            isFurnished, 
+            0);
         int id = database.addProperty(newProperty);
         newProperty.setPropertyId(id);
         propertyList.put(id, newProperty);
