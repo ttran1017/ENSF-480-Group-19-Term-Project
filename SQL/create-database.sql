@@ -36,6 +36,13 @@ INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'15 Yemen Road','townhouse',3,2,FALSE,'NE',2,'active');
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','condominium',2,1,TRUE,'NW',1,'active');
 
+CREATE TABLE `Financing` (
+  `fee` int(11) NOT NULL ,
+  `period` int(11) NOT NULL,
+  `balance` int(11) NOT NULL
+);
+
+INSERT INTO `Financing`VALUES (20,7, 60);
 
 
 
