@@ -12,26 +12,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class DatabaseController {
-
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
     private Connection database;
-    private HashMap<Integer, Account> accounts;
-    private HashMap<Integer,Property> properties;
 
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            accounts= new HashMap<Integer,Account>();
-            properties= new HashMap<Integer,Property>();
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
     }
 
+    public static DatabaseController getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new DatabaseController();
+        }
+        return INSTANCE;
+    }
+
+/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
     public Property getProperty(int property_id) {
         Property selectedProperty=null;
         try{
@@ -84,14 +89,35 @@ public final class DatabaseController {
         }
         return selectedProperty;
     }
+*/
+/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
+    public UserAccount getAccount(int account_id) {
+        UserAccount selectedAccount=null;
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
+            if (myRs13.next()){
+                selectedAccount.setAccountID(account_id);
+                selectedAccount.setAccountType(myRs13.getInt("account type"));
+                selectedAccount.setEmail(myRs13.getString("email"));
+                selectedAccount.setUsername(myRs13.getString("username"));
+                selectedAccount.setPassword(myRs13.getString("password"));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return selectedAccount;
+    }
+*/
 
     public ArrayList<Property> getAllProperties(int account_id) {
-        Property selectedProperty=null;
-        ArrayList<Property> userProperties=null;
+        ArrayList<Property> userProperties= new ArrayList<Property>();
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs14 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where accounts.account_id="+account_id);
             while (myRs14.next()){
+                Property selectedProperty = new Property();
                 selectedProperty.setPropertyId(myRs14.getInt("property_id"));
                 selectedProperty.setOwnerID(account_id);
                 selectedProperty.setOwnerEmail(myRs14.getString("email"));
@@ -140,40 +166,23 @@ public final class DatabaseController {
         }
         return userProperties;
     }
-
-    public UserAccount getAccount(int account_id) {
-        UserAccount selectedAccount=null;
-        try{
-            Statement myStmt = database.createStatement();
-            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
-            if (myRs13.next()){
-                selectedAccount.setAccountID(account_id);
-                selectedAccount.setAccountType(myRs13.getInt("account type"));
-                selectedAccount.setEmail(myRs13.getString("email"));
-                selectedAccount.setUsername(myRs13.getString("username"));
-                selectedAccount.setPassword(myRs13.getString("password"));
-            }
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return selectedAccount;
-    }
-
-    public HashMap<Integer, Account> getAccountsHashMap() {
+    
+    public HashMap<Integer,Account> getAccountsHashMap() {
+        HashMap<Integer,Account> accounts = new HashMap<Integer,Account>();
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
             while (myRs10.next()){
                 if (myRs10.getInt("account type")==1){
-                    this.accounts.put(myRs10.getInt("account_id")
+                    accounts.put(myRs10.getInt("account_id")
                             ,new UserAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
                                     , myRs10.getString("password")
-                                    , myRs10.getInt("account_id")));
+                                    , myRs10.getInt("account_id")
+                                    , getAllProperties(myRs10.getInt("account_id"))));
                 }
                 else if (myRs10.getInt("account type")==2){
-                    this.accounts.put(myRs10.getInt("account_id")
+                    accounts.put(myRs10.getInt("account_id")
                             ,new ManagerAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
                                     , myRs10.getString("password")
@@ -187,7 +196,8 @@ public final class DatabaseController {
         return accounts;
     }
 
-    public HashMap<Integer, Property> getPropertiesHashMap() {
+    public HashMap<Integer,Property> getPropertiesHashMap() {
+        HashMap<Integer,Property> properties = new HashMap<Integer,Property>();
         try{
             Statement myStmt = database.createStatement();
             PropertyType type=null;
@@ -225,7 +235,7 @@ public final class DatabaseController {
                 else if (myRs11.getString("status")=="cancelled")
                     status=PropertyStatus.Cancelled;
 
-                this.properties.put(myRs11.getInt("property_id")
+                properties.put(myRs11.getInt("property_id")
                         ,new Property(myRs11.getInt("account_id")
                                 ,myRs11.getString("email")
                                 ,type
@@ -243,15 +253,6 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return properties;
-    }
-
-    public static DatabaseController getInstance()
-    {
-        if(INSTANCE == null)
-        {
-            INSTANCE = new DatabaseController();
-        }
-        return INSTANCE;
     }
 
     public int verifyLogin(String username, String password)
@@ -318,6 +319,35 @@ public final class DatabaseController {
         return 0;
     }
 
+    public int addProperty(Property property)
+    {
+        int property_id = -1;
+        int account_id = property.getOwnerID();
+        String address = property.getPropertyAddress();
+        PropertyType type = property.getPropertyType();
+        int numBedrooms = property.getNumBedrooms();
+        int numBathrooms = property.getNumBathrooms();
+        Boolean isFurnished = property.getIsFurnished();
+        PropertyQuadrant cityQuadrant = property.getPropertyQuadrant();
+        int days = property.getDaysRemaining();
+        PropertyStatus status = property.getPropertyStatus();
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("INSERT INTO `Properties`" +
+                            "(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) " +
+                            "VALUES" + " ("+account_id+","+address+","+type+","+numBedrooms+","+numBathrooms+","+isFurnished+","+cityQuadrant+","+days+","+status+")");
+            ResultSet myRs5 = myStmt.executeQuery("select * from properties");
+            while (myRs5.next()) {
+                property_id = myRs5.getInt("property_id");
+            }
+            return property_id;
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return -1;
+    }
+
     public void updateListing(Property property)
     {
         try{
@@ -340,35 +370,6 @@ public final class DatabaseController {
         return;
     }
 
-    public int addProperty(Property property)
-    {
-        int property_id=-1;
-        String address = property.getPropertyAddress();
-        PropertyType type = property.getPropertyType();
-        int numBedrooms = property.getNumBedrooms();
-        int numBathrooms = property.getNumBathrooms();
-        Boolean isFurnished = property.getIsFurnished();
-        PropertyQuadrant cityQuadrant = property.getPropertyQuadrant();
-        int days = property.getDaysRemaining();
-        PropertyStatus status = property.getPropertyStatus();
-        try{
-            Statement myStmt = database.createStatement();
-            ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email="+property.getOwnerEmail());
-            int account_id = myRs6.getInt("account_id");
-            myStmt.executeUpdate("INSERT INTO `Properties`" +
-                            "(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) " +
-                            "VALUES" + " ("+account_id+","+address+","+type+","+numBedrooms+","+numBathrooms+","+isFurnished+","+cityQuadrant+","+days+","+status+")");
-            ResultSet myRs5 = myStmt.executeQuery("select * from properties");
-            while (myRs5.next()) {
-                property_id = myRs5.getInt("property_id");
-            }
-            return property_id;
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return -1;
-    }
     public int getFee() {
         try {
             Statement myStmt = database.createStatement();
@@ -380,6 +381,7 @@ public final class DatabaseController {
         }
         return -1;
     };
+
     public int getPeriod() {
         try {
             Statement myStmt = database.createStatement();
@@ -414,6 +416,7 @@ public final class DatabaseController {
         }
         return;
     };
+
     public void updatePeriod(int period) {
         try{
             Statement myStmt = database.createStatement();
@@ -424,6 +427,7 @@ public final class DatabaseController {
         }
         return;
     };
+
     public void updateBalance(int deposit) {
         try{
             Statement myStmt = database.createStatement();
