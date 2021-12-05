@@ -63,6 +63,7 @@ public class Property {
     public int getDaysRemaining() { return daysRemaining; }
 
     public void setPropertyId(int propID) { this.propertyID = propID; }
+    public void setOwnerID(int ownerID) {this.ownerID = ownerID;}
     public void setOwnerEmail(String email) { this.ownerEmail = email; }
     public void setPropertyType(PropertyType propType) { this.propertyType = propType; }
     public void setPropertyQuadrant(PropertyQuadrant quad) { this.propertyQuadrant = quad; }
