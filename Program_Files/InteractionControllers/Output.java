@@ -38,6 +38,8 @@ public class Output {
             propDisplay.setLayout(new BoxLayout(propDisplay, BoxLayout.Y_AXIS));
             propDisplay.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, null));
             propDisplay.add(new JLabel("Property ID: "+prop.getPropertyID()));
+            propDisplay.add(new JLabel("Property Status: "+prop.getPropertyStatus()));
+            propDisplay.add(new JLabel("Days Remaining: "+prop.getDaysRemaining()));
             propDisplay.add(new JLabel("Owner Email: "+prop.getOwnerEmail()));
             propDisplay.add(new JLabel("Property Type: "+prop.getPropertyType()));
             propDisplay.add(new JLabel("Property Address: "+prop.getPropertyAddress()+" "+prop.getPropertyQuadrant()));
