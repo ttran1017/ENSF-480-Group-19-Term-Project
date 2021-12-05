@@ -1,5 +1,8 @@
 package SystemControllers;
 
+import Interfaces.PropertyType;
+import Interfaces.PropertyQuadrant;
+import Interfaces.PropertyStatus;
 import Models.UserAccount;
 import Models.Property;
 import java.sql.*;
@@ -120,13 +123,13 @@ public final class DatabaseController {
     {
         int property_id=-1;
         String address = property.getPropertyAddress();
-        String type = property.getPropertyType().getFilePath();
+        PropertyType type = property.getPropertyType();
         int numBedrooms = property.getNumBedrooms();
         int numBathrooms = property.getNumBathrooms();
         Boolean isFurnished = property.getIsFurnished();
-        String cityQuadrant = property.getPropertyQuadrant();
+        PropertyQuadrant cityQuadrant = property.getPropertyQuadrant();
         int days = property.getDaysRemaining();
-        String status = property.getPropertyStatus();
+        PropertyStatus status = property.getPropertyStatus();
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email="+property.getOwnerEmail());
