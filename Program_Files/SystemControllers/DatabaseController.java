@@ -261,7 +261,7 @@ public final class DatabaseController {
         // RETURNS ACCOUNT ID IF FOUND -1 OTHERWISE
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
+            ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+" and password="+password);
                 if (myRs.next()) {
                     return myRs.getInt("account_id");
                 }
@@ -278,7 +278,7 @@ public final class DatabaseController {
         // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING 0 if unique 1 match email 2 match username
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+"or email="+email);
+            ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+" or email="+email);
             while (myRs2.next()) {
                 if (myRs2.getInt("account_id")==-1) {
                     return 0;
@@ -308,7 +308,7 @@ public final class DatabaseController {
         try{
             Statement myStmt = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
-            ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+"and password="+password);
+            ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+" and password="+password);
                 if (myRs3.next()) {
                     return myRs3.getInt("account_id");
                 }        
