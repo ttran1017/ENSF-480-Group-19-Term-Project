@@ -2,6 +2,8 @@ package Models;
 
 import java.util.*;
 
+import Interfaces.PropertyQuadrant;
+import Interfaces.PropertyStatus;
 import Interfaces.PropertyType;
 
 
@@ -10,12 +12,12 @@ public class Property {
     private int propertyID;
     public String ownerEmail;
     private PropertyType propertyType;
+    private PropertyStatus propertyStatus;
+    private PropertyQuadrant propertyQuadrant;
     private String propertyAddress;
-    private String propertyQuadrant;
-    private String propertyStatus;
     private int numBedrooms;
     private int numBathrooms;
-    private boolean isFurnished;
+    private Boolean isFurnished;
     private int daysRemaining = 0;
     
     //TESTING TOOLS
@@ -24,15 +26,17 @@ public class Property {
         ownerEmail = ('A' + counter) + "@cashmoney.com";
         propertyType = PropertyType.values()[counter%5];
         propertyID = counter++;
-        propertyAddress = "dsad";
-        propertyQuadrant = "NE";
+        propertyAddress = "Active";
+        propertyQuadrant = PropertyQuadrant.NE;
+        propertyStatus = PropertyStatus.Active;
         numBedrooms = counter;
         numBathrooms = counter;
+        daysRemaining = 50;
         isFurnished = true;
     }
 
     //normal constructor with all information
-    public Property(String email, PropertyType type, String address, String quad,String status, int bed, int bath, boolean furnished, int days)
+    public Property(String email, PropertyType type, String address, PropertyQuadrant quad, PropertyStatus status, int bed, int bath, Boolean furnished, int days)
     {
         this.ownerEmail = email;
         this.propertyType = type;
@@ -48,23 +52,23 @@ public class Property {
     public int getPropertyID() { return this.propertyID; }
     public String getOwnerEmail() {return this.ownerEmail; }
     public PropertyType getPropertyType() { return this.propertyType; }
+    public PropertyQuadrant getPropertyQuadrant() { return this.propertyQuadrant; }
+    public PropertyStatus getPropertyStatus() { return propertyStatus; }
     public String getPropertyAddress() { return this.propertyAddress; } 
-    public String getPropertyQuadrant() { return this.propertyQuadrant; }
     public int getNumBedrooms() { return this.numBedrooms; }
     public int getNumBathrooms() { return this.numBathrooms; }
     public boolean getIsFurnished() { return this.isFurnished; }
     public int getDaysRemaining() { return daysRemaining; }
-    public String getPropertyStatus() { return propertyStatus; }
 
     public void setPropertyId(int propID) { this.propertyID = propID; }
     public void setOwnerEmail(String email) { this.ownerEmail = email; }
     public void setPropertyType(PropertyType propType) { this.propertyType = propType; }
+    public void setPropertyQuadrant(PropertyQuadrant quad) { this.propertyQuadrant = quad; }
+    public void setPropertyStatus(PropertyStatus status) { this.propertyStatus = status; }
     public void setPropertyAddress(String address) { this.propertyAddress = address; }
-    public void setPropertyQuadrant(String quad) { this.propertyQuadrant = quad; }
     public void setNumBedrooms(int bedrooms) { this.numBedrooms = bedrooms; }
     public void setNumBathrooms(int bathrooms) { this.numBathrooms = bathrooms; }
     public void setIsFurnished(boolean furnished) { this.isFurnished = furnished; }
     public void setDaysRemaining(int days) { this.daysRemaining = days; }
-    public void setPropertyStatus(String status) { this.propertyStatus = status; }
 
 }
