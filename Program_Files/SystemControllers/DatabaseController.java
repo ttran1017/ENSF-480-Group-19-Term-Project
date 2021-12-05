@@ -15,7 +15,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
 
     private DatabaseController() {
@@ -123,39 +123,39 @@ public final class DatabaseController {
                 selectedProperty.setOwnerEmail(myRs14.getString("email"));
                 selectedProperty.setPropertyAddress(myRs14.getString("address"));
 
-                if (myRs14.getString("type")=="apartment")
+                if (myRs14.getString("type").equals("apartment"))
                     selectedProperty.setPropertyType(PropertyType.Apartment);
-                else if (myRs14.getString("type")=="attached house")
+                else if (myRs14.getString("type").equals("attached house"))
                     selectedProperty.setPropertyType(PropertyType.AttachedHouse);
-                else if (myRs14.getString("type")=="detached house")
+                else if (myRs14.getString("type").equals("detached house"))
                     selectedProperty.setPropertyType(PropertyType.DetachedHouse);
-                else if (myRs14.getString("type")=="townhouse")
+                else if (myRs14.getString("type").equals("townhouse"))
                     selectedProperty.setPropertyType(PropertyType.Townhouse);
-                else if (myRs14.getString("type")=="condo")
+                else if (myRs14.getString("type").equals("condo"))
                     selectedProperty.setPropertyType(PropertyType.Condo);
 
                 selectedProperty.setNumBedrooms(myRs14.getInt("# of bedrooms"));
                 selectedProperty.setNumBathrooms(myRs14.getInt("# of bathrooms"));
                 selectedProperty.setIsFurnished(myRs14.getBoolean("is furnished"));
 
-                if (myRs14.getString("city quadrant")=="NE")
+                if (myRs14.getString("city quadrant").equals("NE"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
-                else if (myRs14.getString("city quadrant")=="NW")
+                else if (myRs14.getString("city quadrant").equals("NW"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.NW);
-                else if (myRs14.getString("city quadrant")=="SE")
+                else if (myRs14.getString("city quadrant").equals("SE"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
-                else if (myRs14.getString("city quadrant")=="SW")
+                else if (myRs14.getString("city quadrant").equals("SW"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
 
                 selectedProperty.setDaysRemaining(myRs14.getInt("days"));
 
-                if (myRs14.getString("status")=="active")
+                if (myRs14.getString("status").equals("active"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Active);
-                else if (myRs14.getString("status")=="rented")
+                else if (myRs14.getString("status").equals("rented"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Rented);
-                else if (myRs14.getString("status")=="suspended")
+                else if (myRs14.getString("status").equals("suspended"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Suspended);
-                else if (myRs14.getString("status")=="cancelled")
+                else if (myRs14.getString("status").equals("cancelled"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Cancelled);
 
                 userProperties.add(selectedProperty);
@@ -206,33 +206,33 @@ public final class DatabaseController {
             ResultSet myRs11 = myStmt.executeQuery
                     ("select * from properties join accounts on properties.account_id = accounts.account_id order by property_id");
             while (myRs11.next()){
-                if (myRs11.getString("type")=="apartment")
+                if (myRs11.getString("type").equals("apartment"))
                     type=PropertyType.Apartment;
-                else if (myRs11.getString("type")=="attached house")
+                else if (myRs11.getString("type").equals("attached house"))
                     type=PropertyType.AttachedHouse;
-                else if (myRs11.getString("type")=="detached house")
+                else if (myRs11.getString("type").equals("detached house"))
                     type=PropertyType.DetachedHouse;
-                else if (myRs11.getString("type")=="townhouse")
+                else if (myRs11.getString("type").equals("townhouse"))
                     type=PropertyType.Townhouse;
-                else if (myRs11.getString("type")=="condo")
+                else if (myRs11.getString("type").equals("condo"))
                     type=PropertyType.Condo;
 
-                if (myRs11.getString("city quadrant")=="NE")
+                if (myRs11.getString("city quadrant").equals("NE"))
                     cityQuadrant=PropertyQuadrant.NE;
-                else if (myRs11.getString("city quadrant")=="NW")
+                else if (myRs11.getString("city quadrant").equals("NW"))
                     cityQuadrant=PropertyQuadrant.NW;
-                else if (myRs11.getString("city quadrant")=="SE")
+                else if (myRs11.getString("city quadrant").equals("SE"))
                     cityQuadrant=PropertyQuadrant.SE;
-                else if (myRs11.getString("city quadrant")=="SW")
+                else if (myRs11.getString("city quadrant").equals("SW"))
                     cityQuadrant=PropertyQuadrant.SW;
 
-                if (myRs11.getString("status")=="active")
+                if (myRs11.getString("status").equals("active"))
                     status=PropertyStatus.Active;
-                else if (myRs11.getString("status")=="rented")
+                else if (myRs11.getString("status").equals("rented"))
                     status=PropertyStatus.Rented;
-                else if (myRs11.getString("status")=="suspended")
+                else if (myRs11.getString("status").equals("suspended"))
                     status=PropertyStatus.Suspended;
-                else if (myRs11.getString("status")=="cancelled")
+                else if (myRs11.getString("status").equals("cancelled"))
                     status=PropertyStatus.Cancelled;
 
                 properties.put(myRs11.getInt("property_id")
@@ -283,10 +283,10 @@ public final class DatabaseController {
                 if (myRs2.getInt("account_id")==-1) {
                     return 0;
                 }
-                else if (myRs2.getString("email")==email) {
+                else if (myRs2.getString("email").equals(email)) {
                     return 1;
                 }
-                 else if (myRs2.getString("username")==username) {
+                 else if (myRs2.getString("username").equals(username)) {
                     return 2;
                 }
             }

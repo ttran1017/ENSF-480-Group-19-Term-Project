@@ -16,22 +16,25 @@ public class Property {
     private int numBedrooms;
     private int numBathrooms;
     private Boolean isFurnished;
-    private int daysRemaining = 0;
+    private int daysRemaining;
     
+
     //TESTING TOOLS
-    private static int counter = 0;
-    public Property() {
-        ownerEmail = ('A' + counter) + "@cashmoney.com";
-        propertyType = PropertyType.values()[counter%5];
-        propertyID = counter++;
-        propertyAddress = "Active";
-        propertyQuadrant = PropertyQuadrant.NE;
-        propertyStatus = PropertyStatus.Active;
-        numBedrooms = counter;
-        numBathrooms = counter;
-        daysRemaining = 50;
-        isFurnished = true;
-    }
+    // private static int counter = 0;
+    // public Property() {
+    //     ownerEmail = ('A' + counter) + "@cashmoney.com";
+    //     propertyType = PropertyType.values()[counter%5];
+    //     propertyID = counter++;
+    //     propertyAddress = "Active";
+    //     propertyQuadrant = PropertyQuadrant.NE;
+    //     propertyStatus = PropertyStatus.Active;
+    //     numBedrooms = counter;
+    //     numBathrooms = counter;
+    //     daysRemaining = 50;
+    //     isFurnished = true;
+    // }
+
+    public Property() { daysRemaining = 0; };
 
     //normal constructor with all information
     public Property(int ownerID, String email, PropertyType type, String address, PropertyQuadrant quad, PropertyStatus status, int bed, int bath, Boolean furnished, int days)

@@ -41,8 +41,9 @@ public final class AccountHandler {
 
     public static Account login()
     {
-        String username = Input.getStringInput("Enter a Username");
-        String password = Input.getStringInput("Enter a Password");
+        ArrayList<String> accountInfo = Input.getMultiStringInput("Login Form", new String[]{"Username","Password"});
+        String username = accountInfo.get(0);
+        String password = accountInfo.get(1);
         int accountID = database.verifyLogin(username, password);
         if(accountID == -1)
         {

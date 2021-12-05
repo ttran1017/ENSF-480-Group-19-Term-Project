@@ -27,7 +27,7 @@ public class Filter {
   {
     return new ArrayList<Property>(
       properties.stream()
-      .filter((prop) -> check(prop))
+      .filter((prop) -> checkPass(prop))
       .collect(Collectors.toList()));
   }
 
@@ -36,7 +36,7 @@ public class Filter {
   // For Noel to finish (return false if property does not match search criteria)
   // Null or -1 means do not check!
   // ===============================================
-  public boolean check(Property property)
+  public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)
       return false;

@@ -39,7 +39,7 @@ public class PropertyViewer implements Observer {
 
 
     public void updateObserver(Property newProperty){
-        if(filter.check(newProperty))
+        if(filter.checkPass(newProperty))
         {
             viewableProperties.add(newProperty);
             if(subscribed)
@@ -58,6 +58,12 @@ public class PropertyViewer implements Observer {
         ArrayList<Property> properties = PropertyHub.getPropertyList();
         Filter tempFilter = FilterBuilder.buildFilter();
         properties = tempFilter.filterAll(properties);
+        System.out.println(properties.size());
+        for(Property prop : properties)
+        {
+            System.out.println(prop.getPropertyAddress());
+            System.out.println(prop.getPropertyType());
+        }
         Output.displayProperties(properties);
     }
     

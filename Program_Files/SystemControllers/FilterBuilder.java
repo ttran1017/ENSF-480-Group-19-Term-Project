@@ -46,12 +46,12 @@ public class FilterBuilder {
         String pType = (String)Input.getDropdownInput(
             "Filter",
             "Preferred Property Type:", new String[]{
+            "No Preference",
             "Apartment",
             "AttachedHouse",
             "DetachedHouse",
             "Condo",
             "Townhouse",
-            "No Preference"
             });
         switch(pType){
             case "Apartment":
@@ -71,11 +71,11 @@ public class FilterBuilder {
         String pQuad = (String)Input.getDropdownInput(
             "Filter",
             "Preferred Property Quadrant:", new String[]{
+            "No Preference",
             "NE",
             "NW",
             "SE",
             "SW",
-            "No Preference"
             });
         switch(pQuad){
             case "NE":
@@ -92,6 +92,7 @@ public class FilterBuilder {
         String min = (String)Input.getDropdownInput(
             "Filter",
             "Minimum Number of Bedrooms:", new String[]{
+            "No Preference",
             "1",
             "2",
             "3",
@@ -102,7 +103,6 @@ public class FilterBuilder {
             "8",
             "9",
             "10",
-            "No Preference"
             });
         switch(min){
             case "1":
@@ -131,6 +131,7 @@ public class FilterBuilder {
         String max = (String)Input.getDropdownInput(
             "Filter",
             "Maximum Number of Bedrooms:", new String[]{
+            "No Preference",
             "1",
             "2",
             "3",
@@ -141,7 +142,6 @@ public class FilterBuilder {
             "8",
             "9",
             "10",
-            "No Preference"
             });
         switch(max){
             case "1":
@@ -171,9 +171,9 @@ public class FilterBuilder {
         String furnished = (String)Input.getDropdownInput(
             "Filter",
             "Preference of Furnishment:", new String[]{
+            "No Preference",
             "Furnished",
             "Unfurnished",
-            "No Preference"
             });
         switch(furnished){
             case("Furnished"):
