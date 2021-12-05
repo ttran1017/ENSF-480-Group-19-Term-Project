@@ -48,7 +48,7 @@ public class ManagerAccount extends Account{
 
     // Initializes periodic summaries
     public void periodicSummaryInit(){
-      LocalDate summaryInitDate = new LocalDate();
+      LocalDate summaryInitDate = LocalDate.now();
       LocalDate nextSummaryDate = Input.getDateInput("When would you like the next report?");
       summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
     }

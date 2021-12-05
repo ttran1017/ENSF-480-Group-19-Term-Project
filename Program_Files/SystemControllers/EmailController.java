@@ -2,18 +2,15 @@ package SystemControllers;
 import InteractionControllers.*;
 import java.util.*;
 import java.util.regex.Pattern;
-
 import javax.mail.*;
 import javax.mail.internet.*;
-
-import java.net.PasswordAuthentication;
 import java.time.LocalDate;
 
 
 public class EmailController {
   static Properties prop = new Properties();
-  private String username = "5e0ccfeb8924ab";
-  private String password = "c7f4caa9e658d9";
+  private static String username = "5e0ccfeb8924ab";
+  private static String password = "c7f4caa9e658d9";
 
   public EmailController(){
    prop.put("mail.smtp.auth", true);
@@ -26,6 +23,7 @@ public class EmailController {
   public static void sendEmail() {
 
     String address = Input.getStringInput("Enter an email:");
+    
     if(!EmailController.checkFormat(address))
       return;
 
@@ -68,7 +66,7 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
-  public static void setupMeeting(String address, LocalDate day) {
+  public static void setupMeeting() {
 
     // Check for valid email
     if(!EmailController.checkFormat(address))
@@ -114,6 +112,11 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
+  // Send to address that a property has been posted with a specified ID
+  public static void sendNotification(String address, int ID)
+  {
+  }
+  
   public static boolean checkFormat(String email)
   {
       if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
@@ -122,8 +125,4 @@ public class EmailController {
       return false;
   }
 
-  // Send to address that a property has been posted with a specified ID
-  public static void sendNotification(String address, int ID)
-  {
-  }
 }
