@@ -18,7 +18,7 @@ public final class PropertyHub implements Subject {
     private ArrayList<Observer> observers;
     
     private PropertyHub() {
-        propertyList = new HashMap<Integer, Property>();
+        propertyList = database.getPropertiesHashMap();
         observers = new ArrayList<Observer>();
     }
 
@@ -53,6 +53,7 @@ public final class PropertyHub implements Subject {
         boolean isFurnished = Input.getBoolInput("Is Property Furnished?");
         Property newProperty = new Property(email, type, address, quadrant, PropertyStatus.Cancelled, numBedrooms, numBathrooms, isFurnished, 0);
         int id = database.addProperty(newProperty);
+        newProperty.setPropertyId(id);
         propertyList.put(id, newProperty);
         return newProperty;
     }

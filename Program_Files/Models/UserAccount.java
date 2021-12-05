@@ -4,22 +4,23 @@ import java.util.*;
 import SystemControllers.PropertyHub;
 
 public class UserAccount extends Account {
-  private String email;
-  private String username;
-  private String password;
-  private int accountID;
   private ArrayList<Property> ownedProperties;
   private PropertyViewer viewer;
 
   public UserAccount(String email, String username, String password) {
-      this.email = email;
-      this.username = username;
-      this.password = password;
-      this.ownedProperties = new ArrayList<Property>();
-      this.viewer = new PropertyViewer(email);
-      setAccountType(1);
+    super(email,username,password);
+    this.ownedProperties = new ArrayList<Property>();
+    this.viewer = new PropertyViewer(email);
+    setAccountType(1);
   }
 
+  public UserAccount(String email, String username, String password, int accountID) {
+    super(email,username,password);
+    this.ownedProperties = new ArrayList<Property>();
+    this.viewer = new PropertyViewer(email);
+    setAccountType(1);
+    setAccountID(accountID);
+  }
   
   public void registerProperty()
   {

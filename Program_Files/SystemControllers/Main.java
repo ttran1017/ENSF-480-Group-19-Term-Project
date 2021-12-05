@@ -13,7 +13,7 @@ public class Main {
         {
             if(user == null)                    // Unregistered User
                 handleUnregistered();
-            else if(user.accountType() == 1)    // Registered User
+            else if(user.getAccountType() == 1)    // Registered User
                 handleUser();
             else                                // Manager
                 handleManager();

@@ -10,9 +10,15 @@ public class ManagerAccount extends Account{
     private DatabaseController database = DatabaseController.getInstance();
 
     public ManagerAccount(String email, String username, String password) {
+      super(email,username,password);
       setAccountType(2);
     }
 
+    public ManagerAccount(String email, String username, String password, int accountID) {
+      super(email,username,password);
+      setAccountID(accountID);
+      setAccountType(2);
+    }
 
     public void updateFeePeriod() {
     }

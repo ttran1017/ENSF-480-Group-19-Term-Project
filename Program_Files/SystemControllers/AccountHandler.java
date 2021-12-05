@@ -6,7 +6,7 @@ import java.util.*;
 
 public final class AccountHandler {
     private static DatabaseController database = DatabaseController.getInstance();
-    private static HashMap<Integer, Account> accountList = new HashMap<Integer, Account>();
+    private static HashMap<Integer, Account> accountList = database.getAccountsHashMap();
 
     public static void createAccount()
     {
@@ -25,8 +25,9 @@ public final class AccountHandler {
         {
             case 0:
                 UserAccount temp = new UserAccount(email, username, password);
-                int accountId = database.addAccount(temp);
-                accountList.put(accountId, temp);
+                int accountID = database.addAccount(temp);
+                temp.setAccountID(accountID);
+                accountList.put(accountID, temp);
                 Output.outputMessage("Account Creation Success");
                 break;
             case 1:
