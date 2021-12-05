@@ -8,23 +8,76 @@ public class Filter {
     private String propertyQuad;
     private int minBedroom;
     private int maxBedroom;
+    private int minBathroom;
+    private int maxBathroom;
     private boolean isFurnished;
 
-    public Filter(String propertyType, String propertyQuad, int minBedroom, int maxBedroom, boolean isFurnished) {
+    private int propertyID;
+    public String ownerEmail;
+    private String propertyType;
+    private String propertyAddress;
+    private String propertyQuadrant;
+    private int numBedrooms;
+    private int numBathrooms;
+    private boolean isFurnished;
+    private int daysRemaining = 0;
+
+
+    public Filter(String propertyType, String propertyQuad, int minBedroom, int maxBedroom, int minBathroom, int maxBathroom, boolean isFurnished, boolean isNotFurnished) {
       this.propertyType = propertyType;
       this.propertyQuad = propertyQuad;
       this.minBedroom = minBedroom;
       this.maxBedroom = maxBedroom;
+      this.minBathroom = minBathroom;
+      this.maxBathroom = maxBathroom;
       this.isFurnished = isFurnished;
+      this.isNotFurnished = isNotFurnished;
     }
+
+    // ARG: Database return object;
+    public boolean check(Property prop){
+      if(prop.propertyType != this.propertyType && this.propertyType != NULL){
+        return 0;
+      }
+
+      if(prop.propertyQuadrant != this.propertyQuadrant && this.propertyQuadrant != NULL){
+        return 0;
+      }
+
+      if(prop.numBedrooms >= this.minBedroom && prop.numBedrooms <= this.maxBedroom){
+        return 0;
+      }
+
+      if(prop.numBathrooms >= this.minBathroom && prop.numBathrooms <= this.maxBathroom){
+        return 0;
+      }
+
+      if(this.isFurnished && prop.isNotFurnished){
+        return 0;
+      }
+
+      if(!this.isFurnished && prop.isFurnished){
+        return 0;
+      }
+
+      return 1;
+    }
+
+
+
+
+
 }
 
 class FilterBuilder{
-  private String propertyType = "";
-  private String propertyQuad = "";
+  private String propertyType = NULL;
+  private String propertyQuad = NULL;
   private int minBedroom = 0;
-  private int maxBedroom = 0;
+  private int maxBedroom = 1000;
+  private int minBathroom = 0;
+  private int maxBathroom = 1000;
   private boolean isFurnished = true;
+  private boolean isNotFurnished = true;
 
   FilterBuilder setPropertyType(String propType) {
     this.propType = propType;
@@ -46,12 +99,27 @@ class FilterBuilder{
     return this;
   }
 
+  FilterBuilder setMinBathroom(int m) {
+    this.minBathroom = m;
+    return this;
+  }
+
+  FilterBuilder setMaxBathroom(int m) {
+    this.maxBathroom = m;
+    return this;
+  }
+
   FilterBuilder setIsFurnished(boolean m) {
     this.isFurnished = m;
     return this;
   }
 
+  FilterBuilder setIsNotFurnished(boolean m) {
+    this.isNotFurnished = m;
+    return this;
+  }
+
   Filter build(){
-    return new Filter(propType, propQuad, minBedroom, maxBedroom, isFurnished);
+    return new Filter(propType, propQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished, isNotFurnished);
   }
 }
