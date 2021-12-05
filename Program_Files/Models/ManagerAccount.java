@@ -43,7 +43,6 @@ public class ManagerAccount extends Account{
 // anymore. It means some houses their posting period can be expired or landlords have cancelled their
 // posting, therefore the renters cannot view them anymore.
 
-
     }
 
     // Initializes periodic summaries

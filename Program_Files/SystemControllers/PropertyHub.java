@@ -68,7 +68,7 @@ public final class PropertyHub implements Subject {
     public void postProperty(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
-        if(IDs == null)
+        if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Post");
             return;
@@ -100,7 +100,7 @@ public final class PropertyHub implements Subject {
     public void updatePropertyStatus(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().map(prop -> prop.getPropertyID()).collect(Collectors.toList());
-        if(IDs == null)
+        if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Update");
             return;
