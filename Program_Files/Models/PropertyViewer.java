@@ -18,35 +18,57 @@ public class PropertyViewer implements Observer {
     public PropertyViewer(String ownerEmail) {
         this.ownerEmail = ownerEmail;
         this.subscribed = true;
-        this.filter = null;
+        this.filter = new FilterBuilder().build();
         this.subject = PropertyHub.getInstance();
-        viewableProperties = subject.getPropertyList();
         subject.addObserver(this);
     }
     
     // CRITICALLY IMPORTANT !!
     public void updateFilter()
     {
-        // ASK TO INPUT ALL THE STUFF FOR FILTER
-        if(filter == null)
-        {
-            filter = new FilterBuilder().build();
-        }
+        FilterBuilder newFilter = new FilterBuilder();
+        /**
+         * TO IMPLEMENT FILTER CRITERIA SELECTION
+         */
+        filter = newFilter.build();
     }
 
-    public static void staticViewProperties() {
+    /**
+     * View properties for unregistered user
+     * - Does not have a preexisting property list
+     */
+    public static void unregisteredViewProperties() 
+    {
     }
     
-    public void viewProperties() {
+    /**
+     * Generic view method to view a property list
+     * @param properties Property list
+     */
+    public static void viewProperties(ArrayList<Property> properties)
+    {
+        Output.displayProperties(properties);
+    }
+
+    /**
+     * To view ALL properties in system
+     */
+    public void viewProperties() 
+    {
         Output.displayProperties(viewableProperties);
     }
 
-    public void update(Property newProperty){
+
+    public void updateObserver(Property newProperty){
         if(filter.check(newProperty))
         {
             viewableProperties.add(newProperty);
             if(subscribed)
                 EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());  // Send email only when subscribed
         }
+    }
+
+    public void initializeObserver(ArrayList<Property> newProperties) {
+        viewableProperties = filter.filterAll(newProperties);
     }
 }
