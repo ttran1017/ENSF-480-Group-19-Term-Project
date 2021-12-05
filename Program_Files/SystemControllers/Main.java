@@ -47,11 +47,12 @@ public class Main {
                 break;
             case "Login":
                 user = AccountHandler.login();
-                System.out.println(user);
                 break;
             case "Exit":
                 continueProgram = false;
                 break;
+            default:
+                System.exit(0);
         }
     }
 
@@ -96,8 +97,12 @@ public class Main {
                 break;
             case "Send Email":
                 EmailController.sendEmail();
+                break;
             case "Logout":
-                user = null;
+                user = AccountHandler.logout();
+                break;
+            default:
+                System.exit(0);
         }
 
     }
@@ -117,5 +122,25 @@ public class Main {
                 "Modify Listing",
                 "Logout"}
             );
+        switch(option)
+        {
+            case "Update Fees":
+                break;
+            case "View Property Info":
+                break;
+            case "View Renter Info":
+                break;
+            case "View Landlord Info":
+                break;
+            case "Generate Summary":
+                break;
+            case "Modify Listing":
+                break;
+            case "Logout":
+                user = AccountHandler.logout();
+                break;
+            default:
+                System.exit(0);
+        }
     }
 }
