@@ -3,6 +3,7 @@ package SystemControllers;
 import Interfaces.PropertyType;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
+import Models.Account;
 import Models.UserAccount;
 import Models.Property;
 import java.sql.*;
@@ -15,16 +16,16 @@ public final class DatabaseController {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "09125132465";
     private Connection database;
-    HashMap<Integer, accountInfo> accounts;
-    HashMap<Integer,propertyInfo> properties;
+    HashMap<Integer, UserAccount> accounts;
+    HashMap<Integer,Property> properties;
     private Property selectedProperty;
     private UserAccount selectedAccount;
 
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            accounts= new HashMap<Integer,accountInfo>();
-            properties= new HashMap<Integer,propertyInfo>();
+            accounts= new HashMap<Integer,UserAccount>();
+            properties= new HashMap<Integer,Property>();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -93,15 +94,16 @@ public final class DatabaseController {
         return selectedAccount;
     }
 
-    public HashMap<Integer, accountInfo> getAccountsHashMap() {
+    public HashMap<Integer, UserAccount> getAccountsHashMap() {
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
             while (myRs10.next()){
                 this.accounts.put(myRs10.getInt("account_id")
-                        ,new accountInfo(myRs10.getString("email")
-                                ,myRs10.getString("username")
-                                ,myRs10.getString("password")));
+                        ,new UserAccount(myRs10.getString("email")
+                                , myRs10.getString("username")
+                                , myRs10.getString("password")) {
+                        });
             }
         }
         catch (Exception exc) {
@@ -110,20 +112,55 @@ public final class DatabaseController {
         return accounts;
     }
 
-    public HashMap<Integer, propertyInfo> getPropertiesHashMap() {
+    public HashMap<Integer, Property> getPropertiesHashMap() {
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs11 = myStmt.executeQuery("select * from properties");
+            PropertyType type=null;
+            PropertyQuadrant cityQuadrant=null;
+            PropertyStatus status=null;
+            ResultSet myRs11 = myStmt.executeQuery
+                    ("select * from properties join accounts on properties.account_id = accounts.account_id order by property_id");
             while (myRs11.next()){
+                if (myRs11.getString("type")=="apartment")
+                    type=PropertyType.Apartment;
+                else if (myRs11.getString("type")=="attached house")
+                    type=PropertyType.AttachedHouse;
+                else if (myRs11.getString("type")=="detached house")
+                    type=PropertyType.DetachedHouse;
+                else if (myRs11.getString("type")=="townhouse")
+                    type=PropertyType.Townhouse;
+                else if (myRs11.getString("type")=="condo")
+                    type=PropertyType.Condo;
+
+                if (myRs11.getString("city quadrant")=="NE")
+                    cityQuadrant=PropertyQuadrant.NE;
+                else if (myRs11.getString("city quadrant")=="NW")
+                    cityQuadrant=PropertyQuadrant.NW;
+                else if (myRs11.getString("city quadrant")=="SE")
+                    cityQuadrant=PropertyQuadrant.SE;
+                else if (myRs11.getString("city quadrant")=="SW")
+                    cityQuadrant=PropertyQuadrant.SW;
+
+                if (myRs11.getString("status")=="active")
+                    status=PropertyStatus.Active;
+                else if (myRs11.getString("status")=="rented")
+                    status=PropertyStatus.Rented;
+                else if (myRs11.getString("status")=="suspended")
+                    status=PropertyStatus.Suspended;
+                else if (myRs11.getString("status")=="cancelled")
+                    status=PropertyStatus.Cancelled;
+
                 this.properties.put(myRs11.getInt("property_id")
-                        ,new propertyInfo(myRs11.getString("address")
-                                ,myRs11.getString("type")
+                        ,new Property(myRs11.getString("email")
+                                ,type
+                                ,myRs11.getString("address")
+                                ,cityQuadrant
+                                ,status
                                 ,myRs11.getInt("# of bedrooms")
                                 ,myRs11.getInt("# of bathrooms")
                                 ,myRs11.getBoolean("is furnished")
-                                ,myRs11.getString("city quadrant")
                                 ,myRs11.getInt("days")
-                                ,myRs11.getString("status")));
+                                ));
             }
         }
         catch (Exception exc) {
