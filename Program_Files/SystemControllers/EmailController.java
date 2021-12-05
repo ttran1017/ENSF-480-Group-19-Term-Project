@@ -2,44 +2,129 @@ package SystemControllers;
 import InteractionControllers.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 
 public class EmailController {
+  static Properties prop = new Properties();
+  private String username = "5e0ccfeb8924ab";
+  private String password = "c7f4caa9e658d9";
 
+  public EmailController(){
+   prop.put("mail.smtp.auth", true);
+   prop.put("mail.smtp.starttls.enable", "false");
+   prop.put("mail.smtp.host", "smtp.mailtrap.io");
+   prop.put("mail.smtp.port", "2525");
+   prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
+  }
 
-    public EmailController() {
-    }
+  public static void sendEmail(String address, String subject, String msg) {
 
+    // Check for valid email
+     if(!Pattern.compile("^(.+)@(\\S+)$").matcher(address).matches()){
+       Output.outputMessage("Invalid Email!");
+       break;
+     }
 
-   // private static Socket socket;
-//Fee 
-//Filter
-//Email
+     // Create Session
+     Session session = Session.getInstance(prop, new Authenticator() {
+         @Override
+         protected PasswordAuthentication getPasswordAuthentication() {
+             return new PasswordAuthentication(username, password);
+         }
+     });
 
-    public static void sendEmail() {
-        // TODO implement here
-    }
+     // Set message details
+     Message message = new MimeMessage(session);
+     message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
+     message.setRecipients(
+             Message.RecipientType.TO, InternetAddress.parse(address));
+     message.setSubject(subject);
 
-    // Send to address that a property has been posted with a specified ID
-    public static void sendNotification(String address, int ID)
-    {
-    }
+     // Add MimeBodyPart
+     MimeBodyPart mimeBodyPart = new MimeBodyPart();
+     mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
 
+     Multipart multipart = new MimeMultipart();
+     multipart.addBodyPart(mimeBodyPart);
 
-    public static void setupMeeting(String address) {
-        // TODO implement here
-    }
+     message.setContent(multipart);
 
+     try{
+       // Send mail
+       Transport.send(message);
+     }
+     catch(MessagingException e){
+       throw new RuntimeException(e);
+     }
 
-    public static void startUpEmailController() {
-        // TODO implement here
-    }
+     // Let user know if successful
+     Out.outputMessage("Email sent successfully");
+  }
 
-    public static boolean checkFormat(String email)
-    {
-        if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
-            return true;
-        }
-        return false;
-    }
+  public static void setupMeeting(String addr, LocalDate day) {
+
+    // Check for valid email
+     if(!Pattern.compile("^(.+)@(\\S+)$").matcher(address).matches()){
+       Output.outputMessage("Invalid Email!");
+       break;
+     }
+
+     // Create Session
+     Session session = Session.getInstance(prop, new Authenticator() {
+         @Override
+         protected PasswordAuthentication getPasswordAuthentication() {
+             return new PasswordAuthentication(username, password);
+         }
+     });
+
+     // Set message details
+     Message message = new MimeMessage(session);
+     message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
+     message.setRecipients(
+             Message.RecipientType.TO, InternetAddress.parse(address));
+     message.setSubject("ARRANGING MEETING");
+
+     // Add MimeBodyPart
+     MimeBodyPart mimeBodyPart = new MimeBodyPart();
+
+     String msg = "SET UP MEETING\n\n" + "A request to meet up at " + day.toString()
+     + " has been made.";
+
+     mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
+
+     Multipart multipart = new MimeMultipart();
+     multipart.addBodyPart(mimeBodyPart);
+
+     message.setContent(multipart);
+
+     try{
+       // Send mail
+       Transport.send(message);
+     }
+     catch(MessagingException e){
+       throw new RuntimeException(e);
+     }
+
+     // Let user know if successful
+     Out.outputMessage("Email sent successfully");
+
+  }
+
+  public static boolean checkFormat(String email)
+  {
+      if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
+          return true;
+      }
+      return false;
+  }
+  
+  public static void sendEmail() {
+    // TODO implement here
+  }
+
+  // Send to address that a property has been posted with a specified ID
+  public static void sendNotification(String address, int ID)
+  {
+  }
 }
