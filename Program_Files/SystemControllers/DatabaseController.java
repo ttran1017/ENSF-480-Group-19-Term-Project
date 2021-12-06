@@ -36,7 +36,7 @@ public final class DatabaseController {
         Property selectedProperty=null;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs12 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where properties.property_id="+property_id);
+            ResultSet myRs12 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where properties.property_id=\""+property_id+"\"");
             if (myRs12.next()){
                 selectedProperty.setPropertyId(property_id);
                 selectedProperty.setOwnerID(myRs12.getInt("account_id"));
@@ -90,7 +90,7 @@ public final class DatabaseController {
         ArrayList<Property> userProperties=null;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs14 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where accounts.account_id="+account_id);
+            ResultSet myRs14 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where accounts.account_id=\""+account_id+"\"");
             while (myRs14.next()){
                 selectedProperty.setPropertyId(myRs14.getInt("property_id"));
                 selectedProperty.setOwnerID(account_id);
@@ -145,7 +145,7 @@ public final class DatabaseController {
         UserAccount selectedAccount=null;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
+            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id=\""+account_id+"\"");
             if (myRs13.next()){
                 selectedAccount.setAccountID(account_id);
                 selectedAccount.setAccountType(myRs13.getInt("account type"));
@@ -260,7 +260,7 @@ public final class DatabaseController {
         // RETURNS ACCOUNT ID IF FOUND -1 OTHERWISE
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from accounts where username="+username+" and password="+password);
+            ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs.next()) {
                     return myRs.getInt("account_id");
                 }
@@ -277,7 +277,7 @@ public final class DatabaseController {
         // SHOULD BE CHECKING WITH DATABASE HERE BUT SET TO TRUE FOR TESTING 0 if unique 1 match email 2 match username
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username="+username+" or email="+email);
+            ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username=\""+username+"\" or email=\""+email+"\"");
             while (myRs2.next()) {
                 if (myRs2.getInt("account_id")==-1) {
                     return 0;
@@ -304,10 +304,11 @@ public final class DatabaseController {
         String email = account.getEmail();
         String username = account.getUsername();
         String password = account.getPassword();
+        int type=account.getAccountType();
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("INSERT INTO `Accounts`(email,username,password) VALUES ("+email+","+username+","+password+")");
-            ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username="+username+" and password="+password);
+            myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
+            ResultSet myRs3 = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs3.next()) {
                     return myRs3.getInt("account_id");
                 }        
@@ -322,17 +323,17 @@ public final class DatabaseController {
     {
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Properties` set address ="+property.getPropertyAddress()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `days` ="+property.getDaysRemaining()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `status` ="+property.getPropertyStatus()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set address =\""+property.getPropertyAddress()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set type =\""+property.getPropertyType()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `# of bedrooms` =\""+property.getNumBedrooms()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `# of bathrooms` =\""+property.getNumBathrooms()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `city quadrant` =\""+property.getPropertyQuadrant()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `is furnished` =\""+property.getIsFurnished()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `days` =\""+property.getDaysRemaining()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `status` =\""+property.getPropertyStatus()+"\" where property_id=\""+property.getPropertyID()+"\"");
 
-            ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getInt("account_id"));
+            ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Accounts` set `email` =\""+property.getOwnerEmail()+"\" where account_id=\""+myRs4.getInt("account_id")+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -351,14 +352,18 @@ public final class DatabaseController {
         PropertyQuadrant cityQuadrant = property.getPropertyQuadrant();
         int days = property.getDaysRemaining();
         PropertyStatus status = property.getPropertyStatus();
+        int account_id=0;
+        int isF=(isFurnished) ? 1 : 0;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email="+property.getOwnerEmail());
-            int account_id = myRs6.getInt("account_id");
+            Statement myStmt2 = database.createStatement();
+            ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email=\""+property.getOwnerEmail()+"\"");
+            if (myRs6.next())
+            account_id = myRs6.getInt("account_id");
             myStmt.executeUpdate("INSERT INTO `Properties`" +
                             "(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) " +
-                            "VALUES" + " ("+account_id+","+address+","+type+","+numBedrooms+","+numBathrooms+","+isFurnished+","+cityQuadrant+","+days+","+status+")");
-            ResultSet myRs5 = myStmt.executeQuery("select * from properties");
+                            "VALUES" + " (\""+account_id+"\",\""+address+"\",\""+type+"\",\""+numBedrooms+"\",\""+numBathrooms+"\",\""+isF+"\",\""+cityQuadrant+"\",\""+days+"\",\""+status+"\")");
+            ResultSet myRs5 = myStmt2.executeQuery("select * from properties");
             while (myRs5.next()) {
                 property_id = myRs5.getInt("property_id");
             }
@@ -407,7 +412,7 @@ public final class DatabaseController {
     public void updateFee(int fee) {
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Financing` set fee ="+fee);
+            myStmt.executeUpdate("update `Financing` set fee =\""+fee+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -417,7 +422,7 @@ public final class DatabaseController {
     public void updatePeriod(int period) {
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Financing` set period ="+period);
+            myStmt.executeUpdate("update `Financing` set period =\""+period+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -427,7 +432,7 @@ public final class DatabaseController {
     public void updateBalance(int deposit) {
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Financing` set balance ="+deposit);
+            myStmt.executeUpdate("update `Financing` set balance =\""+deposit+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
