@@ -34,6 +34,8 @@ public class Main {
                 "Exit",
                 }
             );
+        if(option == null)
+            System.exit(1);
         switch(option)
         {
             case "View Listed Properties":
@@ -52,8 +54,6 @@ public class Main {
             case "Exit":
                 continueProgram = false;
                 break;
-            default:
-                System.exit(0);
         }
     }
 
@@ -74,6 +74,8 @@ public class Main {
                 "Send Email",
                 "Logout"}
             );
+        if(option == null)
+            System.exit(1);
         switch(option)
         {
             case "Update Filter":
@@ -103,8 +105,6 @@ public class Main {
             case "Logout":
                 user = AccountHandler.logout();
                 break;
-            default:
-                System.exit(0);
         }
 
     }
@@ -124,6 +124,8 @@ public class Main {
                 "Modify Listing",
                 "Logout"}
             );
+        if(option == null)
+            System.exit(1);
         switch(option)
         {
             case "Update Fees":
@@ -141,8 +143,6 @@ public class Main {
             case "Logout":
                 user = AccountHandler.logout();
                 break;
-            default:
-                System.exit(0);
         }
     }
 }
