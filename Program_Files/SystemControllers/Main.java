@@ -27,7 +27,7 @@ public class Main {
             "Unregistered User Options", 
             "Select From:", 
             new String[]{
-                "View Properties",
+                "View Listed Properties",
                 "Send Email",
                 "Register",
                 "Login",
@@ -36,7 +36,7 @@ public class Main {
             );
         switch(option)
         {
-            case "View Properties":
+            case "View Listed Properties":
                 PropertyViewer.unregisteredViewProperties();
                 break;
             case "Send Email":
@@ -65,7 +65,7 @@ public class Main {
             new String[]{
                 "Update Filter",
                 "Change Subscription",
-                "View All Properties",
+                "View Listed Properties",
                 "View My Properties",
                 "Register Property",
                 "Post Property",
@@ -79,6 +79,7 @@ public class Main {
                 uAccount.updateFilter();
                 break;
             case "Change Subscription":
+                uAccount.updateSubscription();
                 break;
             case "View All Properties":
                 uAccount.viewAllProperties();

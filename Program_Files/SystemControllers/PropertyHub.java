@@ -14,7 +14,8 @@ public final class PropertyHub implements Subject {
     private HashMap<Integer, Property> propertyList;
     private ArrayList<Observer> observers;
     
-    private PropertyHub() {
+    private PropertyHub() 
+    {
         propertyList = database.getPropertiesHashMap();
         observers = new ArrayList<Observer>();
     }
@@ -29,11 +30,10 @@ public final class PropertyHub implements Subject {
         return INSTANCE;
     }
 
-    public static ArrayList<Property> getPropertyList() {
-        return new ArrayList<Property>(getInstance().propertyList.values());
-    }
-
-    public Property createProperty(Account ownerAccount) {
+    public static ArrayList<Property> getPropertyList() { return new ArrayList<Property>(getInstance().propertyList.values()); }
+    
+    public Property createProperty(Account ownerAccount) 
+    {
         PropertyType type = (PropertyType)Input.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
@@ -58,7 +58,8 @@ public final class PropertyHub implements Subject {
             numBedrooms, 
             numBathrooms, 
             isFurnished, 
-            0);
+            0
+        );
         int id = database.addProperty(newProperty);
         newProperty.setPropertyId(id);
         propertyList.put(id, newProperty);
@@ -120,20 +121,18 @@ public final class PropertyHub implements Subject {
         }
     }
 
-    public void addObserver(Observer o) {
+    public void addObserver(Observer o) 
+    {
         observers.add(o);
         o.initializeObserver(getPropertyList());
     }
 
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
+    public void removeObserver(Observer o) { observers.remove(o); }
 
-    public void notifyAllObservers(Property property) {
+    public void notifyAllObservers(Property property) 
+    {
         for(Observer o : observers)
-        {
             o.updateObserver(property);
-        }
     }
 
     public static void main(String[] args)

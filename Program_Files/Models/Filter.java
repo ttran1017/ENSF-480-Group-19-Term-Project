@@ -22,7 +22,6 @@ public class Filter {
     this.isFurnished = isFurnished;
   }
 
-  // Not sure if we'll use
   public ArrayList<Property> filterAll(ArrayList<Property> properties)
   {
     return new ArrayList<Property>(
@@ -31,14 +30,19 @@ public class Filter {
       .collect(Collectors.toList()));
   }
 
-  // ===============================================
-  // TODO
-  // For Noel to finish (return false if property does not match search criteria)
-  // Null or -1 means do not check!
-  // ===============================================
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)
+      return false;
+    else if(propertyType != null && property.getPropertyType() != propertyType)
+      return false;
+    else if(propertyQuad != null && property.getPropertyQuadrant() != propertyQuad)
+      return false;
+    else if(minBedroom != null && property.getNumBedrooms() < minBedroom)
+      return false;
+    else if(maxBedroom != null && property.getNumBedrooms() > maxBedroom)
+      return false;
+    else if(isFurnished != null && property.getIsFurnished() != isFurnished)
       return false;
     return true;
   }
