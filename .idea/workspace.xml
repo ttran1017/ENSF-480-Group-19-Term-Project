@@ -6,15 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a2e60938-9aab-4dc2-b99d-dec9d6cf5d3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Files/Models/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/Models/Filter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/create-database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/create-database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Filter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Filter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/ManagerAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/AccountHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FeeController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FilterBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/PropertyHub.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Property.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Property.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +69,7 @@
       <workItem from="1638686228417" duration="118000" />
       <workItem from="1638686442880" duration="2549000" />
       <workItem from="1638737144159" duration="8091000" />
+      <workItem from="1638769391308" duration="669000" />
     </task>
     <servers />
   </component>
