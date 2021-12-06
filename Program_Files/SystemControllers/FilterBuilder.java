@@ -10,6 +10,8 @@ public class FilterBuilder {
     private PropertyQuadrant propertyQuad = null;
     private Integer minBedroom = null;
     private Integer maxBedroom = null;
+    private Integer minBathroom = null;
+    private Integer maxBathroom = null;
     private Boolean isFurnished = null;
   
     public FilterBuilder setPropertyType(PropertyType propType) 
@@ -35,6 +37,18 @@ public class FilterBuilder {
       this.maxBedroom = m;
       return this;
     }
+
+    public FilterBuilder setMinBathroom(Integer m)
+    {
+        this.minBathroom = m;
+        return this;
+    }
+
+    public FilterBuilder setMaxBathroom(Integer m)
+    {
+        this.maxBathroom = m;
+        return this;
+    }
   
     public FilterBuilder setIsFurnished(Boolean m) {
       this.isFurnished = m;
@@ -42,7 +56,7 @@ public class FilterBuilder {
     }
   
     public Filter build(){
-      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, isFurnished);
+      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished);
     }
 
     public static Filter buildFilter()
@@ -56,19 +70,33 @@ public class FilterBuilder {
         if(pQuad != null)
             newFilter.setPropertyQuad(pQuad);
 
-        Integer min = (Integer)Input.getDropdownInputNoPref(
+        Integer minBed = (Integer)Input.getDropdownInputNoPref(
             "Filter",
             "Minimum Number of Bedrooms:", 
             new Integer[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
-        if(min != null)
-            newFilter.setMinBedroom(min);
+        if(minBed != null)
+            newFilter.setMinBedroom(minBed);
 
-        Integer max = (Integer)Input.getDropdownInputNoPref(
+        Integer maxBed = (Integer)Input.getDropdownInputNoPref(
             "Filter",
             "Maximum Number of Bedrooms:", 
             new Integer[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
-        if(max != null)
-            newFilter.setMinBedroom(min);
+        if(maxBed != null)
+            newFilter.setMaxBedroom(maxBed);
+
+        Integer minBath = (Integer)Input.getDropdownInputNoPref(
+                "Filter",
+                "Minimum Number of Bathrooms:", 
+                new Integer[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        if(minBath != null)
+            newFilter.setMinBathroom(minBath);
+    
+        Integer maxBath = (Integer)Input.getDropdownInputNoPref(
+                "Filter",
+                "Maximum Number of Bedrooms:", 
+                new Integer[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        if(maxBath != null)
+            newFilter.setMaxBathroom(maxBath);
 
         String furnished = (String)Input.getDropdownInputNoPref(
             "Filter",
