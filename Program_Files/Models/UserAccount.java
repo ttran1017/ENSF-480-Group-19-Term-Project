@@ -36,9 +36,29 @@ public class UserAccount extends Account {
   public UserAccount(String email, String username, String password) 
   {
     super(email,username,password,AccountType.User);
-    this.ownedProperties = new ArrayList<Property>();
+    this.viewer = new PropertyViewer(email);
   }
 
+  /**
+   * Constructor for pre-existing user
+   * @param email Pre-existing User's email
+   * @param username Pre-existing User's username
+   * @param password Pre-existing User's password
+   * @param filter Pre-existing User's filter
+   * @param sub Pre-existing User's subscription
+   */
+  public UserAccount(
+    int accountID,
+    String email, 
+    String username, 
+    String password, 
+    Filter filter, 
+    boolean sub)
+  {
+    super(email,username,password,AccountType.User);
+    setAccountID(accountID);
+    this.viewer = new PropertyViewer(email, filter, sub);
+  }
   /**
    * Register a new property
    */
@@ -94,13 +114,6 @@ public class UserAccount extends Account {
    * @param properties
    */
   public void setOwnedProperties(ArrayList<Property> properties) { this.ownedProperties = properties; }
-
-  /**
-   * Constructs property viewer
-   * @param filter filter object used in viewer
-   * @param subscription subscription status
-   */
-  public void buildPropertyViewer(Filter filter, boolean subscription) { viewer = new PropertyViewer(email, filter, subscription); }
 
   /**
    * Send an email to landlord about selected property
