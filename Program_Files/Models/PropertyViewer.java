@@ -4,9 +4,10 @@ import Interfaces.Observer;
 import SystemControllers.EmailController;
 import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
+import java.util.ArrayList;
 
-import java.util.*;
-import InteractionControllers.*;
+import InteractionControllers.Input;
+import InteractionControllers.Output;
 
 
 public class PropertyViewer implements Observer {
@@ -16,7 +17,8 @@ public class PropertyViewer implements Observer {
     private Filter filter;
     private boolean subscribed;
     
-    public PropertyViewer(String ownerEmail) {
+    public PropertyViewer(String ownerEmail) 
+    {
         this.ownerEmail = ownerEmail;
         this.subscribed = true;
         this.filter = new FilterBuilder().build();
@@ -24,21 +26,10 @@ public class PropertyViewer implements Observer {
         subject.addObserver(this);
     }
 
-    public void updateFilter()
+    public void updateFilter() { filter = FilterBuilder.buildFilter(); }
+    public void viewProperties() { Output.displayProperties(viewableProperties); }
+    public void updateObserver(Property newProperty)
     {
-        filter = FilterBuilder.buildFilter();
-    }
-
-    /**
-     * To view ALL properties in system
-     */
-    public void viewProperties() 
-    {
-        Output.displayProperties(viewableProperties);
-    }
-
-
-    public void updateObserver(Property newProperty){
         if(filter.checkPass(newProperty))
         {
             viewableProperties.add(newProperty);
@@ -46,29 +37,17 @@ public class PropertyViewer implements Observer {
                 EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());  // Send email only when subscribed
         }
     }
+    public void initializeObserver(ArrayList<Property> newProperties) { viewableProperties = filter.filterAll(newProperties); }
+    public void updateSubscription() { subscribed = Input.getBoolInput("Continue Subscribing?"); }
 
-    public void initializeObserver(ArrayList<Property> newProperties) {
-        viewableProperties = filter.filterAll(newProperties);
-    }
-
-    public void updateSubscription()
-    {
-        // Ask user if they want to be subscribed
-        // Update subscribed variable
-    }
-
+    // ===============
     // STATIC METHODS
+    // ===============
     public static void unregisteredViewProperties() 
     {
         ArrayList<Property> properties = PropertyHub.getPropertyList();
         Filter tempFilter = FilterBuilder.buildFilter();
         properties = tempFilter.filterAll(properties);
-        System.out.println(properties.size());
-        for(Property prop : properties)
-        {
-            System.out.println(prop.getPropertyAddress());
-            System.out.println(prop.getPropertyType());
-        }
         Output.displayProperties(properties);
     }
     

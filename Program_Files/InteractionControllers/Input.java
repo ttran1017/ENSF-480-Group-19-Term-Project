@@ -3,11 +3,13 @@ package InteractionControllers;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -18,12 +20,14 @@ public class Input {
 
     private static final int FIELD_SIZE = 5;
     //receives an input string from a pop up dialog box and returns it
-    public static String getStringInput(String prompt){
+    public static String getStringInput(String prompt)
+    {
         String returnString = JOptionPane.showInputDialog(prompt);
         return returnString;
     }
 
-    public static LocalDate getDateInput(String prompt){
+    public static LocalDate getDateInput(String prompt)
+    {
       prompt = prompt + "\nPlease format as dd-mm-yyyy";
 
       String dateInString = JOptionPane.showInputDialog(prompt);
@@ -34,7 +38,8 @@ public class Input {
     }
 
     //receives an input string from a pop up dialog box and returns it as an integer
-    public static int getIntInput(String prompt){
+    public static int getIntInput(String prompt)
+    {
         int returnInt;
         while(true){
             try{
@@ -47,7 +52,8 @@ public class Input {
     }
 
     //pop up dialog box with two options, one will return true and the other will return false
-    public static boolean getBoolInput(String prompt){
+    public static boolean getBoolInput(String prompt)
+    {
         int temp = JOptionPane.showConfirmDialog(null, prompt, "no", JOptionPane.YES_NO_OPTION);
         boolean returnBool = false;
         if(temp == JOptionPane.YES_OPTION){
@@ -59,6 +65,18 @@ public class Input {
     public static Object getDropdownInput(String title, String prompt, Object[] options)
     {
         Object selected = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        return selected;
+    }
+
+    public static Object getDropdownInputNoPref(String title, String prompt, Object[] options)
+    {
+        Object modifiedOptions[] = new Object[options.length+1];
+        modifiedOptions[0] = "No Preference";
+        for(int i = 0; i < options.length; i++)
+            modifiedOptions[i+1] = options[i];
+        Object selected = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.QUESTION_MESSAGE, null, modifiedOptions, modifiedOptions[0]);
+        if(selected.equals("No Preference"))
+            return null;
         return selected;
     }
 
@@ -87,7 +105,6 @@ public class Input {
 
     //MAIN FUNCTION FOR TESTING OTHER FUNCTIONS, ALL FUNCTIONS SEEM TO WORK AS INTENDED
     public static void main(String[] args){
-        Input.getMultiStringInput("Test", new String[]{"Email","Username","Password"});
     }
 
 }

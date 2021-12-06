@@ -6,15 +6,8 @@ public class FeeController {
     private static int fee = database.getFee();
     private static int period = database.getPeriod();
 
-    public static int getFee()
-    {
-        return fee;
-    }
-
-    public static int getPeriod()
-    {
-        return period;
-    }
+    public static int getFee() { return fee; }
+    public static int getPeriod() { return period; }
 
     public static void setFee(int newFee)
     {

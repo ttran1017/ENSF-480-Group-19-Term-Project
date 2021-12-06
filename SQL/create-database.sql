@@ -31,11 +31,11 @@ CREATE TABLE `Properties` (
   KEY `FK_account_id` (`account_id`),
   CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (3,'64 Zoo Lane','apartment',2,1,TRUE,'SW',5,'active');
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (4,'1435 korobeiniki Drive','attached house',3,2,TRUE,'SE',6,'active');
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'42 Wallaby Way','detached house',4,3,FALSE,'SE',3,'active');
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'15 Yemen Road','townhouse',3,2,FALSE,'NE',2,'active');
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','condo',2,1,TRUE,'NW',1,'active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (3,'64 Zoo Lane','Apartment',2,1,TRUE,'SW',5,'Active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (4,'1435 korobeiniki Drive','AttachedHouse',3,2,TRUE,'SE',6,'Active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'42 Wallaby Way','DetachedHouse',4,3,FALSE,'SE',3,'Active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (2,'15 Yemen Road','Townhouse',3,2,FALSE,'NE',2,'Active');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status) VALUES (1,'4 Privet Drive','Condo',2,1,TRUE,'NW',1,'Active');
 
 CREATE TABLE `Financing` (
   `fee` int(11) NOT NULL ,
