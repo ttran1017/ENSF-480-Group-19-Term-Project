@@ -14,7 +14,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "12qwaszx";
+    private static final String PASSWORD = "09125132465";
     private Connection database;
 
     private DatabaseController() {
@@ -252,6 +252,7 @@ public final class DatabaseController {
                     id=myRs.getInt("account_id");
                     if (type==AccountType.User)
                     myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
+                    myStmt.executeUpdate("INSERT INTO `Subscriptions`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
                     return id;
                 }        
         }
