@@ -14,7 +14,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
 
     private DatabaseController() {
@@ -152,8 +152,8 @@ public final class DatabaseController {
                             myRs.getString("password"), 
                             myRs.getInt("account_id"), 
                             getAllProperties(myRs.getInt("account_id")),
-                            new FilterBuilder().build(),
-                            true));
+                            getFilter(myRs.getInt("account_id")),
+                            getSubscription(myRs.getInt("account_id"))));
                 }
                 else if (AccountType.valueOf(myRs.getString("account type")) == AccountType.Manager){
                     accounts.put(myRs.getInt("account_id"),
@@ -389,23 +389,27 @@ public final class DatabaseController {
     };
 
     public Filter getFilter(int account_id){
-        Filter filter=null;
+        FilterBuilder filter = new FilterBuilder();
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Filters");
-                filter =new Filter(
-                    PropertyType.valueOf(myRs.getString("property type"))
-                    ,PropertyQuadrant.valueOf(myRs.getString("property quadrant"))
-                    ,myRs.getInt("minimum bedrooms")
-                    ,myRs.getInt("maximum bedrooms")
-                    ,myRs.getInt("minimum bathrooms")
-                    ,myRs.getInt("maximum bathrooms")
-                    ,myRs.getBoolean("is furnished"));
+            if(myRs.next())
+            {
+                if(myRs.getString("property type") != null)
+                    filter.setPropertyType(PropertyType.valueOf(myRs.getString("property type")));
+                if(myRs.getString("property quadrant") != null)
+                    filter.setPropertyQuad(PropertyQuadrant.valueOf(myRs.getString("property quadrant")));
+                filter.setMinBedroom(myRs.getInt("minimum bedrooms"));
+                filter.setMaxBedroom(myRs.getInt("maximum bedrooms"));
+                filter.setMinBathroom(myRs.getInt("minimum bathrooms"));
+                filter.setMaxBathroom(myRs.getInt("maximum bathrooms"));
+                filter.setIsFurnished(myRs.getBoolean("is furnished")); 
+            }
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
-        return filter;
+        return filter.build();
     }
 
     public void updateFilter(int account_id, Filter filter){
@@ -437,7 +441,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Subscriptions");
-            sub= myRs.getBoolean("subscribed");
+            if(myRs.next())
+                sub= myRs.getBoolean("subscribed");
         }
         catch (Exception exc) {
             exc.printStackTrace();

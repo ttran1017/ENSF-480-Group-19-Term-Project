@@ -35,7 +35,8 @@ public class UserAccount extends Account {
   public void registerProperty()
   {
     Property property = PropertyHub.getInstance().createProperty(this);
-    ownedProperties.add(property);
+    if(property != null)
+      ownedProperties.add(property);
   }
 
   public void postProperty() { PropertyHub.getInstance().postProperty(ownedProperties); }

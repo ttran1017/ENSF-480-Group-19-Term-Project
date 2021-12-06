@@ -1,6 +1,7 @@
 package SystemControllers;
 
 import InteractionControllers.Input;
+import InteractionControllers.Output;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyType;
 import Models.*;
@@ -106,6 +107,7 @@ public class FilterBuilder {
             });
         if(furnished != null)
             newFilter.setIsFurnished(furnished.equals("Furnished"));
+        Output.outputMessage("Filter Successfully Updated");
         return newFilter.build();
     }
 

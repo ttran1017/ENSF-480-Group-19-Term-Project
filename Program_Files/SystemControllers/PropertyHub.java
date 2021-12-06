@@ -59,6 +59,11 @@ public final class PropertyHub implements Subject {
         int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
         int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
         boolean isFurnished = Input.getBoolInput("Is Property Furnished?");
+        if(type == null || address == null || quadrant == null)
+        {
+            Output.outputMessage("Registration Failed");
+            return null;
+        }
         Property newProperty = new Property(
             ownerAccount.getAccountID(), 
             ownerAccount.getEmail(), 
