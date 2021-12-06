@@ -43,13 +43,14 @@ public class PropertyViewer implements Observer {
         DatabaseController.getInstance().updateFilter(accountID, filter);
     }
 
-    public void updateObserver(Property newProperty)
+    public void updateObserver(ArrayList<Property> properties)
     {
-        if(filter.checkPass(newProperty))
+        int oldSize = viewableProperties.size();
+        viewableProperties = filter.filterAll(properties);
+        if(viewableProperties.size() > oldSize && subscribed)
         {
-            viewableProperties.add(newProperty);
-            if(subscribed)
-                EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());  // Send email only when subscribed
+                System.out.println("Send email");
+                //EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());
         }
     }
 
@@ -60,6 +61,7 @@ public class PropertyViewer implements Observer {
     }
 
     public void initializeObserver(ArrayList<Property> newProperties) { viewableProperties = filter.filterAll(newProperties); }
+
     public void viewProperties() { Output.displayProperties(viewableProperties); }
 
     // ===============

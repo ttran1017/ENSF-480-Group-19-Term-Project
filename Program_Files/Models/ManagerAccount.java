@@ -56,6 +56,10 @@ public class ManagerAccount extends Account{
       PropertyHub.getInstance().updatePropertyStatus(PropertyHub.getPropertyList());
     }
 
+    public void viewPropertyInfo()
+    {
+      PropertyViewer.viewProperties(PropertyHub.getPropertyList());
+    }
 
     public void viewUserInfo() {
       Output.displayAccounts(AccountHandler.getAccountList());

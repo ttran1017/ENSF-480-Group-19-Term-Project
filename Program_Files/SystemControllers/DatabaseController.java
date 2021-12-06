@@ -388,12 +388,9 @@ public final class DatabaseController {
     };
 
     public void updateBalance(int deposit) {
-        int balance =0;
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            balance=myRs.getInt("balance");
-            myStmt.executeUpdate("update `Financing` set balance = balance +\""+deposit+balance+"\"");
+            myStmt.executeUpdate("update `Financing` set balance = balance +\""+deposit+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -491,5 +488,6 @@ public final class DatabaseController {
     public static void main(String[] args)
     {
         DatabaseController database = DatabaseController.getInstance();
+        database.updateBalance(20);
     }
 }
