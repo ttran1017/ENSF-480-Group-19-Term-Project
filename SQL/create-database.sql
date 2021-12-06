@@ -64,9 +64,10 @@ INSERT INTO `Filters`VALUES (2,'Condo','NW',2,4,1,3,False);
 
 CREATE TABLE `Subscriptions` (
   `account_id` int(11) NOT NULL,
-  `subscribed` boolean NOT NULL,
-  KEY `KF_account_id` (`account_id`),
-  CONSTRAINT `KF_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  `subscribed` boolean NOT NULL DEFAULT TRUE,
+  KEY (`account_id`)
+  -- KEY `KF_account_id` (`account_id`),
+  -- CONSTRAINT `KF_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 INSERT INTO `Subscriptions`VALUES (1,True);
