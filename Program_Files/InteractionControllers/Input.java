@@ -1,43 +1,64 @@
+/**
+ * FileName: Input.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package InteractionControllers;
 
 import java.util.ArrayList;
 import java.util.Locale;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//Class that handles all inputs
-//uses a pop up bubble to handle gathering inputs
-
+/**
+ * Class which utilizes JOption pane for various input types
+ */
 public class Input {
 
+    // Input Constants
     private static final int FIELD_SIZE = 5;
-    //receives an input string from a pop up dialog box and returns it
+
+    /**
+     * 
+     * Receives an input from a pop up dialog box and returns it
+     * @param prompt Input prompt/question
+     * @return String in text field
+     */
     public static String getStringInput(String prompt)
     {
         String returnString = JOptionPane.showInputDialog(prompt);
         return returnString;
     }
-
+    
+    /**
+     * 
+     * Receives an input from a pop up dialog box and returns it
+     * @param prompt Input prompt/question
+     * @return LocalDate object
+     */
     public static LocalDate getDateInput(String prompt)
     {
       prompt = prompt + "\nPlease format as dd-mm-yyyy";
-
       String dateInString = JOptionPane.showInputDialog(prompt);
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d,MM,yyyy", Locale.ENGLISH);
       LocalDate returnDate = LocalDate.parse(dateInString, formatter);
-
       return returnDate;
     }
 
-    //receives an input string from a pop up dialog box and returns it as an integer
+    /**
+     * 
+     * Receives an input from a pop up dialog box and returns it
+     * @param prompt Input prompt/question
+     * @return Int from field
+     */
     public static int getIntInput(String prompt)
     {
         int returnInt;
@@ -51,7 +72,11 @@ public class Input {
         }
     }
 
-    //pop up dialog box with two options, one will return true and the other will return false
+    /**
+     * Receives and input from two button
+     * @param prompt Input prompt/question
+     * @return true if yes, false if no
+     */
     public static boolean getBoolInput(String prompt)
     {
         int temp = JOptionPane.showConfirmDialog(null, prompt, "no", JOptionPane.YES_NO_OPTION);
@@ -62,12 +87,26 @@ public class Input {
         return returnBool;
     }
 
+    /**
+     * Displays a dropdown selection of options and returns the selected option
+     * @param title Prompt title
+     * @param prompt Prompt message
+     * @param options Array of Objects to be displayed
+     * @return Selected Object
+     */
     public static Object getDropdownInput(String title, String prompt, Object[] options)
     {
         Object selected = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         return selected;
     }
 
+    /**
+     * Displays a dropdown selection of options and returns the selected option with no preference
+     * @param title Prompt title
+     * @param prompt Prompt message
+     * @param options Array of Objects to be displayed
+     * @return null if 'No Preference' or selected Object
+     */
     public static Object getDropdownInputNoPref(String title, String prompt, Object[] options)
     {
         Object modifiedOptions[] = new Object[options.length+1];
@@ -80,6 +119,12 @@ public class Input {
         return selected;
     }
 
+    /**
+     * Returns an ArrayList based on the multiple string input fields
+     * @param prompt Prompt message
+     * @param options Lines of string (password will have password field)
+     * @return ArrayList of string for each field
+     */
     public static ArrayList<String> getMultiStringInput(String prompt, String[] options)
     {
         ArrayList<JTextField> fields = new ArrayList<JTextField>();
@@ -102,9 +147,4 @@ public class Input {
         }
         return returnVal;
     }
-
-    //MAIN FUNCTION FOR TESTING OTHER FUNCTIONS, ALL FUNCTIONS SEEM TO WORK AS INTENDED
-    public static void main(String[] args){
-    }
-
 }

@@ -1,5 +1,11 @@
-package SystemControllers;
+/**
+ * FileName: FeeController.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
 
+package SystemControllers;
 
 public class FeeController {
     private static DatabaseController database = DatabaseController.getInstance();

@@ -1,3 +1,10 @@
+/**
+ * FileName: ManagerAccount.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package Models;
 
 import java.time.LocalDate;
@@ -52,8 +59,8 @@ public class ManagerAccount extends Account{
       summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
     }
 
-    public void setListingStatus() {
-      PropertyHub.getInstance().updatePropertyStatus(PropertyHub.getPropertyList());
+    public void modifyListing() {
+      PropertyHub.getInstance().managerUpdatePropertyStatus();
     }
 
     public void viewPropertyInfo()
