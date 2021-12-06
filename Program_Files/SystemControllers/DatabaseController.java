@@ -243,14 +243,16 @@ public final class DatabaseController {
         String username = account.getUsername();
         String password = account.getPassword();
         AccountType type = account.getAccountType();
+        int id=0;
         try{
             Statement myStmt = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs.next()) {
+                    id=myRs.getInt("account_id");
                     if (type==AccountType.User)
                     myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
-                    return myRs.getInt("account_id");
+                    return id;
                 }        
         }
         catch (Exception exc) {
