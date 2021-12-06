@@ -1,3 +1,10 @@
+/**
+ * FileName: Output.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package InteractionControllers;
 
 import java.util.ArrayList;
@@ -22,8 +29,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * Class Responsible for all Outputs
+ */
 public class Output {
 
+    /**
+     * Output text message as pop-up box
+     * @param message Output message
+     */
     public static void outputMessage(String message)
     {
         JOptionPane.showMessageDialog(null, message);
@@ -33,6 +47,10 @@ public class Output {
     public static void displayAccounts(ArrayList<Account> accounts){
     }
 
+    /**
+     * Receives an ArrayList of type Property and displays it in a grid format
+     * @param properties Properties to be displayed
+     */
     public static void displayProperties(ArrayList<Property> properties)
     {
         JPanel mainPanel = new JPanel();
@@ -69,9 +87,5 @@ public class Output {
         JScrollPane scrollPane = new JScrollPane(mainPanel);
         scrollPane.setPreferredSize(new Dimension(1200, 800));
         JOptionPane.showMessageDialog(null, scrollPane, "Display Properties", JOptionPane.DEFAULT_OPTION);
-    }
-
-    public static void main(String[] args)
-    {
     }
 }

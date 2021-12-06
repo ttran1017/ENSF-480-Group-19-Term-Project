@@ -1,3 +1,10 @@
+/**
+ * FileName: FilterBuilder.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 
 import InteractionControllers.Input;
@@ -51,7 +58,8 @@ public class FilterBuilder {
         return this;
     }
   
-    public FilterBuilder setIsFurnished(Boolean m) {
+    public FilterBuilder setIsFurnished(Boolean m) 
+    {
       this.isFurnished = m;
       return this;
     }

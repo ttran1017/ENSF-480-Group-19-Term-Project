@@ -1,3 +1,10 @@
+/**
+ * FileName: DatabaseController.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 
 import Interfaces.PropertyType;
@@ -145,15 +152,12 @@ public final class DatabaseController {
             while (myRs.next()){
                 if (AccountType.valueOf(myRs.getString("account type")) == AccountType.User)
                 {
-                    accounts.put(myRs.getInt("account_id"),
-                        new UserAccount(
-                            myRs.getString("email"), 
-                            myRs.getString("username"), 
-                            myRs.getString("password"), 
-                            myRs.getInt("account_id"), 
-                            getAllProperties(myRs.getInt("account_id")),
-                            getFilter(myRs.getInt("account_id")),
-                            getSubscription(myRs.getInt("account_id"))));
+                    UserAccount temp = new UserAccount(
+                        myRs.getString("email"), 
+                        myRs.getString("username"), 
+                        myRs.getString("password"));
+                    temp.setAccountID(myRs.getInt("account_id"));
+                    accounts.put(myRs.getInt("account_id"), temp);
                 }
                 else if (AccountType.valueOf(myRs.getString("account type")) == AccountType.Manager){
                     accounts.put(myRs.getInt("account_id"),

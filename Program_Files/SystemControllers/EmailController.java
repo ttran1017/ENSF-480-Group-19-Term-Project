@@ -1,3 +1,10 @@
+/**
+ * FileName: EmailController.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 import InteractionControllers.*;
 import java.util.*;
@@ -47,7 +54,7 @@ public class EmailController {
          }
      });
 
-     ArrayList<String> emailData = Input.getMultiStringInput("Composing Email", new String[]{"Subject,Message"});
+     ArrayList<String> emailData = Input.getMultiStringInput("Composing Email", new String[]{"Subject","Message"});
      String subject = "Regarding " + String.valueOf(propertyID) + ": "+ emailData.get(0);
      String msg = emailData.get(1) + tag;
 
