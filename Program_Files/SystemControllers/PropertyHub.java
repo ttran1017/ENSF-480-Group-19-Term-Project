@@ -122,7 +122,10 @@ public final class PropertyHub implements Subject {
      */
     public void postProperty(ArrayList<Property> properties)
     {
-        List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
+        List<Integer> IDs = properties.stream()
+        .filter(prop -> prop.getPropertyStatus() == PropertyStatus.Cancelled || prop.getPropertyStatus() == PropertyStatus.Suspended)
+        .map(prop -> prop.getPropertyID())
+        .collect(Collectors.toList());
         if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Post");
@@ -174,6 +177,8 @@ public final class PropertyHub implements Subject {
             PropertyStatus.values()
         );
         Property modProperty = propertyList.get(selectedID);
+        if(modProperty.getPropertyStatus() == PropertyStatus.Rented || modProperty.getPropertyStatus() == PropertyStatus.Cancelled)
+            modProperty.setDaysRemaining(0);
         modProperty.setPropertyStatus(selectedStatus);
         database.updateListing(modProperty);     
         notifyAllObservers(getPropertyList());
@@ -210,6 +215,8 @@ public final class PropertyHub implements Subject {
             if(properties.get(i).getPropertyID() == selectedID)
             {
                 properties.get(i).setPropertyStatus(selectedStatus);
+                if(properties.get(i).getPropertyStatus() == PropertyStatus.Rented || properties.get(i).getPropertyStatus() == PropertyStatus.Cancelled)
+                    properties.get(i).setDaysRemaining(0);
                 propertyList.replace(selectedID,properties.get(i));
                 database.updateListing(properties.get(i));     
                 break;

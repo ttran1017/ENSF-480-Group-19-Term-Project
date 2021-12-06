@@ -78,7 +78,6 @@ public final class AccountHandler {
         {
             UserAccount temp = (UserAccount) returnAccount;
             temp.setOwnedProperties(database.getAllProperties(accountID));
-            temp.buildPropertyViewer(database.getFilter(accountID), database.getSubscription(accountID));
         }
         Output.outputMessage("Login Successful");
         return accountList.get(accountID);
@@ -99,10 +98,4 @@ public final class AccountHandler {
      * @return All accounts
      */
     public static ArrayList<Account> getAccountList(){ return new ArrayList<Account>(accountList.values()); }
-
-    
-    public static void main(String[] args)
-    {
-        createAccount();
-    }
 }

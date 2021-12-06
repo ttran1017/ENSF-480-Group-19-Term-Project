@@ -152,12 +152,16 @@ public final class DatabaseController {
             while (myRs.next()){
                 if (AccountType.valueOf(myRs.getString("account type")) == AccountType.User)
                 {
-                    UserAccount temp = new UserAccount(
-                        myRs.getString("email"), 
-                        myRs.getString("username"), 
-                        myRs.getString("password"));
-                    temp.setAccountID(myRs.getInt("account_id"));
-                    accounts.put(myRs.getInt("account_id"), temp);
+                    int id = myRs.getInt("account_id");
+                    accounts.put(id, 
+                        new UserAccount(
+                            id,
+                            myRs.getString("email"), 
+                            myRs.getString("username"), 
+                            myRs.getString("password"),
+                            getFilter(id),
+                            getSubscription(id))
+                        );
                 }
                 else if (AccountType.valueOf(myRs.getString("account type")) == AccountType.Manager){
                     accounts.put(myRs.getInt("account_id"),
