@@ -382,9 +382,36 @@ public final class DatabaseController {
         return;
     };
 
-    //public Filter getFilter(int account_id){
-     //   return;
-    //}
+    public Filter getFilter(int account_id){
+        Filter filter=null;
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from Filters");
+                filter =new Filter(
+                    PropertyType.valueOf(myRs.getString("property type"))
+                    ,PropertyQuadrant.valueOf(myRs.getString("property quadrant"))
+                    ,myRs.getInt("minimum bedrooms")
+                    ,myRs.getInt("maximum bedrooms")
+                    ,myRs.getBoolean("is furnished"));
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return filter;
+    }
+
+    public void updateFilter(int account_id, Filter filter){
+
+    }
+
+    public boolean getSubscription(int account_id){
+        return true;
+    }
+
+    public void updateSubscription(boolean sub){
+
+    }
+
 
     public static void main(String[] args)
     {
