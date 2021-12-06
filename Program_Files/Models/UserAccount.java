@@ -51,7 +51,7 @@ public class UserAccount extends Account {
   public void updateSubscription() { viewer.updateSubscription(); }
   public void viewMyProperties() { PropertyViewer.viewProperties(ownedProperties); }
   public void viewAllProperties() { viewer.viewProperties(); }
-
+  public ArrayList<Property> getOwnerProperties() { return this.ownedProperties; }
   public void sendEmail()
   {
     Property selectedProperty = PropertyHub.getInstance().selectProperty();

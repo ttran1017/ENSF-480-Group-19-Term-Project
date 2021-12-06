@@ -59,6 +59,7 @@ public final class AccountHandler {
         return null;
     }
 
+    public static ArrayList<Account> getAccountList(){ return new ArrayList<Account>(accountList.values()); }
     public static void main(String[] args)
     {
         createAccount();

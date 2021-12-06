@@ -1,8 +1,13 @@
 package InteractionControllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import Models.Account;
 import Models.Property;
-import SystemControllers.PropertyHub;
+import Models.UserAccount;
+import SystemControllers.DatabaseController;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,38 +34,7 @@ public class Output {
     }
 
     // Display Hashmap - could be overloaded
-    public static void displayAccountHashMap(HashMap<Integer,Account> map){
-      String[][] rows = new String[map.size()][5];
-      String[] cols = new String[5];
-
-      int it = 0;
-
-      for (Integer i : map.keySet()) {
-        rows[it][0] = i.toString();
-        it++;
-      }
-
-      it=0;
-
-      for(Account j : map.values()){
-        rows[it][1] = j.email;
-        rows[it][2] = j.username;
-        rows[it][3] = j.accountID;
-
-        ArrayList<String> owned = new ArrayList<String>;
-
-        for(int q = 0; q < j.ownedProperties.size(); q++){
-          owned.add(j.ownedProperties[q]);
-        }
-
-        String ownedString = owned.stream().collect(Collectors.joining(", "));
-
-        rows[it][4] = ownedString;
-        it++;
-      }
-
-      JTable table = new JTable(rows, cols);
-      JOptionPane.showMessageDialog(null, new JScrollPane(table));
+    public static void displayAccounts(ArrayList<Account> accounts){
     }
 
     public static void displayProperties(ArrayList<Property> properties)
@@ -103,6 +77,5 @@ public class Output {
 
     public static void main(String[] args)
     {
-        displayProperties(PropertyHub.getPropertyList());
     }
 }

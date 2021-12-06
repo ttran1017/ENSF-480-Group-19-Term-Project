@@ -52,14 +52,13 @@ public class ManagerAccount extends Account{
       summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
     }
 
-    public void setListingStatus(ArrayList<Property> properties) {
-      PropertyHub.updateListing(properties);
+    public void setListingStatus() {
+      PropertyHub.getInstance().updatePropertyStatus(PropertyHub.getPropertyList());
     }
 
 
     public void viewUserInfo() {
-      HashMap<Integer,Account> accounts = database.getAccountsHashMap();
-      Output.displayHashMap(accounts);
+      Output.displayAccounts(AccountHandler.getAccountList());
     }
 
     public void sendEmail() {

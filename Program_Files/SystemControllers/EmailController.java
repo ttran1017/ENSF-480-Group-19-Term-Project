@@ -12,7 +12,7 @@ public class EmailController {
   private static String username = "5e0ccfeb8924ab";
   private static String password = "c7f4caa9e658d9";
 
-  private String tag = "\n\n\n\n - ENSF Team";
+  private static String tag = "\n\n\n\n - ENSF Team";
 
   public EmailController(){
    prop.put("mail.smtp.auth", true);
@@ -23,10 +23,10 @@ public class EmailController {
   }
 
 
-  public static void sendEmail(String userEmail, String ownerEmail, int PropertyID) {
+  public static void sendEmail(String userEmail, String ownerEmail, int propertyID) {
 
     if(userEmail == "UNREGISTERED"){
-      userEmail = "emailcontroller@ensf.com"
+      userEmail = "emailcontroller@ensf.com";
     }
 
     if(!EmailController.checkFormat(userEmail)){
@@ -79,10 +79,10 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
-  public static void setupMeeting(String userEmail, String ownerEmail, int PropertyID) {
+  public static void setupMeeting(String userEmail, String ownerEmail, int propertyID) {
 
     if(userEmail == "UNREGISTERED"){
-      userEmail = "emailcontroller@ensf.com"
+      userEmail = "emailcontroller@ensf.com";
     }
 
     // Check for valid email
@@ -158,7 +158,7 @@ public class EmailController {
      try{
        // Set message details
        Message message = new MimeMessage(session);
-       message.setFrom(new InternetAddress(userEmail));
+       message.setFrom(new InternetAddress("emailcontroller@ensf.com"));
        message.setRecipients(
                Message.RecipientType.TO, InternetAddress.parse(address));
 

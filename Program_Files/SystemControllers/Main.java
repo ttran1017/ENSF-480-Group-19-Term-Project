@@ -118,8 +118,7 @@ public class Main {
             new String[]{
                 "Update Fees",
                 "View Property Info",
-                "View Renter Info",
-                "View Landlord Info",
+                "View User Info",
                 "Generate Summary",
                 "Modify Listing",
                 "Logout"}
@@ -132,9 +131,7 @@ public class Main {
                 break;
             case "View Property Info":
                 break;
-            case "View Renter Info":
-                break;
-            case "View Landlord Info":
+            case "View User Info":
                 break;
             case "Generate Summary":
                 break;
