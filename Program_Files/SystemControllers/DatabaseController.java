@@ -248,6 +248,8 @@ public final class DatabaseController {
             myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs.next()) {
+                    if (type==AccountType.User)
+                    myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
                     return myRs.getInt("account_id");
                 }        
         }
@@ -261,13 +263,15 @@ public final class DatabaseController {
     public void updateListing(Property property)
     {
         try{
+            Boolean isFurnished = property.getIsFurnished();
+            int isF=(isFurnished) ? 1 : 0;
             Statement myStmt = database.createStatement();
             myStmt.executeUpdate("update `Properties` set address =\""+property.getPropertyAddress()+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set type =\""+property.getPropertyType()+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set `# of bedrooms` =\""+property.getNumBedrooms()+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set `# of bathrooms` =\""+property.getNumBathrooms()+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set `city quadrant` =\""+property.getPropertyQuadrant()+"\" where property_id=\""+property.getPropertyID()+"\"");
-            myStmt.executeUpdate("update `Properties` set `is furnished` =\""+property.getIsFurnished()+"\" where property_id=\""+property.getPropertyID()+"\"");
+            myStmt.executeUpdate("update `Properties` set `is furnished` =\""+isF+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set `days` =\""+property.getDaysRemaining()+"\" where property_id=\""+property.getPropertyID()+"\"");
             myStmt.executeUpdate("update `Properties` set `status` =\""+property.getPropertyStatus()+"\" where property_id=\""+property.getPropertyID()+"\"");
 
@@ -392,6 +396,8 @@ public final class DatabaseController {
                     ,PropertyQuadrant.valueOf(myRs.getString("property quadrant"))
                     ,myRs.getInt("minimum bedrooms")
                     ,myRs.getInt("maximum bedrooms")
+                    ,myRs.getInt("minimum bathrooms")
+                    ,myRs.getInt("maximum bathrooms")
                     ,myRs.getBoolean("is furnished"));
         }
         catch (Exception exc) {
@@ -401,15 +407,52 @@ public final class DatabaseController {
     }
 
     public void updateFilter(int account_id, Filter filter){
-
+        try{
+            Statement myStmt = database.createStatement();
+            if (filter.getPropertyType()!=null)
+            myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getPropertyQuad()!=null)
+            myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMinBedroom()!=null)
+            myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMaxBedroom()!=null)
+            myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMinBathroom()!=null)
+            myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMaxBathroom()!=null)
+            myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getFurnished()!=null)
+            myStmt.executeUpdate("update `Filters` set `is furnished`=\""+filter.getFurnished()+"\" where account_id=\""+account_id+"\"");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
     }
 
     public boolean getSubscription(int account_id){
-        return true;
+        boolean sub =true;
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from Subscriptions");
+            sub= myRs.getBoolean("subscribed");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return sub;
     }
 
     public void updateSubscription(boolean sub){
-
+        int subbed=(sub) ? 1 : 0;
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `Subscriptions` set subscribed =\""+subbed+"\"");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
     }
 
 

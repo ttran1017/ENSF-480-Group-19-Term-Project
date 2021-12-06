@@ -42,6 +42,34 @@ public class Filter {
       .collect(Collectors.toList()));
   }
 
+  public PropertyType getPropertyType() {
+    return propertyType;
+  }
+
+  public PropertyQuadrant getPropertyQuad() {
+    return propertyQuad;
+  }
+
+  public Integer getMinBedroom() {
+    return minBedroom;
+  }
+
+  public Integer getMaxBedroom() {
+    return maxBedroom;
+  }
+
+  public Integer getMinBathroom() {
+    return minBathroom;
+  }
+
+  public Integer getMaxBathroom() {
+    return maxBathroom;
+  }
+
+  public Boolean getFurnished() {
+    return isFurnished;
+  }
+
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)

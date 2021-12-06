@@ -54,8 +54,9 @@ CREATE TABLE `Filters` (
   `minimum bathrooms` int(11) DEFAULT NULL,
   `maximum bathrooms` int(11) DEFAULT NULL,
   `is furnished` boolean DEFAULT NULL,
-  KEY `FKK_account_id` (`account_id`),
-  CONSTRAINT `FKK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  KEY (`account_id`)
+  -- KEY `FKK_account_id` (`account_id`),
+  -- CONSTRAINT `FKK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 INSERT INTO `Filters`VALUES (1,'Apartment','SW',1,5,2,3,True);
