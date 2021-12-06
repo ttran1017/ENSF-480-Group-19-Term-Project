@@ -117,6 +117,7 @@ public class Main {
             "Select From:", 
             new String[]{
                 "Update Fees",
+                "Update Posting Period",
                 "View Property Info",
                 "View User Info",
                 "Generate Summary",
@@ -128,8 +129,11 @@ public class Main {
         switch(option)
         {
             case "Update Fees":
+                mAccount.updateFees();
                 break;
             case "View Property Info":
+                break;
+            case "Update Posting Period":
                 break;
             case "View User Info":
                 break;

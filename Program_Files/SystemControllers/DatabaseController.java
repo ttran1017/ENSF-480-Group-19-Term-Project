@@ -14,7 +14,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
 
     private DatabaseController() {
@@ -246,13 +246,18 @@ public final class DatabaseController {
         int id=0;
         try{
             Statement myStmt = database.createStatement();
+            Statement myStmt2 = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs.next()) {
                     id=myRs.getInt("account_id");
                     if (type==AccountType.User)
-                    myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
-                    myStmt.executeUpdate("INSERT INTO `Subscriptions`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
+                    {
+                        myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
+                        ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
+                        if(myRs2.next())
+                            myStmt2.executeUpdate("INSERT INTO `Subscriptions`(account_id) VALUES (\""+myRs2.getInt("account_id")+"\")");
+                    }
                     return id;
                 }        
         }
@@ -419,27 +424,27 @@ public final class DatabaseController {
     public void updateFilter(int account_id, Filter filter){
         try{
             Statement myStmt = database.createStatement();
-            if (filter.getPropertyType()!=null)
+            if (filter.getPropertyType()==null)
                 myStmt.executeUpdate("update `Filters` set `property type`= 'null' where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getPropertyQuad()!=null)
+            if (filter.getPropertyQuad()==null)
                 myStmt.executeUpdate("update `Filters` set `property quadrant`= 'null' where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMinBedroom()!=null)
+            if (filter.getMinBedroom()==null)
                 myStmt.executeUpdate("update `Filters` set `minimum bedrooms`= -1 where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMaxBedroom()!=null)
+            if (filter.getMaxBedroom()==null)
                 myStmt.executeUpdate("update `Filters` set `maximum bedrooms`= -1 where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMinBathroom()!=null)
+            if (filter.getMinBathroom()==null)
                 myStmt.executeUpdate("update `Filters` set `minimum bathrooms`= -1 where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMaxBathroom()!=null)
+            if (filter.getMaxBathroom()==null)
                 myStmt.executeUpdate("update `Filters` set `maximum bathrooms`= -1 where account_id=\""+account_id+"\"");
             else myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getFurnished()!=null)
+            if (filter.getFurnished()==null)
                 myStmt.executeUpdate("update `Filters` set `is furnished`= -1 where account_id=\""+account_id+"\"");
-            else myStmt.executeUpdate("update `Filters` set `is furnished`=\""+filter.getFurnished()+"\" where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `is furnished`=\""+(filter.getFurnished()?1:0)+"\" where account_id=\""+account_id+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
