@@ -3,6 +3,7 @@ package Models;
 import java.util.*;
 
 import Interfaces.AccountType;
+import SystemControllers.EmailController;
 import SystemControllers.PropertyHub;
 
 public class UserAccount extends Account {
@@ -38,6 +39,7 @@ public class UserAccount extends Account {
   }
 
   public void postProperty() { PropertyHub.getInstance().postProperty(ownedProperties); }
+
   public void updateProperty()
   {
     viewMyProperties();
@@ -48,6 +50,13 @@ public class UserAccount extends Account {
   public void updateSubscription() { viewer.updateSubscription(); }
   public void viewMyProperties() { PropertyViewer.viewProperties(ownedProperties); }
   public void viewAllProperties() { viewer.viewProperties(); }
+
+  public void sendEmail()
+  {
+    Property selectedProperty = PropertyHub.getInstance().selectProperty();
+    EmailController.sendEmail(email, selectedProperty.getOwnerEmail(), selectedProperty.getPropertyID());
+    return;
+  }
 
   public static void main(String[] args)
   {

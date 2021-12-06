@@ -18,7 +18,6 @@ public class Property {
     private Boolean isFurnished;
     private int daysRemaining;
     
-
     //TESTING TOOLS
     // private static int counter = 0;
     // public Property() {

@@ -182,19 +182,19 @@ public final class DatabaseController {
                 PropertyType type = PropertyType.valueOf(myRs.getString("type"));
                 PropertyQuadrant cityQuadrant = PropertyQuadrant.valueOf(myRs.getString("city quadrant"));
                 PropertyStatus status = PropertyStatus.valueOf(myRs.getString("status"));
-                properties.put(myRs.getInt("property_id"),
-                    new Property(
-                        myRs.getInt("account_id"),
-                        myRs.getString("email"),
-                        type,
-                        myRs.getString("address"),
-                        cityQuadrant,
-                        status,
-                        myRs.getInt("# of bedrooms"),
-                        myRs.getInt("# of bathrooms"),
-                        myRs.getBoolean("is furnished"),
-                        myRs.getInt("days"))
-                    );
+                Property temp = new Property(
+                    myRs.getInt("account_id"),
+                    myRs.getString("email"),
+                    type,
+                    myRs.getString("address"),
+                    cityQuadrant,
+                    status,
+                    myRs.getInt("# of bedrooms"),
+                    myRs.getInt("# of bathrooms"),
+                    myRs.getBoolean("is furnished"),
+                    myRs.getInt("days"));
+                temp.setPropertyId(myRs.getInt("property_id"));
+                properties.put(myRs.getInt("property_id"),temp);
             }
         }
         catch (Exception exc) {
