@@ -51,6 +51,11 @@ public class PropertyViewer implements Observer {
         viewableProperties = filter.filterAll(newProperties);
     }
 
+    public void updateSubscription()
+    {
+        // Ask user if they want to be subscribed
+        // Update subscribed variable
+    }
 
     // STATIC METHODS
     public static void unregisteredViewProperties() 

@@ -44,6 +44,11 @@ public class UserAccount extends Account {
     viewer.updateFilter();
   }
 
+  public void updateSubscription()
+  {
+    viewer.updateSubscription();
+  }
+
   public void viewMyProperties()
   {
     PropertyViewer.viewProperties(ownedProperties);
