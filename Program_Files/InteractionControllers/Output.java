@@ -21,10 +21,50 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Output {
-    
+
     public static void outputMessage(String message)
     {
         JOptionPane.showMessageDialog(null, message);
+    }
+
+    String email,
+    String username,
+    String password,
+    int accountID,
+    ArrayList<Property> ownedProperties,
+    Filter filter,
+    boolean subscription)
+
+    // Display Hashmap - could be overloaded
+    public static void displayAccountHashMap(HashMap<Integer,Account> map){
+      //
+      Object[map.size][5] rows;
+      Object[5] cols;
+
+      int it = 0;
+
+      for (Integer i : map.keySet()) {
+        rows[it][0] = i;
+        it++;
+      }
+
+      it=0;
+
+      for(Account j : map.values()){
+        rows[it][1] = j.email;
+        rows[it][2] = j.username;
+        rows[it][3] = j.accountID;
+
+        String
+
+
+        rows[it][4] = j.email;
+        it++;
+      }
+
+
+
+
     }
 
     public static void displayProperties(ArrayList<Property> properties)
