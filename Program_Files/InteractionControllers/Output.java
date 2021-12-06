@@ -27,14 +27,6 @@ public class Output {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    String email,
-    String username,
-    String password,
-    int accountID,
-    ArrayList<Property> ownedProperties,
-    Filter filter,
-    boolean subscription)
-
     // Display Hashmap - could be overloaded
     public static void displayAccountHashMap(HashMap<Integer,Account> map){
       String[][] rows = new String[map.size()][5];

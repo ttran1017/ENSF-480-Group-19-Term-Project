@@ -59,7 +59,6 @@ public class ManagerAccount extends Account{
 
     public void viewUserInfo() {
       HashMap<Integer,Account> accounts = database.getAccountsHashMap();
-
       Output.displayHashMap(accounts);
     }
 
