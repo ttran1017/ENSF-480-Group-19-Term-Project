@@ -7,6 +7,8 @@
 
 package SystemControllers;
 
+import java.time.Period;
+
 import InteractionControllers.Input;
 import InteractionControllers.Output;
 import Interfaces.PropertyQuadrant;
@@ -25,8 +27,10 @@ public class FilterBuilder {
     // Only accessed by manager class
     private Period period = null;
 
-    public FilterBuilder setPeriod(Period period){
+    public FilterBuilder setPeriod(Period period)
+    {
       this.period = period;
+      return this;
     }
     // Only accessed by manager class
 

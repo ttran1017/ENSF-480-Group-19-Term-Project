@@ -7,6 +7,7 @@
 
 package Models;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -85,7 +86,8 @@ public class Filter {
   public Boolean getFurnished() { return isFurnished; }
 
 
-  public Boolean getPeriod() {
+  public Period getPeriod() 
+  {
     return period;
   }
 

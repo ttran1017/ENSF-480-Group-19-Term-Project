@@ -10,6 +10,8 @@ package Models;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import SystemControllers.*;
 import Interfaces.*;
 import InteractionControllers.*;
@@ -44,12 +46,10 @@ public class ManagerAccount extends Account{
 
     public void updateFilterPeriod(){
       // Set period
-      Input.getDateInput("When does the filter period start?");
-      Input.getDateInput("When does the filter period end?");
-
-      filter.updatePeriod(Period.between(summaryInitDate, nextSummaryDate));
-
-      this.filter.setPeriod();
+      LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
+      LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
+      summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
+      filter.setPeriod(summaryPeriod);
     }
 
 
@@ -92,19 +92,17 @@ public class ManagerAccount extends Account{
 // *** If this doesn't work, we may have to get User accounts only by SQL
 
     public void viewUserInfo() {
-      Output.displayAccounts(AccountHandler.getAccountList());
-    }
 
-      String[][] row_data = new String[accounts.size()][5];
-      String[] col_headers = new String[5];
+      HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
 
-      col_headers = {"Account ID", "Account Type", "Email", "Username", "Owned Properties"};
+      String row_data[][] = new String[accounts.size()][5];
+      String col_headers[] = new String[]{"Account ID", "Account Type", "Email", "Username", "Owned Properties"};
 
       // Get all Values - Integer should be hidden from user
-      Property[] accountArray = accounts.values().toArray();
+      Account[] accountArray = (Account[])accounts.values().toArray();
 
       // Place into rows
-      for(int q = 0; q < accountArray.size(); q++){
+      for(int q = 0; q < accountArray.length; q++){
 
         row_data[q][0] = String.valueOf(accountArray[q].getAccountID());
         row_data[q][1] = String.valueOf(accountArray[q].getAccountType());
@@ -112,8 +110,8 @@ public class ManagerAccount extends Account{
         row_data[q][3] = accountArray[q].getUsername();
 
         if(row_data[q][1].equals("User")){
-          ArrayList<Property> owned = accountArray[q].getOwnedProperties();
-          ArrayList<int> propertyIDs = owned.stream().map(o -> o.getPropertyID()).collect(Collectors.toArrayList());
+          ArrayList<Property> owned = ((UserAccount)accountArray[q]).getOwnedProperties();
+          ArrayList<Integer> propertyIDs = new ArrayList<Integer>(owned.stream().map(o -> o.getPropertyID()).collect(Collectors.toList()));
           String stringOwned = propertyIDs.stream().map(Object::toString).collect(Collectors.joining(", "));
           row_data[q][4] = stringOwned;
         }
