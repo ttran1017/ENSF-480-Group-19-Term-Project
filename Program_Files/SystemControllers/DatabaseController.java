@@ -387,9 +387,12 @@ public final class DatabaseController {
     };
 
     public void updateBalance(int deposit) {
+        int balance =0;
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Financing` set balance =\""+deposit+"\"");
+            ResultSet myRs = myStmt.executeQuery("select * from Financing");
+            balance=myRs.getInt("balance");
+            myStmt.executeUpdate("update `Financing` set balance = balance +\""+deposit+balance+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
