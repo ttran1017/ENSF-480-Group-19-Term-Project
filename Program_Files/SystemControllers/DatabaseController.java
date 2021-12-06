@@ -420,19 +420,26 @@ public final class DatabaseController {
         try{
             Statement myStmt = database.createStatement();
             if (filter.getPropertyType()!=null)
-            myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `property type`= 'null' where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
             if (filter.getPropertyQuad()!=null)
-            myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `property quadrant`= 'null' where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
             if (filter.getMinBedroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `minimum bedrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
             if (filter.getMaxBedroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `maximum bedrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
             if (filter.getMinBathroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `minimum bathrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
             if (filter.getMaxBathroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `maximum bathrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
             if (filter.getFurnished()!=null)
-            myStmt.executeUpdate("update `Filters` set `is furnished`=\""+filter.getFurnished()+"\" where account_id=\""+account_id+"\"");
+                myStmt.executeUpdate("update `Filters` set `is furnished`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `is furnished`=\""+filter.getFurnished()+"\" where account_id=\""+account_id+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0a0b9b3-9ac5-4dbf-b57e-a9c85fd37e69" name="Changes" comment="" />
+    <list default="true" id="e0a0b9b3-9ac5-4dbf-b57e-a9c85fd37e69" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/create-database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/create-database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Output.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Output.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
