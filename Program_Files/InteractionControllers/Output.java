@@ -37,14 +37,13 @@ public class Output {
 
     // Display Hashmap - could be overloaded
     public static void displayAccountHashMap(HashMap<Integer,Account> map){
-      //
-      Object[map.size][5] rows;
-      Object[5] cols;
+      String[][] rows = new String[map.size()][5];
+      String[] cols = new String[5];
 
       int it = 0;
 
       for (Integer i : map.keySet()) {
-        rows[it][0] = i;
+        rows[it][0] = i.toString();
         it++;
       }
 
@@ -55,16 +54,20 @@ public class Output {
         rows[it][2] = j.username;
         rows[it][3] = j.accountID;
 
-        String
+        ArrayList<String> owned = new ArrayList<String>;
 
+        for(int q = 0; q < j.ownedProperties.size(); q++){
+          owned.add(j.ownedProperties[q]);
+        }
 
-        rows[it][4] = j.email;
+        String ownedString = owned.stream().collect(Collectors.joining(", "));
+
+        rows[it][4] = ownedString;
         it++;
       }
 
-
-
-
+      JTable table = new JTable(rows, cols);
+      JOptionPane.showMessageDialog(null, new JScrollPane(table));
     }
 
     public static void displayProperties(ArrayList<Property> properties)
