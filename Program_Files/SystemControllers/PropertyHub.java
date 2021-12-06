@@ -2,9 +2,6 @@ package SystemControllers;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import com.mysql.cj.protocol.a.authentication.MysqlOldPasswordPlugin;
-
 import InteractionControllers.*;
 import Models.*;
 import Interfaces.*;
@@ -71,7 +68,7 @@ public final class PropertyHub implements Subject {
     public void postProperty(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
-        if(IDs == null)
+        if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Post");
             return;
@@ -87,16 +84,12 @@ public final class PropertyHub implements Subject {
                 {
                     properties.get(i).setPropertyStatus(PropertyStatus.Active);
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
+                    propertyList.put(selectedID,properties.get(i)); // Updates property hub
+                    database.updateListing(properties.get(i));      // Updates database
+                    notifyAllObservers(properties.get(i));          // Updates observers
                     break;
                 }
             }
-            // UPDATES THE PROPERTY HUB'S INFO
-            propertyList.get(selectedID).setPropertyStatus(PropertyStatus.Active);
-            propertyList.get(selectedID).setDaysRemaining(FeeController.getPeriod());
-            // UPDATES THE DATABASE'S INFO
-            Property myProp = propertyList.get(selectedID);
-            database.updateListing(myProp);
-            notifyAllObservers(myProp);
         }
         else
         {
@@ -104,17 +97,27 @@ public final class PropertyHub implements Subject {
         }
     }
     
-    public void updateProperty(ArrayList<Property> properties)
+    public void updatePropertyStatus(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream().map(prop -> prop.getPropertyID()).collect(Collectors.toList());
-        if(IDs == null)
+        if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Update");
             return;
         }
         int selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
-        // UPDATE PROPERTY LISTING
-        // - property
+        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput("Select From the Following Properties", "Property IDs", PropertyStatus.values());
+        for(int i = 0; i < properties.size(); i++)
+        {
+            if(properties.get(i).getPropertyID() == selectedID)
+            {
+                properties.get(i).setPropertyStatus(selectedStatus);
+                propertyList.put(selectedID,properties.get(i)); // Updates property hub
+                database.updateListing(properties.get(i));      // Updates database
+                notifyAllObservers(properties.get(i));          // Updates observers
+                break;
+            }
+        }
     }
 
     public void addObserver(Observer o) {

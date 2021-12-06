@@ -1,13 +1,15 @@
 package InteractionControllers;
 
 import java.util.ArrayList;
-
+import java.util.Locale;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 //Class that handles all inputs
 //uses a pop up bubble to handle gathering inputs
@@ -21,6 +23,16 @@ public class Input {
         return returnString;
     }
 
+    public static LocalDate getDateInput(String prompt){
+      prompt = prompt + "\nPlease format as dd-mm-yyyy";
+
+      String dateInString = JOptionPane.showInputDialog(prompt);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d,MM,yyyy", Locale.ENGLISH);
+      LocalDate returnDate = LocalDate.parse(dateInString, formatter);
+
+      return returnDate;
+    }
+
     //receives an input string from a pop up dialog box and returns it as an integer
     public static int getIntInput(String prompt){
         int returnInt;
@@ -31,7 +43,7 @@ public class Input {
                 return returnInt;
             } catch (Exception e){
             }
-        } 
+        }
     }
 
     //pop up dialog box with two options, one will return true and the other will return false

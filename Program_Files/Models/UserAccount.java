@@ -1,6 +1,8 @@
 package Models;
 
 import java.util.*;
+
+import Interfaces.AccountType;
 import SystemControllers.PropertyHub;
 
 public class UserAccount extends Account {
@@ -8,17 +10,15 @@ public class UserAccount extends Account {
   private PropertyViewer viewer;
 
   public UserAccount(String email, String username, String password) {
-    super(email,username,password);
+    super(email,username,password,AccountType.User);
     this.ownedProperties = new ArrayList<Property>();
     this.viewer = new PropertyViewer(email);
-    setAccountType(1);
   }
 
-  public UserAccount(String email, String username, String password, int accountID) {
-    super(email,username,password);
-    this.ownedProperties = new ArrayList<Property>();
+  public UserAccount(String email, String username, String password, int accountID, ArrayList<Property> ownedProperties) {
+    super(email,username,password,AccountType.User);
+    this.ownedProperties = ownedProperties;
     this.viewer = new PropertyViewer(email);
-    setAccountType(1);
     setAccountID(accountID);
   }
   
@@ -36,12 +36,17 @@ public class UserAccount extends Account {
   public void updateProperty()
   {
     viewMyProperties();
-    PropertyHub.getInstance().updateProperty(ownedProperties);
+    PropertyHub.getInstance().updatePropertyStatus(ownedProperties);
   }
   
   public void updateFilter()
   {
     viewer.updateFilter();
+  }
+
+  public void updateSubscription()
+  {
+    viewer.updateSubscription();
   }
 
   public void viewMyProperties()
@@ -54,27 +59,6 @@ public class UserAccount extends Account {
     viewer.viewProperties();
   }
   
-  public String getEmail(){ return email; }
-  public String getUsername(){ return username; }
-  public String getPassword(){ return password; }
-  public ArrayList<Property> getProperties(){ return this.ownedProperties; }
-
-  public void setAccountID(int accountID) {
-    this.accountID = accountID;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   public static void main(String[] args)
   {
     UserAccount user = new UserAccount("oo@gmail.com","000","12qwaszx");

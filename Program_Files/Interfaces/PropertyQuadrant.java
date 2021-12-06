@@ -4,5 +4,5 @@ public enum PropertyQuadrant {
     NE, // Northeast
     NW, // Northwest
     SE, // Southeast
-    SW  // Southwest
+    SW; // Southwest
 }

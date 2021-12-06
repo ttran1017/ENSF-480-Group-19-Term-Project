@@ -1,6 +1,7 @@
 package SystemControllers;
 import Models.*;
 import InteractionControllers.*;
+import Interfaces.AccountType;
 
 public class Main {
     private static Account user = null;
@@ -11,11 +12,11 @@ public class Main {
     {
         while(continueProgram)
         {
-            if(user == null)                    // Unregistered User
+            if(user == null)                                        // Unregistered User
                 handleUnregistered();
-            else if(user.getAccountType() == 1)    // Registered User
+            else if(user.getAccountType() == AccountType.User)      // Registered User
                 handleUser();
-            else                                // Manager
+            else if(user.getAccountType() == AccountType.Manager)    // Manager
                 handleManager();
         }
     }
@@ -27,6 +28,7 @@ public class Main {
             "Select From:", 
             new String[]{
                 "View Properties",
+                "Send Email",
                 "Register",
                 "Login",
                 "Exit",
@@ -35,18 +37,22 @@ public class Main {
         switch(option)
         {
             case "View Properties":
-                // TODO
+                PropertyViewer.unregisteredViewProperties();
+                break;
+            case "Send Email":
+                EmailController.sendEmail();
                 break;
             case "Register":
                 AccountHandler.createAccount();
                 break;
             case "Login":
                 user = AccountHandler.login();
-                System.out.println(user);
                 break;
             case "Exit":
                 continueProgram = false;
                 break;
+            default:
+                System.exit(0);
         }
     }
 
@@ -63,11 +69,14 @@ public class Main {
                 "View My Properties",
                 "Register Property",
                 "Post Property",
-                "Update Property"}
+                "Update Property",
+                "Send Email",
+                "Logout"}
             );
         switch(option)
         {
             case "Update Filter":
+                uAccount.updateFilter();
                 break;
             case "Change Subscription":
                 break;
@@ -86,7 +95,14 @@ public class Main {
             case "Update Property":
                 uAccount.updateProperty();
                 break;
-            //TO BE IMPLEMENTED
+            case "Send Email":
+                EmailController.sendEmail();
+                break;
+            case "Logout":
+                user = AccountHandler.logout();
+                break;
+            default:
+                System.exit(0);
         }
 
     }
@@ -103,7 +119,28 @@ public class Main {
                 "View Renter Info",
                 "View Landlord Info",
                 "Generate Summary",
-                "Modify Listing"}
+                "Modify Listing",
+                "Logout"}
             );
+        switch(option)
+        {
+            case "Update Fees":
+                break;
+            case "View Property Info":
+                break;
+            case "View Renter Info":
+                break;
+            case "View Landlord Info":
+                break;
+            case "Generate Summary":
+                break;
+            case "Modify Listing":
+                break;
+            case "Logout":
+                user = AccountHandler.logout();
+                break;
+            default:
+                System.exit(0);
+        }
     }
 }

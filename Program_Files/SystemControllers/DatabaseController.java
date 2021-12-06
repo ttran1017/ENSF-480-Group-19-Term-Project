@@ -12,26 +12,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class DatabaseController {
-
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
-    private HashMap<Integer, Account> accounts;
-    private HashMap<Integer,Property> properties;
 
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
-            accounts= new HashMap<Integer,Account>();
-            properties= new HashMap<Integer,Property>();
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
     }
 
+    public static DatabaseController getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new DatabaseController();
+        }
+        return INSTANCE;
+    }
+
+/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
     public Property getProperty(int property_id) {
         Property selectedProperty=null;
         try{
@@ -84,52 +89,73 @@ public final class DatabaseController {
         }
         return selectedProperty;
     }
+*/
+/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
+    public UserAccount getAccount(int account_id) {
+        UserAccount selectedAccount=null;
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id="+account_id);
+            if (myRs13.next()){
+                selectedAccount.setAccountID(account_id);
+                selectedAccount.setAccountType(myRs13.getInt("account type"));
+                selectedAccount.setEmail(myRs13.getString("email"));
+                selectedAccount.setUsername(myRs13.getString("username"));
+                selectedAccount.setPassword(myRs13.getString("password"));
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return selectedAccount;
+    }
+*/
 
     public ArrayList<Property> getAllProperties(int account_id) {
-        Property selectedProperty=null;
-        ArrayList<Property> userProperties=null;
+        ArrayList<Property> userProperties= new ArrayList<Property>();
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs14 = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where accounts.account_id=\""+account_id+"\"");
             while (myRs14.next()){
+                Property selectedProperty = new Property();
                 selectedProperty.setPropertyId(myRs14.getInt("property_id"));
                 selectedProperty.setOwnerID(account_id);
                 selectedProperty.setOwnerEmail(myRs14.getString("email"));
                 selectedProperty.setPropertyAddress(myRs14.getString("address"));
 
-                if (myRs14.getString("type")=="apartment")
+                if (myRs14.getString("type").equals("apartment"))
                     selectedProperty.setPropertyType(PropertyType.Apartment);
-                else if (myRs14.getString("type")=="attached house")
+                else if (myRs14.getString("type").equals("attached house"))
                     selectedProperty.setPropertyType(PropertyType.AttachedHouse);
-                else if (myRs14.getString("type")=="detached house")
+                else if (myRs14.getString("type").equals("detached house"))
                     selectedProperty.setPropertyType(PropertyType.DetachedHouse);
-                else if (myRs14.getString("type")=="townhouse")
+                else if (myRs14.getString("type").equals("townhouse"))
                     selectedProperty.setPropertyType(PropertyType.Townhouse);
-                else if (myRs14.getString("type")=="condo")
+                else if (myRs14.getString("type").equals("condo"))
                     selectedProperty.setPropertyType(PropertyType.Condo);
 
                 selectedProperty.setNumBedrooms(myRs14.getInt("# of bedrooms"));
                 selectedProperty.setNumBathrooms(myRs14.getInt("# of bathrooms"));
                 selectedProperty.setIsFurnished(myRs14.getBoolean("is furnished"));
 
-                if (myRs14.getString("city quadrant")=="NE")
+                if (myRs14.getString("city quadrant").equals("NE"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
-                else if (myRs14.getString("city quadrant")=="NW")
+                else if (myRs14.getString("city quadrant").equals("NW"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.NW);
-                else if (myRs14.getString("city quadrant")=="SE")
+                else if (myRs14.getString("city quadrant").equals("SE"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
-                else if (myRs14.getString("city quadrant")=="SW")
+                else if (myRs14.getString("city quadrant").equals("SW"))
                     selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
 
                 selectedProperty.setDaysRemaining(myRs14.getInt("days"));
 
-                if (myRs14.getString("status")=="active")
+                if (myRs14.getString("status").equals("active"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Active);
-                else if (myRs14.getString("status")=="rented")
+                else if (myRs14.getString("status").equals("rented"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Rented);
-                else if (myRs14.getString("status")=="suspended")
+                else if (myRs14.getString("status").equals("suspended"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Suspended);
-                else if (myRs14.getString("status")=="cancelled")
+                else if (myRs14.getString("status").equals("cancelled"))
                     selectedProperty.setPropertyStatus(PropertyStatus.Cancelled);
 
                 userProperties.add(selectedProperty);
@@ -159,21 +185,24 @@ public final class DatabaseController {
         }
         return selectedAccount;
     }
+    
+    public HashMap<Integer,Account> getAccountsHashMap() {
+        HashMap<Integer,Account> accounts = new HashMap<Integer,Account>();
 
-    public HashMap<Integer, Account> getAccountsHashMap() {
         try{
             Statement myStmt = database.createStatement();
             ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
             while (myRs10.next()){
                 if (myRs10.getInt("account type")==1){
-                    this.accounts.put(myRs10.getInt("account_id")
+                    accounts.put(myRs10.getInt("account_id")
                             ,new UserAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
                                     , myRs10.getString("password")
-                                    , myRs10.getInt("account_id")));
+                                    , myRs10.getInt("account_id")
+                                    , getAllProperties(myRs10.getInt("account_id"))));
                 }
                 else if (myRs10.getInt("account type")==2){
-                    this.accounts.put(myRs10.getInt("account_id")
+                    accounts.put(myRs10.getInt("account_id")
                             ,new ManagerAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
                                     , myRs10.getString("password")
@@ -187,7 +216,8 @@ public final class DatabaseController {
         return accounts;
     }
 
-    public HashMap<Integer, Property> getPropertiesHashMap() {
+    public HashMap<Integer,Property> getPropertiesHashMap() {
+        HashMap<Integer,Property> properties = new HashMap<Integer,Property>();
         try{
             Statement myStmt = database.createStatement();
             PropertyType type=null;
@@ -196,36 +226,36 @@ public final class DatabaseController {
             ResultSet myRs11 = myStmt.executeQuery
                     ("select * from properties join accounts on properties.account_id = accounts.account_id order by property_id");
             while (myRs11.next()){
-                if (myRs11.getString("type")=="apartment")
+                if (myRs11.getString("type").equals("apartment"))
                     type=PropertyType.Apartment;
-                else if (myRs11.getString("type")=="attached house")
+                else if (myRs11.getString("type").equals("attached house"))
                     type=PropertyType.AttachedHouse;
-                else if (myRs11.getString("type")=="detached house")
+                else if (myRs11.getString("type").equals("detached house"))
                     type=PropertyType.DetachedHouse;
-                else if (myRs11.getString("type")=="townhouse")
+                else if (myRs11.getString("type").equals("townhouse"))
                     type=PropertyType.Townhouse;
-                else if (myRs11.getString("type")=="condo")
+                else if (myRs11.getString("type").equals("condo"))
                     type=PropertyType.Condo;
 
-                if (myRs11.getString("city quadrant")=="NE")
+                if (myRs11.getString("city quadrant").equals("NE"))
                     cityQuadrant=PropertyQuadrant.NE;
-                else if (myRs11.getString("city quadrant")=="NW")
+                else if (myRs11.getString("city quadrant").equals("NW"))
                     cityQuadrant=PropertyQuadrant.NW;
-                else if (myRs11.getString("city quadrant")=="SE")
+                else if (myRs11.getString("city quadrant").equals("SE"))
                     cityQuadrant=PropertyQuadrant.SE;
-                else if (myRs11.getString("city quadrant")=="SW")
+                else if (myRs11.getString("city quadrant").equals("SW"))
                     cityQuadrant=PropertyQuadrant.SW;
 
-                if (myRs11.getString("status")=="active")
+                if (myRs11.getString("status").equals("active"))
                     status=PropertyStatus.Active;
-                else if (myRs11.getString("status")=="rented")
+                else if (myRs11.getString("status").equals("rented"))
                     status=PropertyStatus.Rented;
-                else if (myRs11.getString("status")=="suspended")
+                else if (myRs11.getString("status").equals("suspended"))
                     status=PropertyStatus.Suspended;
-                else if (myRs11.getString("status")=="cancelled")
+                else if (myRs11.getString("status").equals("cancelled"))
                     status=PropertyStatus.Cancelled;
 
-                this.properties.put(myRs11.getInt("property_id")
+                properties.put(myRs11.getInt("property_id")
                         ,new Property(myRs11.getInt("account_id")
                                 ,myRs11.getString("email")
                                 ,type
@@ -243,15 +273,6 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return properties;
-    }
-
-    public static DatabaseController getInstance()
-    {
-        if(INSTANCE == null)
-        {
-            INSTANCE = new DatabaseController();
-        }
-        return INSTANCE;
     }
 
     public int verifyLogin(String username, String password)
@@ -282,10 +303,10 @@ public final class DatabaseController {
                 if (myRs2.getInt("account_id")==-1) {
                     return 0;
                 }
-                else if (myRs2.getString("email")==email) {
+                else if (myRs2.getString("email").equals(email)) {
                     return 1;
                 }
-                 else if (myRs2.getString("username")==username) {
+                 else if (myRs2.getString("username").equals(username)) {
                     return 2;
                 }
             }
@@ -319,6 +340,7 @@ public final class DatabaseController {
         return 0;
     }
 
+
     public void updateListing(Property property)
     {
         try{
@@ -341,9 +363,11 @@ public final class DatabaseController {
         return;
     }
 
+
     public int addProperty(Property property)
     {
-        int property_id=-1;
+        int property_id = -1;
+        int account_id = property.getOwnerID();
         String address = property.getPropertyAddress();
         PropertyType type = property.getPropertyType();
         int numBedrooms = property.getNumBedrooms();
@@ -356,6 +380,7 @@ public final class DatabaseController {
         int isF=(isFurnished) ? 1 : 0;
         try{
             Statement myStmt = database.createStatement();
+
             Statement myStmt2 = database.createStatement();
             ResultSet myRs6 = myStmt.executeQuery("select * from accounts where email=\""+property.getOwnerEmail()+"\"");
             if (myRs6.next())
@@ -374,6 +399,29 @@ public final class DatabaseController {
         }
         return -1;
     }
+
+    public void updateListing(Property property)
+    {
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `Properties` set address ="+property.getPropertyAddress()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `days` ="+property.getDaysRemaining()+" where property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Properties` set `status` ="+property.getPropertyStatus()+" where property_id="+property.getPropertyID());
+
+            ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id="+property.getPropertyID());
+            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getInt("account_id"));
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    }
+
     public int getFee() {
         try {
             Statement myStmt = database.createStatement();
@@ -385,6 +433,7 @@ public final class DatabaseController {
         }
         return -1;
     };
+
     public int getPeriod() {
         try {
             Statement myStmt = database.createStatement();
@@ -419,6 +468,7 @@ public final class DatabaseController {
         }
         return;
     };
+
     public void updatePeriod(int period) {
         try{
             Statement myStmt = database.createStatement();
@@ -429,6 +479,7 @@ public final class DatabaseController {
         }
         return;
     };
+
     public void updateBalance(int deposit) {
         try{
             Statement myStmt = database.createStatement();
