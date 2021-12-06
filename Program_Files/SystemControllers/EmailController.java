@@ -68,6 +68,8 @@ public class EmailController {
 
   public static void setupMeeting() {
 
+    String address = "";
+    LocalDate day = LocalDate.now();
     // Check for valid email
     if(!EmailController.checkFormat(address))
       return;
