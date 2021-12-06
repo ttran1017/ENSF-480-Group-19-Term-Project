@@ -437,10 +437,10 @@ public final class DatabaseController {
     }
 
     public boolean getSubscription(int account_id){
-        boolean sub =true;
+        boolean sub = true;
         try {
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from Subscriptions");
+            ResultSet myRs = myStmt.executeQuery("select * from Subscriptions where account_id=\""+account_id+"\"");
             if(myRs.next())
                 sub= myRs.getBoolean("subscribed");
         }
@@ -450,11 +450,11 @@ public final class DatabaseController {
         return sub;
     }
 
-    public void updateSubscription(boolean sub){
+    public void updateSubscription(int account_id, boolean sub){
         int subbed=(sub) ? 1 : 0;
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Subscriptions` set subscribed =\""+subbed+"\"");
+            myStmt.executeUpdate("update `Subscriptions` set subscribed =\""+subbed+"\" where account_id=\""+account_id+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();

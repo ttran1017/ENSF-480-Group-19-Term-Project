@@ -1,10 +1,13 @@
 package Models;
 
 import Interfaces.Observer;
+import SystemControllers.DatabaseController;
 import SystemControllers.EmailController;
 import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
 import java.util.ArrayList;
+
+import javax.xml.crypto.Data;
 
 import InteractionControllers.Input;
 import InteractionControllers.Output;
@@ -35,9 +38,10 @@ public class PropertyViewer implements Observer {
         subject.addObserver(this);
     }
 
-    public void updateFilter() { 
+    public void updateFilter(int accountID) { 
         filter = FilterBuilder.buildFilter();
         viewableProperties = filter.filterAll(PropertyHub.getPropertyList());
+        DatabaseController.getInstance().updateFilter(accountID, filter);
     }
     public void viewProperties() { Output.displayProperties(viewableProperties); }
     public void updateObserver(Property newProperty)
@@ -50,7 +54,11 @@ public class PropertyViewer implements Observer {
         }
     }
     public void initializeObserver(ArrayList<Property> newProperties) { viewableProperties = filter.filterAll(newProperties); }
-    public void updateSubscription() { subscribed = Input.getBoolInput("Continue Subscribing?"); }
+    public void updateSubscription(int accountID) 
+    { 
+        subscribed = Input.getBoolInput("Continue Subscribing?");
+        DatabaseController.getInstance().updateSubscription(accountID, subscribed);
+    }
 
     // ===============
     // STATIC METHODS
