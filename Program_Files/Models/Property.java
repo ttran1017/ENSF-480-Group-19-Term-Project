@@ -1,3 +1,10 @@
+/**
+ * FileName: Property.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package Models;
 
 import Interfaces.PropertyQuadrant;

@@ -1,6 +1,14 @@
+/**
+ * FileName: FilterBuilder.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 
 import InteractionControllers.Input;
+import InteractionControllers.Output;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyType;
 import Models.*;
@@ -57,8 +65,9 @@ public class FilterBuilder {
         this.maxBathroom = m;
         return this;
     }
-
-    public FilterBuilder setIsFurnished(Boolean m) {
+  
+    public FilterBuilder setIsFurnished(Boolean m) 
+    {
       this.isFurnished = m;
       return this;
     }
@@ -114,6 +123,7 @@ public class FilterBuilder {
             });
         if(furnished != null)
             newFilter.setIsFurnished(furnished.equals("Furnished"));
+        Output.outputMessage("Filter Successfully Updated");
         return newFilter.build();
     }
 

@@ -1,3 +1,10 @@
+/**
+ * FileName: ManagerAccount.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package Models;
 
 import java.time.LocalDate;
@@ -72,17 +79,21 @@ public class ManagerAccount extends Account{
       summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
     }
 
-    public void setListingStatus(ArrayList<Property> properties) {
-      PropertyHub.updateListing(properties);
+    public void modifyListing() {
+      PropertyHub.getInstance().managerUpdatePropertyStatus();
     }
 
+    public void viewPropertyInfo()
+    {
+      PropertyViewer.viewProperties(PropertyHub.getPropertyList());
+    }
 
 
 // *** If this doesn't work, we may have to get User accounts only by SQL
 
     public void viewUserInfo() {
-
-      HashMap<Integer,Account> accounts = database.getAccountsHashMap();
+      Output.displayAccounts(AccountHandler.getAccountList());
+    }
 
       String[][] row_data = new String[accounts.size()][5];
       String[] col_headers = new String[5];

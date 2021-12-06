@@ -1,3 +1,10 @@
+/**
+ * FileName: Filter.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package Models;
 
 import java.util.ArrayList;
@@ -7,7 +14,15 @@ import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
 import Interfaces.PropertyType;
 
+/**
+ * Handles filtering Properties by
+ * checking if the property matches
+ * the filter criteria
+ */
 public class Filter {
+  /**
+   * Filter Fields
+   */
   private PropertyType propertyType;
   private PropertyQuadrant propertyQuad;
   private Integer minBedroom;
@@ -17,6 +32,16 @@ public class Filter {
   private Boolean isFurnished;
   private Period period;
 
+  /**
+   * Filter Constructor
+   * @param propertyType Property Type
+   * @param propertyQuad Property Quadrant
+   * @param minBedroom Minimum number of bedrooms
+   * @param maxBedroom Maximum number of bedrooms
+   * @param minBathroom Minimum number of bathrooms
+   * @param maxBathroom Maximum number of bathrooms
+   * @param isFurnished Whether property is furnished or not
+   */
   public Filter(
     PropertyType propertyType,
     PropertyQuadrant propertyQuad,
@@ -37,6 +62,11 @@ public class Filter {
     this.period = period;
   }
 
+  /**
+   * Filter ArrayList based on filter criteria
+   * @param properties Original array
+   * @return Subset of original array
+   */
   public ArrayList<Property> filterAll(ArrayList<Property> properties)
   {
     return new ArrayList<Property>(
@@ -45,38 +75,27 @@ public class Filter {
       .collect(Collectors.toList()));
   }
 
-  public PropertyType getPropertyType() {
-    return propertyType;
-  }
+  // GETTER METHODS - To be commented
+  public PropertyType getPropertyType() { return propertyType; }
+  public PropertyQuadrant getPropertyQuad() {return propertyQuad; }
+  public Integer getMinBedroom() { return minBedroom; }
+  public Integer getMaxBedroom() { return maxBedroom; }
+  public Integer getMinBathroom() { return minBathroom; }
+  public Integer getMaxBathroom() { return maxBathroom; }
+  public Boolean getFurnished() { return isFurnished; }
 
-  public PropertyQuadrant getPropertyQuad() {
-    return propertyQuad;
-  }
-
-  public Integer getMinBedroom() {
-    return minBedroom;
-  }
-
-  public Integer getMaxBedroom() {
-    return maxBedroom;
-  }
-
-  public Integer getMinBathroom() {
-    return minBathroom;
-  }
-
-  public Integer getMaxBathroom() {
-    return maxBathroom;
-  }
-
-  public Boolean getFurnished() {
-    return isFurnished;
-  }
 
   public Boolean getPeriod() {
     return period;
   }
 
+
+  /**
+   * Checks if individual property matches filter criteria
+   * @param property Property to be checked
+   * @return true if matches criteria, false otherwise
+   */
+  
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)

@@ -1,3 +1,10 @@
+/**
+ * FileName: DatabaseController.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 
 import Interfaces.PropertyType;
@@ -14,7 +21,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
 
     private DatabaseController() {
@@ -145,15 +152,16 @@ public final class DatabaseController {
             while (myRs.next()){
                 if (AccountType.valueOf(myRs.getString("account type")) == AccountType.User)
                 {
-                    accounts.put(myRs.getInt("account_id"),
+                    int id = myRs.getInt("account_id");
+                    accounts.put(id, 
                         new UserAccount(
+                            id,
                             myRs.getString("email"), 
                             myRs.getString("username"), 
-                            myRs.getString("password"), 
-                            myRs.getInt("account_id"), 
-                            getAllProperties(myRs.getInt("account_id")),
-                            new FilterBuilder().build(),
-                            true));
+                            myRs.getString("password"),
+                            getFilter(id),
+                            getSubscription(id))
+                        );
                 }
                 else if (AccountType.valueOf(myRs.getString("account type")) == AccountType.Manager){
                     accounts.put(myRs.getInt("account_id"),
@@ -246,12 +254,18 @@ public final class DatabaseController {
         int id=0;
         try{
             Statement myStmt = database.createStatement();
+            Statement myStmt2 = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
                 if (myRs.next()) {
                     id=myRs.getInt("account_id");
                     if (type==AccountType.User)
-                    myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
+                    {
+                        myStmt.executeUpdate("INSERT INTO `Filters`(account_id) VALUES (\""+myRs.getInt("account_id")+"\")");
+                        ResultSet myRs2 = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
+                        if(myRs2.next())
+                            myStmt2.executeUpdate("INSERT INTO `Subscriptions`(account_id) VALUES (\""+myRs2.getInt("account_id")+"\")");
+                    }
                     return id;
                 }        
         }
@@ -278,7 +292,8 @@ public final class DatabaseController {
             myStmt.executeUpdate("update `Properties` set `status` =\""+property.getPropertyStatus()+"\" where property_id=\""+property.getPropertyID()+"\"");
 
             ResultSet myRs = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id=\""+property.getPropertyID()+"\"");
-            myStmt.executeUpdate("update `Accounts` set `email` =\""+property.getOwnerEmail()+"\" where account_id=\""+myRs.getInt("account_id")+"\"");
+            if(myRs.next())
+                myStmt.executeUpdate("update `Accounts` set `email` =\""+property.getOwnerEmail()+"\" where account_id=\""+myRs.getInt("account_id")+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -323,7 +338,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("fee");
+            if(myRs.next())
+                return myRs.getInt("fee");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -335,7 +351,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("period");
+            if(myRs.next())
+                return myRs.getInt("period");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -347,7 +364,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("balance");
+            if(myRs.next())
+                return myRs.getInt("balance");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -380,7 +398,7 @@ public final class DatabaseController {
     public void updateBalance(int deposit) {
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Financing` set balance =\""+deposit+"\"");
+            myStmt.executeUpdate("update `Financing` set balance = balance +\""+deposit+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -389,42 +407,58 @@ public final class DatabaseController {
     };
 
     public Filter getFilter(int account_id){
-        Filter filter=null;
+        FilterBuilder filter = new FilterBuilder();
         try {
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from Filters");
-                filter =new Filter(
-                    PropertyType.valueOf(myRs.getString("property type"))
-                    ,PropertyQuadrant.valueOf(myRs.getString("property quadrant"))
-                    ,myRs.getInt("minimum bedrooms")
-                    ,myRs.getInt("maximum bedrooms")
-                    ,myRs.getInt("minimum bathrooms")
-                    ,myRs.getInt("maximum bathrooms")
-                    ,myRs.getBoolean("is furnished"));
+            ResultSet myRs = myStmt.executeQuery("select * from Filters where account_id=\""+account_id+"\"");
+            if(myRs.next())
+            {
+                if(!myRs.getString("property type").equals("null"))
+                    filter.setPropertyType(PropertyType.valueOf(myRs.getString("property type")));
+                if(!myRs.getString("property quadrant").equals("null"))
+                    filter.setPropertyQuad(PropertyQuadrant.valueOf(myRs.getString("property quadrant")));
+                if(myRs.getInt("minimum bedrooms") != -1)
+                    filter.setMinBedroom(myRs.getInt("minimum bedrooms"));
+                if(myRs.getInt("maximum bedrooms") != -1)
+                    filter.setMaxBedroom(myRs.getInt("maximum bedrooms"));
+                if(myRs.getInt("minimum bathrooms") != -1)
+                    filter.setMinBathroom(myRs.getInt("minimum bathrooms"));
+                if(myRs.getInt("maximum bathrooms") != -1)
+                    filter.setMaxBathroom(myRs.getInt("maximum bathrooms"));
+                if(myRs.getInt("is furnished") != -1)
+                    filter.setIsFurnished(myRs.getBoolean("is furnished"));
+            }
         }
         catch (Exception exc) {
             exc.printStackTrace();
         }
-        return filter;
+        return filter.build();
     }
 
     public void updateFilter(int account_id, Filter filter){
         try{
             Statement myStmt = database.createStatement();
-            if (filter.getPropertyType()!=null)
-            myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getPropertyQuad()!=null)
-            myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMinBedroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMaxBedroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMinBathroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getMaxBathroom()!=null)
-            myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
-            if (filter.getFurnished()!=null)
-            myStmt.executeUpdate("update `Filters` set `is furnished`=\""+filter.getFurnished()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getPropertyType()==null)
+                myStmt.executeUpdate("update `Filters` set `property type`= 'null' where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `property type`=\""+filter.getPropertyType()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getPropertyQuad()==null)
+                myStmt.executeUpdate("update `Filters` set `property quadrant`= 'null' where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `property quadrant`=\""+filter.getPropertyQuad()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMinBedroom()==null)
+                myStmt.executeUpdate("update `Filters` set `minimum bedrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `minimum bedrooms`=\""+filter.getMinBedroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMaxBedroom()==null)
+                myStmt.executeUpdate("update `Filters` set `maximum bedrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `maximum bedrooms`=\""+filter.getMaxBedroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMinBathroom()==null)
+                myStmt.executeUpdate("update `Filters` set `minimum bathrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `minimum bathrooms`=\""+filter.getMinBathroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getMaxBathroom()==null)
+                myStmt.executeUpdate("update `Filters` set `maximum bathrooms`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `maximum bathrooms`=\""+filter.getMaxBathroom()+"\" where account_id=\""+account_id+"\"");
+            if (filter.getFurnished()==null)
+                myStmt.executeUpdate("update `Filters` set `is furnished`= -1 where account_id=\""+account_id+"\"");
+            else myStmt.executeUpdate("update `Filters` set `is furnished`=\""+(filter.getFurnished()?1:0)+"\" where account_id=\""+account_id+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -433,11 +467,12 @@ public final class DatabaseController {
     }
 
     public boolean getSubscription(int account_id){
-        boolean sub =true;
+        boolean sub = true;
         try {
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from Subscriptions");
-            sub= myRs.getBoolean("subscribed");
+            ResultSet myRs = myStmt.executeQuery("select * from Subscriptions where account_id=\""+account_id+"\"");
+            if(myRs.next())
+                sub= myRs.getBoolean("subscribed");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -445,11 +480,11 @@ public final class DatabaseController {
         return sub;
     }
 
-    public void updateSubscription(boolean sub){
+    public void updateSubscription(int account_id, boolean sub){
         int subbed=(sub) ? 1 : 0;
         try{
             Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Subscriptions` set subscribed =\""+subbed+"\"");
+            myStmt.executeUpdate("update `Subscriptions` set subscribed =\""+subbed+"\" where account_id=\""+account_id+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -461,5 +496,6 @@ public final class DatabaseController {
     public static void main(String[] args)
     {
         DatabaseController database = DatabaseController.getInstance();
+        database.updateBalance(20);
     }
 }

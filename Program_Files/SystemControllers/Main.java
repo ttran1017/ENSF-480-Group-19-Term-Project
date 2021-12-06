@@ -1,3 +1,10 @@
+/**
+ * FileName: Main.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 import Models.*;
 import InteractionControllers.*;
@@ -84,7 +91,7 @@ public class Main {
             case "Change Subscription":
                 uAccount.updateSubscription();
                 break;
-            case "View All Properties":
+            case "View Listed Properties":
                 uAccount.viewAllProperties();
                 break;
             case "View My Properties":
@@ -117,9 +124,9 @@ public class Main {
             "Select From:", 
             new String[]{
                 "Update Fees",
+                "Update Posting Period",
                 "View Property Info",
-                "View Renter Info",
-                "View Landlord Info",
+                "View User Info",
                 "Generate Summary",
                 "Modify Listing",
                 "Logout"}
@@ -129,16 +136,19 @@ public class Main {
         switch(option)
         {
             case "Update Fees":
+                mAccount.updateFees();
                 break;
             case "View Property Info":
+                mAccount.viewPropertyInfo();
                 break;
-            case "View Renter Info":
+            case "Update Posting Period":
                 break;
-            case "View Landlord Info":
+            case "View User Info":
                 break;
             case "Generate Summary":
                 break;
             case "Modify Listing":
+                mAccount.modifyListing();
                 break;
             case "Logout":
                 user = AccountHandler.logout();
