@@ -35,7 +35,10 @@ public class PropertyViewer implements Observer {
         subject.addObserver(this);
     }
 
-    public void updateFilter() { filter = FilterBuilder.buildFilter(); }
+    public void updateFilter() { 
+        filter = FilterBuilder.buildFilter();
+        viewableProperties = filter.filterAll(PropertyHub.getPropertyList());
+    }
     public void viewProperties() { Output.displayProperties(viewableProperties); }
     public void updateObserver(Property newProperty)
     {
