@@ -43,6 +43,10 @@ public class Output {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    public static void displayStringArray(String[][] row_data, String [] col_headers){
+      JTable table = new JTable(row_data, col_headers);
+      JOptionPane.showMessageDialog(null, new JScrollPane(table));
+    }
     // Display Hashmap - could be overloaded
     public static void displayAccounts(ArrayList<Account> accounts){
     }

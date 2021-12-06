@@ -30,6 +30,7 @@ public class Filter {
   private Integer minBathroom;
   private Integer maxBathroom;
   private Boolean isFurnished;
+  private Period period;
 
   /**
    * Filter Constructor
@@ -42,13 +43,14 @@ public class Filter {
    * @param isFurnished Whether property is furnished or not
    */
   public Filter(
-    PropertyType propertyType, 
-    PropertyQuadrant propertyQuad, 
-    Integer minBedroom, 
-    Integer maxBedroom, 
-    Integer minBathroom, 
-    Integer maxBathroom, 
-    Boolean isFurnished ) 
+    PropertyType propertyType,
+    PropertyQuadrant propertyQuad,
+    Integer minBedroom,
+    Integer maxBedroom,
+    Integer minBathroom,
+    Integer maxBathroom,
+    Boolean isFurnished,
+    Period period )
   {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
@@ -57,6 +59,7 @@ public class Filter {
     this.minBathroom = minBathroom;
     this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
+    this.period = period;
   }
 
   /**
@@ -81,11 +84,18 @@ public class Filter {
   public Integer getMaxBathroom() { return maxBathroom; }
   public Boolean getFurnished() { return isFurnished; }
 
+
+  public Boolean getPeriod() {
+    return period;
+  }
+
+
   /**
    * Checks if individual property matches filter criteria
    * @param property Property to be checked
    * @return true if matches criteria, false otherwise
    */
+  
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)

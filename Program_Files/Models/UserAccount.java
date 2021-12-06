@@ -27,6 +27,7 @@ public class UserAccount extends Account {
   private ArrayList<Property> ownedProperties;
   private PropertyViewer viewer;
 
+
   /**
    * UserAccount Constructor for new Account
    * @param email User's email
@@ -59,9 +60,7 @@ public class UserAccount extends Account {
     setAccountID(accountID);
     this.viewer = new PropertyViewer(email, filter, sub);
   }
-  /**
-   * Register a new property
-   */
+
   public void registerProperty()
   {
     Property property = PropertyHub.getInstance().createProperty(this);
