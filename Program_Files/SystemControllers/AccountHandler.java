@@ -75,10 +75,7 @@ public final class AccountHandler {
         }
         returnAccount = accountList.get(accountID);
         if(returnAccount.getAccountType() == AccountType.User)
-        {
-            UserAccount temp = (UserAccount) returnAccount;
-            temp.setOwnedProperties(database.getAllProperties(accountID));
-        }
+            ((UserAccount) returnAccount).setOwnedProperties(database.getAllProperties(accountID));
         Output.outputMessage("Login Successful");
         return accountList.get(accountID);
     }
