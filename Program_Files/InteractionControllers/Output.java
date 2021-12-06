@@ -1,13 +1,9 @@
 package InteractionControllers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import Models.Account;
 import Models.Property;
-import Models.UserAccount;
-import SystemControllers.DatabaseController;
 
 import java.awt.Color;
 import java.awt.Dimension;
