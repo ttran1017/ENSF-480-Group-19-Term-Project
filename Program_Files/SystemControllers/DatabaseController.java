@@ -16,7 +16,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "12qwaszx";
+    private static final String PASSWORD = "09125132465";
     private Connection database;
 
     private DatabaseController() {
@@ -175,7 +175,7 @@ public final class DatabaseController {
             Statement myStmt = database.createStatement();
             ResultSet myRs10 = myStmt.executeQuery("select * from accounts");
             while (myRs10.next()){
-                if (myRs10.getInt("account type")==1){
+                if (myRs10.getString("account type")=="User"){
                     accounts.put(myRs10.getInt("account_id")
                             ,new UserAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
@@ -183,7 +183,7 @@ public final class DatabaseController {
                                     , myRs10.getInt("account_id")
                                     , getAllProperties(myRs10.getInt("account_id"))));
                 }
-                else if (myRs10.getInt("account type")==2){
+                else if (myRs10.getString("account type")=="Manager"){
                     accounts.put(myRs10.getInt("account_id")
                             ,new ManagerAccount(myRs10.getString("email")
                                     , myRs10.getString("username")
