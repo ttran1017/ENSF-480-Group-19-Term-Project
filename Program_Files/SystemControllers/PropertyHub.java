@@ -103,10 +103,10 @@ public final class PropertyHub implements Subject {
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
                     propertyList.put(selectedID,properties.get(i)); // Updates property hub
                     database.updateListing(properties.get(i));      // Updates database
-                    notifyAllObservers(properties.get(i));          // Updates observers
                     break;
                 }
             }
+            notifyAllObservers(getPropertyList());                  // Updates observers
         }
         else
         {
@@ -129,12 +129,12 @@ public final class PropertyHub implements Subject {
             if(properties.get(i).getPropertyID() == selectedID)
             {
                 properties.get(i).setPropertyStatus(selectedStatus);
-                propertyList.put(selectedID,properties.get(i)); // Updates property hub
-                database.updateListing(properties.get(i));      // Updates database
-                notifyAllObservers(properties.get(i));          // Updates observers
+                propertyList.replace(selectedID,properties.get(i)); // Updates property hub
+                database.updateListing(properties.get(i));          // Updates database
                 break;
             }
         }
+        notifyAllObservers(getPropertyList());                      // Updates observers
     }
 
     public void addObserver(Observer o) 
@@ -145,10 +145,10 @@ public final class PropertyHub implements Subject {
 
     public void removeObserver(Observer o) { observers.remove(o); }
 
-    public void notifyAllObservers(Property property) 
+    public void notifyAllObservers(ArrayList<Property> properties) 
     {
         for(Observer o : observers)
-            o.updateObserver(property);
+            o.updateObserver(properties);
     }
 
     public static void main(String[] args)

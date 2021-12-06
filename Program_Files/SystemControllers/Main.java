@@ -132,6 +132,7 @@ public class Main {
                 mAccount.updateFees();
                 break;
             case "View Property Info":
+                mAccount.viewPropertyInfo();
                 break;
             case "Update Posting Period":
                 break;
