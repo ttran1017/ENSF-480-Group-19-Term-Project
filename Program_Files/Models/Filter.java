@@ -12,13 +12,25 @@ public class Filter {
   private PropertyQuadrant propertyQuad;
   private Integer minBedroom;
   private Integer maxBedroom;
+  private Integer minBathroom;
+  private Integer maxBathroom;
   private Boolean isFurnished;
 
-  public Filter(PropertyType propertyType, PropertyQuadrant propertyQuad, Integer minBedroom, Integer maxBedroom, Boolean isFurnished) {
+  public Filter(
+    PropertyType propertyType, 
+    PropertyQuadrant propertyQuad, 
+    Integer minBedroom, 
+    Integer maxBedroom, 
+    Integer minBathroom, 
+    Integer maxBathroom, 
+    Boolean isFurnished ) 
+  {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
     this.minBedroom = minBedroom;
     this.maxBedroom = maxBedroom;
+    this.minBathroom = minBathroom;
+    this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
   }
 
@@ -41,6 +53,10 @@ public class Filter {
     else if(minBedroom != null && property.getNumBedrooms() < minBedroom)
       return false;
     else if(maxBedroom != null && property.getNumBedrooms() > maxBedroom)
+      return false;
+    else if(minBathroom != null && property.getNumBathrooms() < minBathroom)
+      return false;
+    else if(maxBathroom != null && property.getNumBathrooms() > maxBathroom)
       return false;
     else if(isFurnished != null && property.getIsFurnished() != isFurnished)
       return false;
