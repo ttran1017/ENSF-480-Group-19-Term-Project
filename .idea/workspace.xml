@@ -7,10 +7,6 @@
     <list default="true" id="a2e60938-9aab-4dc2-b99d-dec9d6cf5d3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/create-database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/create-database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/PropertyViewer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/PropertyViewer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/UserAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/UserAccount.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/AccountHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/AccountHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
