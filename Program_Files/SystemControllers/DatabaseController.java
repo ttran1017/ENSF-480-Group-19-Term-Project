@@ -284,7 +284,8 @@ public final class DatabaseController {
             myStmt.executeUpdate("update `Properties` set `status` =\""+property.getPropertyStatus()+"\" where property_id=\""+property.getPropertyID()+"\"");
 
             ResultSet myRs = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id=\""+property.getPropertyID()+"\"");
-            myStmt.executeUpdate("update `Accounts` set `email` =\""+property.getOwnerEmail()+"\" where account_id=\""+myRs.getInt("account_id")+"\"");
+            if(myRs.next())
+                myStmt.executeUpdate("update `Accounts` set `email` =\""+property.getOwnerEmail()+"\" where account_id=\""+myRs.getInt("account_id")+"\"");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -401,18 +402,23 @@ public final class DatabaseController {
         FilterBuilder filter = new FilterBuilder();
         try {
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from Filters");
+            ResultSet myRs = myStmt.executeQuery("select * from Filters where account_id=\""+account_id+"\"");
             if(myRs.next())
             {
-                if(myRs.getString("property type") != null)
+                if(!myRs.getString("property type").equals("null"))
                     filter.setPropertyType(PropertyType.valueOf(myRs.getString("property type")));
-                if(myRs.getString("property quadrant") != null)
+                if(!myRs.getString("property quadrant").equals("null"))
                     filter.setPropertyQuad(PropertyQuadrant.valueOf(myRs.getString("property quadrant")));
-                filter.setMinBedroom(myRs.getInt("minimum bedrooms"));
-                filter.setMaxBedroom(myRs.getInt("maximum bedrooms"));
-                filter.setMinBathroom(myRs.getInt("minimum bathrooms"));
-                filter.setMaxBathroom(myRs.getInt("maximum bathrooms"));
-                filter.setIsFurnished(myRs.getBoolean("is furnished")); 
+                if(myRs.getInt("minimum bedrooms") != -1)
+                    filter.setMinBedroom(myRs.getInt("minimum bedrooms"));
+                if(myRs.getInt("maximum bedrooms") != -1)
+                    filter.setMaxBedroom(myRs.getInt("maximum bedrooms"));
+                if(myRs.getInt("minimum bathrooms") != -1)
+                    filter.setMinBathroom(myRs.getInt("minimum bathrooms"));
+                if(myRs.getInt("maximum bathrooms") != -1)
+                    filter.setMaxBathroom(myRs.getInt("maximum bathrooms"));
+                if(myRs.getInt("is furnished") != -1)
+                    filter.setIsFurnished(myRs.getBoolean("is furnished"));
             }
         }
         catch (Exception exc) {
