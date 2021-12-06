@@ -20,11 +20,10 @@ public class EmailController {
    prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
   }
 
-  public static void sendEmail() {
+  public static void sendEmail(String userEmail, String ownerEmail, int propertyID) {
 
-    String address = Input.getStringInput("Enter an email:");
     
-    if(!EmailController.checkFormat(address))
+    if(!EmailController.checkFormat(userEmail))
       return;
 
      // Create Session
@@ -44,7 +43,7 @@ public class EmailController {
        Message message = new MimeMessage(session);
        message.setFrom(new InternetAddress("EMAILCONTROLLER@ENSF.com"));
        message.setRecipients(
-               Message.RecipientType.TO, InternetAddress.parse(address));
+               Message.RecipientType.TO, InternetAddress.parse(userEmail));
        message.setSubject(subject);
   
        // Add MimeBodyPart

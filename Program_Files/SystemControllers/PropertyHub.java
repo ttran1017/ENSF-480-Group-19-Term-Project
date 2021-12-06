@@ -32,6 +32,17 @@ public final class PropertyHub implements Subject {
 
     public static ArrayList<Property> getPropertyList() { return new ArrayList<Property>(getInstance().propertyList.values()); }
     
+    public Property selectProperty()
+    {
+        Integer propertyID = (Integer)Input.getDropdownInput("Property Select", "Select a Property", propertyList.keySet().toArray());
+        if(propertyID == null)
+        {
+            Output.outputMessage("Failed to Select Property");
+            return null;
+        }
+        return propertyList.get(propertyID);
+    }
+
     public Property createProperty(Account ownerAccount) 
     {
         PropertyType type = (PropertyType)Input.getDropdownInput(
@@ -137,10 +148,6 @@ public final class PropertyHub implements Subject {
 
     public static void main(String[] args)
     {
-        ArrayList<Property> props = new ArrayList<Property>();
-        props.add(new Property());
-        props.add(new Property());
-        props.add(new Property());
-        getInstance().postProperty(props);
+        PropertyHub.getInstance().updatePropertyStatus(PropertyHub.getPropertyList());
     }
 }

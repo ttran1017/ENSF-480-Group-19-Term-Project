@@ -40,7 +40,8 @@ public class Main {
                 PropertyViewer.unregisteredViewProperties();
                 break;
             case "Send Email":
-                EmailController.sendEmail();
+                Property temp = PropertyHub.getInstance().selectProperty();
+                EmailController.sendEmail("UNREGISTERED", temp.getOwnerEmail(), temp.getPropertyID());
                 break;
             case "Register":
                 AccountHandler.createAccount();
@@ -97,7 +98,7 @@ public class Main {
                 uAccount.updateProperty();
                 break;
             case "Send Email":
-                EmailController.sendEmail();
+                uAccount.sendEmail();
                 break;
             case "Logout":
                 user = AccountHandler.logout();
