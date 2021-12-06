@@ -22,6 +22,7 @@ public class EmailController {
    prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
   }
 
+
   public static void sendEmail(String userEmail, String ownerEmail, int PropertyID) {
 
     if(userEmail == "UNREGISTERED"){
@@ -55,7 +56,8 @@ public class EmailController {
        Message message = new MimeMessage(session);
        message.setFrom(new InternetAddress(userEmail));
        message.setRecipients(
-               Message.RecipientType.TO, InternetAddress.parse(ownerEmail));
+       Message.RecipientType.TO, InternetAddress.parse(ownerEmail));
+
        message.setSubject(subject);
 
        // Add MimeBodyPart

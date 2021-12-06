@@ -2,6 +2,7 @@ package InteractionControllers;
 
 import java.util.ArrayList;
 import Models.Property;
+import SystemControllers.PropertyHub;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -75,7 +76,6 @@ public class Output {
             propDisplay.add(new JLabel("Property ID: "+prop.getPropertyID()));
             propDisplay.add(new JLabel("Property Status: "+prop.getPropertyStatus()));
             propDisplay.add(new JLabel("Days Remaining: "+prop.getDaysRemaining()));
-            propDisplay.add(new JLabel("Owner Email: "+prop.getOwnerEmail()));
             propDisplay.add(new JLabel("Property Type: "+prop.getPropertyType()));
             propDisplay.add(new JLabel("Property Address: "+prop.getPropertyAddress()+" "+prop.getPropertyQuadrant()));
             propDisplay.add(new JLabel("No. Of Bedrooms: "+prop.getNumBedrooms()));
@@ -103,11 +103,6 @@ public class Output {
 
     public static void main(String[] args)
     {
-        ArrayList<Property> props = new ArrayList<Property>();
-        for(int i = 0; i < 50; i++)
-        {
-            props.add(new Property());
-        }
-        displayProperties(props);
+        displayProperties(PropertyHub.getPropertyList());
     }
 }
