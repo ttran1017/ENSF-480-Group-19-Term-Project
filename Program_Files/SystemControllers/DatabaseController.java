@@ -324,7 +324,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("fee");
+            if(myRs.next())
+                return myRs.getInt("fee");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -336,7 +337,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("period");
+            if(myRs.next())
+                return myRs.getInt("period");
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -348,7 +350,8 @@ public final class DatabaseController {
         try {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from Financing");
-            return myRs.getInt("balance");
+            if(myRs.next())
+                return myRs.getInt("balance");
         }
         catch (Exception exc) {
             exc.printStackTrace();
