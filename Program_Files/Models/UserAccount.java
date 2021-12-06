@@ -16,11 +16,18 @@ public class UserAccount extends Account {
     this.viewer = new PropertyViewer(email);
   }
 
-  public UserAccount(String email, String username, String password, int accountID, ArrayList<Property> ownedProperties) 
+  public UserAccount(
+    String email, 
+    String username, 
+    String password, 
+    int accountID, 
+    ArrayList<Property> ownedProperties,
+    Filter filter,
+    boolean subscription) 
   {
     super(email,username,password,AccountType.User);
     this.ownedProperties = ownedProperties;
-    this.viewer = new PropertyViewer(email);
+    this.viewer = new PropertyViewer(email,filter,subscription);
     setAccountID(accountID);
   }
 

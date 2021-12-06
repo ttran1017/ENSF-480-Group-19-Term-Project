@@ -145,7 +145,7 @@ public final class DatabaseController {
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from accounts");
             while (myRs.next()){
-                if (myRs.getString("account type")=="User")
+                if (AccountType.valueOf(myRs.getString("account type")) == AccountType.User)
                 {
                     accounts.put(myRs.getInt("account_id"),
                         new UserAccount(
@@ -153,9 +153,11 @@ public final class DatabaseController {
                             myRs.getString("username"), 
                             myRs.getString("password"), 
                             myRs.getInt("account_id"), 
-                            getAllProperties(myRs.getInt("account_id"))));
+                            getAllProperties(myRs.getInt("account_id")),
+                            new FilterBuilder().build(),
+                            true));
                 }
-                else if (myRs.getString("account type")=="Manager"){
+                else if (AccountType.valueOf(myRs.getString("account type")) == AccountType.Manager){
                     accounts.put(myRs.getInt("account_id"),
                         new ManagerAccount(
                             myRs.getString("email"), 
@@ -205,8 +207,7 @@ public final class DatabaseController {
 
     public int verifyLogin(String username, String password)
     {
-        try
-        {
+        try{
             Statement myStmt = database.createStatement();
             ResultSet myRs = myStmt.executeQuery("select * from accounts where username=\""+username+"\" and password=\""+password+"\"");
             if (myRs.next())

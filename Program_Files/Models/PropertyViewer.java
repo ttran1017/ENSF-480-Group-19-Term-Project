@@ -26,6 +26,15 @@ public class PropertyViewer implements Observer {
         subject.addObserver(this);
     }
 
+    public PropertyViewer(String ownerEmail, Filter filter, boolean subscribed) 
+    {
+        this.ownerEmail = ownerEmail;
+        this.subscribed = subscribed;
+        this.filter = filter;
+        this.subject = PropertyHub.getInstance();
+        subject.addObserver(this);
+    }
+
     public void updateFilter() { filter = FilterBuilder.buildFilter(); }
     public void viewProperties() { Output.displayProperties(viewableProperties); }
     public void updateObserver(Property newProperty)
