@@ -1,6 +1,7 @@
 package SystemControllers;
 
 import Interfaces.PropertyType;
+import Interfaces.AccountType;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
 import Models.Account;
@@ -166,25 +167,6 @@ public final class DatabaseController {
         }
         return userProperties;
     }
-
-    public UserAccount getAccount(int account_id) {
-        UserAccount selectedAccount=null;
-        try{
-            Statement myStmt = database.createStatement();
-            ResultSet myRs13 = myStmt.executeQuery("select * from accounts where account_id=\""+account_id+"\"");
-            if (myRs13.next()){
-                selectedAccount.setAccountID(account_id);
-                selectedAccount.setAccountType(myRs13.getInt("account type"));
-                selectedAccount.setEmail(myRs13.getString("email"));
-                selectedAccount.setUsername(myRs13.getString("username"));
-                selectedAccount.setPassword(myRs13.getString("password"));
-            }
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return selectedAccount;
-    }
     
     public HashMap<Integer,Account> getAccountsHashMap() {
         HashMap<Integer,Account> accounts = new HashMap<Integer,Account>();
@@ -325,7 +307,7 @@ public final class DatabaseController {
         String email = account.getEmail();
         String username = account.getUsername();
         String password = account.getPassword();
-        int type=account.getAccountType();
+        AccountType type=account.getAccountType();
         try{
             Statement myStmt = database.createStatement();
             myStmt.executeUpdate("INSERT INTO `Accounts`(`account type`,email,username,password) VALUES (\""+type+"\",\""+email+"\",\""+username+"\",\""+password+"\")");
@@ -376,7 +358,6 @@ public final class DatabaseController {
         PropertyQuadrant cityQuadrant = property.getPropertyQuadrant();
         int days = property.getDaysRemaining();
         PropertyStatus status = property.getPropertyStatus();
-        int account_id=0;
         int isF=(isFurnished) ? 1 : 0;
         try{
             Statement myStmt = database.createStatement();
@@ -398,28 +379,6 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return -1;
-    }
-
-    public void updateListing(Property property)
-    {
-        try{
-            Statement myStmt = database.createStatement();
-            myStmt.executeUpdate("update `Properties` set address ="+property.getPropertyAddress()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set type ="+property.getPropertyType()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `# of bedrooms` ="+property.getNumBedrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `# of bathrooms` ="+property.getNumBathrooms()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `city quadrant` ="+property.getPropertyQuadrant()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `is furnished` ="+property.getIsFurnished()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `days` ="+property.getDaysRemaining()+" where property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Properties` set `status` ="+property.getPropertyStatus()+" where property_id="+property.getPropertyID());
-
-            ResultSet myRs4 = myStmt.executeQuery("select * from Properties join Accounts on Properties.account_id = Accounts.account_id where properties.property_id="+property.getPropertyID());
-            myStmt.executeUpdate("update `Accounts` set `email` ="+property.getOwnerEmail()+" where account_id="+myRs4.getInt("account_id"));
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return;
     }
 
     public int getFee() {
