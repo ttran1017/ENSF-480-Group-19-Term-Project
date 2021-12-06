@@ -15,15 +15,17 @@ public class Filter {
   private Integer minBathroom;
   private Integer maxBathroom;
   private Boolean isFurnished;
+  private Period period;
 
   public Filter(
-    PropertyType propertyType, 
-    PropertyQuadrant propertyQuad, 
-    Integer minBedroom, 
-    Integer maxBedroom, 
-    Integer minBathroom, 
-    Integer maxBathroom, 
-    Boolean isFurnished ) 
+    PropertyType propertyType,
+    PropertyQuadrant propertyQuad,
+    Integer minBedroom,
+    Integer maxBedroom,
+    Integer minBathroom,
+    Integer maxBathroom,
+    Boolean isFurnished,
+    Period period )
   {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
@@ -32,6 +34,7 @@ public class Filter {
     this.minBathroom = minBathroom;
     this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
+    this.period = period;
   }
 
   public ArrayList<Property> filterAll(ArrayList<Property> properties)
@@ -68,6 +71,10 @@ public class Filter {
 
   public Boolean getFurnished() {
     return isFurnished;
+  }
+
+  public Boolean getPeriod() {
+    return period;
   }
 
   public boolean checkPass(Property property)

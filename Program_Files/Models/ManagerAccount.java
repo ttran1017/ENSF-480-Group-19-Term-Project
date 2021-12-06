@@ -11,6 +11,7 @@ public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
     private Period summaryPeriod;
+    private FilterBuilder filter;
 
     public ManagerAccount(String email, String username, String password) {
       super(email,username,password,AccountType.Manager);
@@ -34,14 +35,33 @@ public class ManagerAccount extends Account{
       FeeController.setFee(newFee);
     }
 
+    public void updateFilterPeriod(){
+      // Set period
+      Input.getDateInput("When does the filter period start?");
+      Input.getDateInput("When does the filter period end?");
+
+      filter.updatePeriod(Period.between(summaryInitDate, nextSummaryDate));
+
+      this.filter.setPeriod();
+    }
+
 
     public void generateSummary() {
 
-      // Requires a filter
+      
 
-//       Total number of houses listed in the period. Notice that some houses that are listed may not be active
-// anymore. It means some houses their posting period can be expired or landlords have cancelled their
-// posting, therefore the renters cannot view them anymore.
+
+
+
+//       Total number of houses listed in the period.
+
+// o Total number of houses rented in the period
+// o Total number of active listing.
+// o List of houses rented in the period. Which displays, the landlord’s name, the house’s id number,
+// followed by its address.
+
+
+
 
     }
 
@@ -57,11 +77,40 @@ public class ManagerAccount extends Account{
     }
 
 
-    public void viewUserInfo() {
-      HashMap<Integer,Account> accounts = database.getAccountsHashMap();
-      Output.displayHashMap(accounts);
-    }
 
-    public void sendEmail() {
+// *** If this doesn't work, we may have to get User accounts only by SQL
+
+    public void viewUserInfo() {
+
+      HashMap<Integer,Account> accounts = database.getAccountsHashMap();
+
+      String[][] row_data = new String[accounts.size()][5];
+      String[] col_headers = new String[5];
+
+      col_headers = {"Account ID", "Account Type", "Email", "Username", "Owned Properties"};
+
+      // Get all Values - Integer should be hidden from user
+      Property[] accountArray = accounts.values().toArray();
+
+      // Place into rows
+      for(int q = 0; q < accountArray.size(); q++){
+
+        row_data[q][0] = String.valueOf(accountArray[q].getAccountID());
+        row_data[q][1] = String.valueOf(accountArray[q].getAccountType());
+        row_data[q][2] = accountArray[q].getEmail();
+        row_data[q][3] = accountArray[q].getUsername();
+
+        if(row_data[q][1].equals("User")){
+          ArrayList<Property> owned = accountArray[q].getOwnedProperties();
+          ArrayList<int> propertyIDs = owned.stream().map(o -> o.getPropertyID()).collect(Collectors.toArrayList());
+          String stringOwned = propertyIDs.stream().map(Object::toString).collect(Collectors.joining(", "));
+          row_data[q][4] = stringOwned;
+        }
+        else{
+          row_data[q][4] = " ";
+        }
+      }
+
+      Output.displayStringArray(row_data, col_headers);
     }
 }

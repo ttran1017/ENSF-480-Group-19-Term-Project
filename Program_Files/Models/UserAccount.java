@@ -10,7 +10,7 @@ public class UserAccount extends Account {
   private ArrayList<Property> ownedProperties;
   private PropertyViewer viewer;
 
-  public UserAccount(String email, String username, String password) 
+  public UserAccount(String email, String username, String password)
   {
     super(email,username,password,AccountType.User);
     this.ownedProperties = new ArrayList<Property>();
@@ -18,18 +18,22 @@ public class UserAccount extends Account {
   }
 
   public UserAccount(
-    String email, 
-    String username, 
-    String password, 
-    int accountID, 
+    String email,
+    String username,
+    String password,
+    int accountID,
     ArrayList<Property> ownedProperties,
     Filter filter,
-    boolean subscription) 
+    boolean subscription)
   {
     super(email,username,password,AccountType.User);
     this.ownedProperties = ownedProperties;
     this.viewer = new PropertyViewer(email,filter,subscription);
     setAccountID(accountID);
+  }
+
+  public ArrayList<Property> getOwnedProperties(){
+    return this.ownedProperties;
   }
 
   public void registerProperty()

@@ -28,38 +28,8 @@ public class Output {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    // Display Hashmap - could be overloaded
-    public static void displayAccountHashMap(HashMap<Integer,Account> map){
-      String[][] rows = new String[map.size()][5];
-      String[] cols = new String[5];
-
-      int it = 0;
-
-      for (Integer i : map.keySet()) {
-        rows[it][0] = i.toString();
-        it++;
-      }
-
-      it=0;
-
-      for(Account j : map.values()){
-        rows[it][1] = j.email;
-        rows[it][2] = j.username;
-        rows[it][3] = j.accountID;
-
-        ArrayList<String> owned = new ArrayList<String>;
-
-        for(int q = 0; q < j.ownedProperties.size(); q++){
-          owned.add(j.ownedProperties[q]);
-        }
-
-        String ownedString = owned.stream().collect(Collectors.joining(", "));
-
-        rows[it][4] = ownedString;
-        it++;
-      }
-
-      JTable table = new JTable(rows, cols);
+    public static void displayStringArray(String[][] row_data, String [] col_headers){
+      JTable table = new JTable(row_data, col_headers);
       JOptionPane.showMessageDialog(null, new JScrollPane(table));
     }
 
