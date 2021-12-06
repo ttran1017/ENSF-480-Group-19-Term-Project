@@ -84,7 +84,7 @@ public class Main {
             case "Change Subscription":
                 uAccount.updateSubscription();
                 break;
-            case "View All Properties":
+            case "View Listed Properties":
                 uAccount.viewAllProperties();
                 break;
             case "View My Properties":
