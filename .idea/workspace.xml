@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2e60938-9aab-4dc2-b99d-dec9d6cf5d3a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_23.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_23.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/create-database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/create-database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Input.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Filter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Filter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/ManagerAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/ManagerAccount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Property.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/Property.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/PropertyViewer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/PropertyViewer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/UserAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Models/UserAccount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/AccountHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/AccountHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/EmailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/EmailController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FeeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FilterBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/FilterBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/PropertyHub.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/PropertyHub.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,11 +43,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Program_Files" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Program_Files/lib/mail-1.4.7.jar" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
