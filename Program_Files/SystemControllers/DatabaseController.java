@@ -4,10 +4,8 @@ import Interfaces.PropertyType;
 import Interfaces.AccountType;
 import Interfaces.PropertyQuadrant;
 import Interfaces.PropertyStatus;
-import Models.Account;
-import Models.ManagerAccount;
-import Models.UserAccount;
-import Models.Property;
+import Models.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +14,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "12qwaszx";
+    private static final String PASSWORD = "09125132465";
     private Connection database;
 
     private DatabaseController() {
@@ -239,7 +237,7 @@ public final class DatabaseController {
         return 0;
     }
 
-    public int addAccount(UserAccount account)
+    public int addAccount(Account account)
     {
         String email = account.getEmail();
         String username = account.getUsername();
@@ -383,6 +381,10 @@ public final class DatabaseController {
         }
         return;
     };
+
+    //public Filter getFilter(int account_id){
+     //   return;
+    //}
 
     public static void main(String[] args)
     {

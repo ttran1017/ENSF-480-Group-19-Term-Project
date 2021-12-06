@@ -45,5 +45,31 @@ CREATE TABLE `Financing` (
 
 INSERT INTO `Financing`VALUES (20,7, 60);
 
+CREATE TABLE `Filters` (
+  `account_id` int(11) NOT NULL,
+  `property type` varchar(50) DEFAULT NULL,
+  `property quadrant` varchar(50) DEFAULT NULL,
+  `minimum bedrooms` int(11) DEFAULT NULL,
+  `maximum bedrooms` int(11) DEFAULT NULL,
+  `minimum bathrooms` int(11) DEFAULT NULL,
+  `maximum bathrooms` int(11) DEFAULT NULL,
+  `is furnished` boolean DEFAULT NULL,
+  KEY `FKK_account_id` (`account_id`),
+  CONSTRAINT `FKK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+INSERT INTO `Filters`VALUES (1,'Apartment','SW',1,5,2,3,True);
+INSERT INTO `Filters`VALUES (2,'Condo','NW',2,4,1,3,False);
+
+CREATE TABLE `Subscriptions` (
+  `account_id` int(11) NOT NULL,
+  `subscribed` boolean NOT NULL,
+  KEY `KF_account_id` (`account_id`),
+  CONSTRAINT `KF_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+INSERT INTO `Subscriptions`VALUES (1,True);
+INSERT INTO `Subscriptions`VALUES (2,False);
+
 
 
