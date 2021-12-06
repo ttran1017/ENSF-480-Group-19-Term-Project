@@ -47,8 +47,8 @@ public class UserAccount extends Account {
     PropertyHub.getInstance().updatePropertyStatus(ownedProperties);
   }
 
-  public void updateFilter() { viewer.updateFilter(); }
-  public void updateSubscription() { viewer.updateSubscription(); }
+  public void updateFilter() { viewer.updateFilter(accountID); }
+  public void updateSubscription() { viewer.updateSubscription(accountID); }
   public void viewMyProperties() { PropertyViewer.viewProperties(ownedProperties); }
   public void viewAllProperties() { viewer.viewProperties(); }
   public ArrayList<Property> getOwnerProperties() { return this.ownedProperties; }
@@ -62,6 +62,5 @@ public class UserAccount extends Account {
   public static void main(String[] args)
   {
     UserAccount user = new UserAccount("oo@gmail.com","000","12qwaszx");
-    user.updateFilter();
   }
 }
