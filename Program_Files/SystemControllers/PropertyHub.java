@@ -191,7 +191,6 @@ public final class PropertyHub implements Subject {
     public void userUpdatePropertyStatus(ArrayList<Property> properties)
     {
         List<Integer> IDs = properties.stream()
-        .filter(prop -> prop.getPropertyStatus() == PropertyStatus.Active)
         .map(prop -> prop.getPropertyID())
         .collect(Collectors.toList());
         if(IDs.size() == 0)
