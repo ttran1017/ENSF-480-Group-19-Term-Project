@@ -74,11 +74,11 @@ public class PropertyViewer implements Observer {
     /**
      * Update PropertyViewer will new property list
      */
-    public void updateObserver(ArrayList<Property> properties)
+    public void updateObserver(ArrayList<Property> properties, int propertyID)
     {
         int oldSize = viewableProperties.size();
         viewableProperties = filter.filterAll(properties);
-        if(viewableProperties.size() > oldSize && subscribed)
+        if(subscribed && viewableProperties.size() > oldSize)
         {
                 System.out.println("Send email");
                 //EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());

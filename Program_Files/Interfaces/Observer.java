@@ -18,7 +18,7 @@ public interface Observer {
      * Updates observer with new Data
      * @param newProperty new Property List
      */
-    public void updateObserver(ArrayList<Property> newProperty);
+    public void updateObserver(ArrayList<Property> newProperty, int propertyID);
 
     /**
      * Called for when initialization is different from update

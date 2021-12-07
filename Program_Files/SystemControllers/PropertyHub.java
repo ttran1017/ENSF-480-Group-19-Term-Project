@@ -146,7 +146,7 @@ public final class PropertyHub implements Subject {
                     break;
                 }
             }
-            notifyAllObservers(getPropertyList());
+            notifyAllObservers(selectedID);
         }
         else
         {
@@ -181,7 +181,7 @@ public final class PropertyHub implements Subject {
             modProperty.setDaysRemaining(0);
         modProperty.setPropertyStatus(selectedStatus);
         database.updateListing(modProperty);     
-        notifyAllObservers(getPropertyList());
+        notifyAllObservers(selectedID);
     }
     
     /**
@@ -222,7 +222,7 @@ public final class PropertyHub implements Subject {
                 break;
             }
         }
-        notifyAllObservers(getPropertyList()); 
+        notifyAllObservers(selectedID);
     }
 
     /**
@@ -242,10 +242,10 @@ public final class PropertyHub implements Subject {
     /**
      * Updates all observers in observer list
      */
-    public void notifyAllObservers(ArrayList<Property> properties) 
+    public void notifyAllObservers(int PropertyID) 
     {
         for(Observer o : observers)
-            o.updateObserver(properties);
+            o.updateObserver(getPropertyList(),PropertyID);
     }
 
     public static void main(String[] args)

@@ -198,5 +198,9 @@ public class EmailController {
       return false;
   }
 
+  public static void main(String[] args)
+  {
+    EmailController.sendNotification("Okay@gmail.com",1);
+  }
 
 }

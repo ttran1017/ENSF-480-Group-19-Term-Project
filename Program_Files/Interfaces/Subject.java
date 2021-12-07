@@ -30,6 +30,6 @@ public interface Subject {
      * Notify all Observers of new data
      * @param properties Property list
      */
-    public void notifyAllObservers(ArrayList<Property> properties);
+    public void notifyAllObservers(int propertyID);
 
 }
