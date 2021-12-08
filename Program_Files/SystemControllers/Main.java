@@ -1,3 +1,10 @@
+/**
+ * FileName: Main.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 import Models.*;
 import InteractionControllers.*;
@@ -141,6 +148,7 @@ public class Main {
             case "Generate Summary":
                 break;
             case "Modify Listing":
+                mAccount.modifyListing();
                 break;
             case "Logout":
                 user = AccountHandler.logout();

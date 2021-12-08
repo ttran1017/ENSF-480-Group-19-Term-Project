@@ -1,3 +1,10 @@
+/**
+ * FileName: PropertyHub.java
+ * Authors: Tyler Tran, Sina Tavakol Moghaddam, Noel Thomas, Tommy Tran
+ * Course: ENSF 480
+ * Professor: M. Moussavi
+ */
+
 package SystemControllers;
 
 import java.util.*;
@@ -7,19 +14,33 @@ import Models.*;
 import Interfaces.*;
 import Interfaces.Observer;
 
+/**
+ * Singleton Subject which maintains all properties
+ * in the system and interfaces with the database
+ */
 public final class PropertyHub implements Subject {
 
+    /**
+     * Class fields
+     */
     private static PropertyHub INSTANCE;
     private static DatabaseController database;
     private HashMap<Integer, Property> propertyList;
     private ArrayList<Observer> observers;
     
+    /**
+     * PropertyHub initialization
+     */
     private PropertyHub() 
     {
         propertyList = database.getPropertiesHashMap();
         observers = new ArrayList<Observer>();
     }
 
+    /**
+     * Get instance method
+     * @return Only instance of PropertyHub
+     */
     public static PropertyHub getInstance()
     {
         if(INSTANCE == null)
@@ -30,8 +51,16 @@ public final class PropertyHub implements Subject {
         return INSTANCE;
     }
 
+    /**
+     * Get all properties in the system
+     * @return All properties in the system
+     */
     public static ArrayList<Property> getPropertyList() { return new ArrayList<Property>(getInstance().propertyList.values()); }
-    
+
+    /**
+     * Select a specific property by ID
+     * @return A specific property
+     */
     public Property selectProperty()
     {
         Integer propertyID = (Integer)Input.getDropdownInput("Property Select", "Select a Property", propertyList.keySet().toArray());
@@ -43,6 +72,11 @@ public final class PropertyHub implements Subject {
         return propertyList.get(propertyID);
     }
 
+    /**
+     * Creates a property in the system and updates database
+     * @param ownerAccount Property Owner
+     * @return Property created
+     */
     public Property createProperty(Account ownerAccount) 
     {
         PropertyType type = (PropertyType)Input.getDropdownInput(
@@ -82,9 +116,16 @@ public final class PropertyHub implements Subject {
         return newProperty;
     }
 
+    /**
+     * Post a newly registered property
+     * @param properties List of properties to post
+     */
     public void postProperty(ArrayList<Property> properties)
     {
-        List<Integer> IDs = properties.stream().filter(prop -> prop.getDaysRemaining() == 0).map(prop -> prop.getPropertyID()).collect(Collectors.toList());
+        List<Integer> IDs = properties.stream()
+        .filter(prop -> prop.getPropertyStatus() == PropertyStatus.Cancelled || prop.getPropertyStatus() == PropertyStatus.Suspended)
+        .map(prop -> prop.getPropertyID())
+        .collect(Collectors.toList());
         if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Post");
@@ -94,65 +135,119 @@ public final class PropertyHub implements Subject {
         if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
         {
             FeeController.charge();
-            // UPDATES THE USER'S INFO
             for(int i = 0; i < properties.size(); i++)
             {
                 if(properties.get(i).getPropertyID() == selectedID)
                 {
                     properties.get(i).setPropertyStatus(PropertyStatus.Active);
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
-                    propertyList.put(selectedID,properties.get(i)); // Updates property hub
-                    database.updateListing(properties.get(i));      // Updates database
+                    propertyList.put(selectedID,properties.get(i));
+                    database.updateListing(properties.get(i));
                     break;
                 }
             }
-            notifyAllObservers(getPropertyList());                  // Updates observers
+            notifyAllObservers(selectedID);
         }
         else
         {
             Output.outputMessage("Transaction cancelled");
         }
     }
-    
-    public void updatePropertyStatus(ArrayList<Property> properties)
+
+    /**
+     * Updates the property status of any property in the system
+     */
+    public void managerUpdatePropertyStatus()
     {
-        List<Integer> IDs = properties.stream().map(prop -> prop.getPropertyID()).collect(Collectors.toList());
+        List<Integer> IDs = getPropertyList().stream().map(prop -> prop.getPropertyID()).collect(Collectors.toList());
         if(IDs.size() == 0)
         {
             Output.outputMessage("No Properties to Update");
             return;
         }
-        int selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
-        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput("Select From the Following Properties", "Property IDs", PropertyStatus.values());
+        Integer selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        if(selectedID == null)
+        {
+            Output.outputMessage("Failed to Select Property");
+            return;
+        }
+        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput(
+            "Select From the Following Properties", 
+            "Property IDs", 
+            PropertyStatus.values()
+        );
+        Property modProperty = propertyList.get(selectedID);
+        if(modProperty.getPropertyStatus() == PropertyStatus.Rented || modProperty.getPropertyStatus() == PropertyStatus.Cancelled)
+            modProperty.setDaysRemaining(0);
+        modProperty.setPropertyStatus(selectedStatus);
+        database.updateListing(modProperty);     
+        notifyAllObservers(selectedID);
+    }
+    
+    /**
+     * Updates any active property user owns
+     * @param properties List of properties user owns
+     */
+    public void userUpdatePropertyStatus(ArrayList<Property> properties)
+    {
+        List<Integer> IDs = properties.stream()
+        .map(prop -> prop.getPropertyID())
+        .collect(Collectors.toList());
+        if(IDs.size() == 0)
+        {
+            Output.outputMessage("No Properties to Update");
+            return;
+        }
+        Integer selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        if(selectedID == null)
+        {
+            Output.outputMessage("Failed to Select Property");
+            return;
+        }
+        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput(
+            "Select From the Following Properties", 
+            "Property IDs", 
+            Arrays.copyOfRange(PropertyStatus.values(), 1, PropertyStatus.values().length)
+        );
         for(int i = 0; i < properties.size(); i++)
         {
             if(properties.get(i).getPropertyID() == selectedID)
             {
                 properties.get(i).setPropertyStatus(selectedStatus);
-                propertyList.replace(selectedID,properties.get(i)); // Updates property hub
-                database.updateListing(properties.get(i));          // Updates database
+                if(properties.get(i).getPropertyStatus() == PropertyStatus.Rented || properties.get(i).getPropertyStatus() == PropertyStatus.Cancelled)
+                    properties.get(i).setDaysRemaining(0);
+                propertyList.replace(selectedID,properties.get(i));
+                database.updateListing(properties.get(i));     
                 break;
             }
         }
-        notifyAllObservers(getPropertyList());                      // Updates observers
+        notifyAllObservers(selectedID);
     }
 
+    /**
+     * Adds an observer and initializes it with data
+     */
     public void addObserver(Observer o) 
     {
         observers.add(o);
         o.initializeObserver(getPropertyList());
     }
 
+    /**
+     * Removes an observer
+     */
     public void removeObserver(Observer o) { observers.remove(o); }
 
-    public void notifyAllObservers(ArrayList<Property> properties) 
+    /**
+     * Updates all observers in observer list
+     */
+    public void notifyAllObservers(int PropertyID) 
     {
         for(Observer o : observers)
-            o.updateObserver(properties);
+            o.updateObserver(getPropertyList(),PropertyID);
     }
 
     public static void main(String[] args)
     {
-        PropertyHub.getInstance().updatePropertyStatus(PropertyHub.getPropertyList());
     }
 }
