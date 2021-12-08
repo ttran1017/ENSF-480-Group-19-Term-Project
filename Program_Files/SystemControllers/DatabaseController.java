@@ -143,7 +143,61 @@ public final class DatabaseController {
         }
         return userProperties;
     }
-    
+
+    public ArrayList<Property> getListedProperties(String start, String end) {
+        ArrayList<Property> periodProperties= new ArrayList<Property>();
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from properties where properties.`date listed`>=\""+start+"\" and properties.`date listed` <=\""+end+"\"");
+            while (myRs.next()){
+                Property selectedProperty = new Property();
+                selectedProperty.setPropertyId(myRs.getInt("property_id"));
+                selectedProperty.setOwnerID(myRs.getInt("account_id"));
+                selectedProperty.setOwnerEmail(myRs.getString("email"));
+                selectedProperty.setPropertyAddress(myRs.getString("address"));
+                selectedProperty.setNumBedrooms(myRs.getInt("# of bedrooms"));
+                selectedProperty.setNumBathrooms(myRs.getInt("# of bathrooms"));
+                selectedProperty.setIsFurnished(myRs.getBoolean("is furnished"));
+                selectedProperty.setDaysRemaining(myRs.getInt("days"));
+                selectedProperty.setPropertyType(PropertyType.valueOf(myRs.getString("type")));
+                selectedProperty.setPropertyQuadrant(PropertyQuadrant.valueOf(myRs.getString("city quadrant")));
+                selectedProperty.setPropertyStatus(PropertyStatus.valueOf(myRs.getString("status")));
+                periodProperties.add(selectedProperty);
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return periodProperties;
+    }
+
+    public ArrayList<Property> getRentedProperties(String start, String end) {
+        ArrayList<Property> periodProperties= new ArrayList<Property>();
+        try{
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from properties where properties.`date rented`>=\""+start+"\" and properties.`date rented` <=\""+end+"\"");
+            while (myRs.next()){
+                Property selectedProperty = new Property();
+                selectedProperty.setPropertyId(myRs.getInt("property_id"));
+                selectedProperty.setOwnerID(myRs.getInt("account_id"));
+                selectedProperty.setOwnerEmail(myRs.getString("email"));
+                selectedProperty.setPropertyAddress(myRs.getString("address"));
+                selectedProperty.setNumBedrooms(myRs.getInt("# of bedrooms"));
+                selectedProperty.setNumBathrooms(myRs.getInt("# of bathrooms"));
+                selectedProperty.setIsFurnished(myRs.getBoolean("is furnished"));
+                selectedProperty.setDaysRemaining(myRs.getInt("days"));
+                selectedProperty.setPropertyType(PropertyType.valueOf(myRs.getString("type")));
+                selectedProperty.setPropertyQuadrant(PropertyQuadrant.valueOf(myRs.getString("city quadrant")));
+                selectedProperty.setPropertyStatus(PropertyStatus.valueOf(myRs.getString("status")));
+                periodProperties.add(selectedProperty);
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return periodProperties;
+    }
+
     public HashMap<Integer,Account> getAccountsHashMap() {
         HashMap<Integer,Account> accounts = new HashMap<Integer,Account>();
         try{
