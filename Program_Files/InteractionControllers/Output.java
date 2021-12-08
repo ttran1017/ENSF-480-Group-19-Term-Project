@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.plaf.DimensionUIResource;
 
 /**
  * Class Responsible for all Outputs
@@ -45,8 +46,10 @@ public class Output {
     }
 
     public static void displayStringArray(String[][] row_data, String [] col_headers){
-      JTable table = new JTable(row_data, col_headers);
-      JOptionPane.showMessageDialog(null, new JScrollPane(table));
+        JTable table = new JTable(row_data, col_headers);
+        JScrollPane pane = new JScrollPane(table);
+        pane.setPreferredSize(new Dimension(800, 300));
+        JOptionPane.showMessageDialog(null, pane);
     }
     // Display Hashmap - could be overloaded
     public static void displayAccounts(ArrayList<Account> accounts){
