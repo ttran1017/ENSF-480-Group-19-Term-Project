@@ -7,7 +7,7 @@
 
 package Models;
 
-import java.time.Period;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -31,7 +31,8 @@ public class Filter {
   private Integer minBathroom;
   private Integer maxBathroom;
   private Boolean isFurnished;
-  private Period period;
+  private LocalDate startDate;
+  private LocalDate endDate;
 
   /**
    * Filter Constructor
@@ -51,7 +52,8 @@ public class Filter {
     Integer minBathroom,
     Integer maxBathroom,
     Boolean isFurnished,
-    Period period )
+    LocalDate startDate,
+    LocalDate endDate )
   {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
@@ -60,7 +62,8 @@ public class Filter {
     this.minBathroom = minBathroom;
     this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
-    this.period = period;
+    this.startDate = startDate;
+    this.endDate = endDate;
   }
 
   /**
@@ -84,12 +87,9 @@ public class Filter {
   public Integer getMinBathroom() { return minBathroom; }
   public Integer getMaxBathroom() { return maxBathroom; }
   public Boolean getFurnished() { return isFurnished; }
-
-
-  public Period getPeriod() 
-  {
-    return period;
-  }
+  // Manager
+  public LocalDate getStartDate() { return startDate;  }
+  public LocalDate getEndDate() { return endDate;  }
 
 
   /**
@@ -97,7 +97,7 @@ public class Filter {
    * @param property Property to be checked
    * @return true if matches criteria, false otherwise
    */
-  
+
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)
