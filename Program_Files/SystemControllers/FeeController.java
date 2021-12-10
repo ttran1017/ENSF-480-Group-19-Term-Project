@@ -26,7 +26,7 @@ public class FeeController {
 
     public static void setPeriod()
     {
-        int newPeriod = Input.getIntInput("Enter new posting period");
+        int newPeriod = Input.getIntInput("Current Posting Period: " + period + " days\nEnter New Posting Period:");
         period = newPeriod;
         database.updatePeriod(newPeriod);
     }

@@ -142,7 +142,7 @@ public class Main {
                 mAccount.viewPropertyInfo();
                 break;
             case "Update Posting Period":
-                mAccount.updateFilterPeriod();
+                mAccount.updateFeePeriod();
                 break;
             case "View User Info":
                 mAccount.viewUserInfo();

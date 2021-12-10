@@ -19,7 +19,6 @@ import InteractionControllers.*;
 public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
-    private Period summaryPeriod;
     private LocalDate startDate = LocalDate.of(1990, 1, 1);
     private LocalDate endDate = LocalDate.of(9999, 1, 1);;
 
@@ -33,7 +32,7 @@ public class ManagerAccount extends Account{
       setAccountID(accountID);
     }
 
-    public void updateFeePeriod(Period feePeriod) {
+    public void updateFeePeriod() {
       FeeController.setPeriod();
     }
 
@@ -51,7 +50,6 @@ public class ManagerAccount extends Account{
 
     public void generateSummary() {
       // Convert filter period to string
-
       ArrayList<Property> rented = database.getRentedProperties(startDate.toString(), endDate.toString());
       ArrayList<Property> listed = database.getListedProperties(startDate.toString(), endDate.toString());
 
@@ -62,47 +60,32 @@ public class ManagerAccount extends Account{
 
       // Get total active listing
       for(Property listing : listed){
-        if(listing.getDaysRemaining() > 0){
+        if(listing.getPropertyStatus() == PropertyStatus.Active){
           totActiveListed++;
         }
       }
 
       // Convert to String array
-      String[][] row_data = new String[totListed + totRented][4];
-      String[] col_headers = new String[]{"Property ID", "Landlord Name", "Address","Type"};
+      String[][] row_data = new String[totListed + totRented][5];
+      String[] col_headers = new String[]{"Property ID", "Landlord Username", "Address","Type","Date"};
 
-      // Get name
-      HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
-      Account[] accountArray =  Arrays.copyOf(accounts.values().toArray(),accounts.size(), Account[].class);
-
-      for(int g = currRow; g < rented.size(); g++, currRow++){
+      for(int g = 0; g < rented.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(rented.get(g).getPropertyID());
-
-        row_data[currRow][1] = AccountHandler.getAccountById(rented.get(g).getOwnerID());
-
+        row_data[currRow][1] = AccountHandler.getAccountByID(rented.get(g).getOwnerID()).getUsername();
         row_data[currRow][2] = rented.get(g).getPropertyAddress();
-
         row_data[currRow][3] = "Rented";
+        row_data[currRow][4] = "dd-mm-yy";
       }
 
       for(int g = 0; g < listed.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(listed.get(g).getPropertyID());
-
-
-        row_data[currRow][1] = AccountHandler.getAccountById(rented.get(g).getOwnerID());
-
+        row_data[currRow][1] = AccountHandler.getAccountByID(listed.get(g).getOwnerID()).getUsername();
         row_data[currRow][2] = listed.get(g).getPropertyAddress();
         row_data[currRow][3] = "Listed";
+        row_data[currRow][4] = "dd-mm-yy";
       }
 
       Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
-    }
-
-    // Initializes periodic summaries
-    public void periodicSummaryInit(){
-      LocalDate summaryInitDate = LocalDate.now();
-      LocalDate nextSummaryDate = Input.getDateInput("When would you like the next report?");
-      summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
     }
 
     public void modifyListing() {

@@ -53,7 +53,8 @@ public class Output {
 
     public static void displaySummary(String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
       JPanel myPanel = new JPanel();
-      // myPanel.setPreferredSize(new Dimension(800, 300));
+      myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+      myPanel.setPreferredSize(new Dimension(800, 300));
 
       JTable table = new JTable(row_data, col_headers);
       JScrollPane pane = new JScrollPane(table);
@@ -65,14 +66,14 @@ public class Output {
       totRented.setText("Total Rented: " + tRented);
 
       JLabel totActiveListed = new JLabel();
-      totRented.setText("Total Active Listings: " + tActiveListed);
+      totActiveListed.setText("Total Active Listings: " + tActiveListed);
 
       myPanel.add(pane);
       myPanel.add(totListed);
       myPanel.add(totRented);
       myPanel.add(totActiveListed);
 
-      JOptionPane.showMessageDialog(null, pane);
+      JOptionPane.showMessageDialog(null, myPanel);
     }
 
 
