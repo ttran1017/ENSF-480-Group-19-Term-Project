@@ -25,6 +25,9 @@ public final class DatabaseController {
     private static String PASSWORD;
     private Connection database;
 
+    /**
+     * DatabaseController default constructor
+     */
     private DatabaseController() {
         try{
             database = DriverManager.getConnection(DBURL,USERNAME,PASSWORD);
@@ -34,6 +37,9 @@ public final class DatabaseController {
         }
     }
 
+    /**
+     * @return DatabaseController instance
+     */
     public static DatabaseController getInstance()
     {
         if(INSTANCE == null)
@@ -43,87 +49,20 @@ public final class DatabaseController {
         return INSTANCE;
     }
 
+    /**
+     * sets SQL username and password
+     */
     public static void initialize(String username, String password)
     {
         USERNAME = username;
         PASSWORD = password;
     }
 
-/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
-    public Property getProperty(int property_id) {
-        Property selectedProperty=null;
-        try{
-            Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where properties.property_id=\""+property_id+"\"");
-            if (myRs.next()){
-                selectedProperty.setPropertyId(property_id);
-                selectedProperty.setOwnerID(myRs.getInt("account_id"));
-                selectedProperty.setOwnerEmail(myRs.getString("email"));
-                selectedProperty.setPropertyAddress(myRs.getString("address"));
-
-                if (myRs.getString("type")=="apartment")
-                    selectedProperty.setPropertyType(PropertyType.Apartment);
-                else if (myRs.getString("type")=="attached house")
-                    selectedProperty.setPropertyType(PropertyType.AttachedHouse);
-                else if (myRs.getString("type")=="detached house")
-                    selectedProperty.setPropertyType(PropertyType.DetachedHouse);
-                else if (myRs.getString("type")=="townhouse")
-                    selectedProperty.setPropertyType(PropertyType.Townhouse);
-                else if (myRs.getString("type")=="condo")
-                    selectedProperty.setPropertyType(PropertyType.Condo);
-
-                selectedProperty.setNumBedrooms(myRs.getInt("# of bedrooms"));
-                selectedProperty.setNumBathrooms(myRs.getInt("# of bathrooms"));
-                selectedProperty.setIsFurnished(myRs.getBoolean("is furnished"));
-
-                if (myRs.getString("city quadrant")=="NE")
-                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NE);
-                else if (myRs.getString("city quadrant")=="NW")
-                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.NW);
-                else if (myRs.getString("city quadrant")=="SE")
-                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SE);
-                else if (myRs.getString("city quadrant")=="SW")
-                    selectedProperty.setPropertyQuadrant(PropertyQuadrant.SW);
-
-                selectedProperty.setDaysRemaining(myRs.getInt("days"));
-
-                if (myRs.getString("status")=="active")
-                    selectedProperty.setPropertyStatus(PropertyStatus.Active);
-                else if (myRs.getString("status")=="rented")
-                    selectedProperty.setPropertyStatus(PropertyStatus.Rented);
-                else if (myRs.getString("status")=="suspended")
-                    selectedProperty.setPropertyStatus(PropertyStatus.Suspended);
-                else if (myRs.getString("status")=="cancelled")
-                    selectedProperty.setPropertyStatus(PropertyStatus.Cancelled);
-            }
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return selectedProperty;
-    }
-*/
-/* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
-    public UserAccount getAccount(int account_id) {
-        UserAccount selectedAccount=null;
-        try{
-            Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from accounts where account_id="+account_id);
-            if (myRs.next()){
-                selectedAccount.setAccountID(account_id);
-                selectedAccount.setAccountType(myRs.getInt("account type"));
-                selectedAccount.setEmail(myRs.getString("email"));
-                selectedAccount.setUsername(myRs.getString("username"));
-                selectedAccount.setPassword(myRs.getString("password"));
-            }
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return selectedAccount;
-    }
-*/
-
+    /**
+     * gets all properties associated with an account_id from SQL database in ArrayList form
+     * @param int account_id - takes in account_id
+     * @return ArrayList<Property>
+     */
     public ArrayList<Property> getAllProperties(int account_id) {
         ArrayList<Property> userProperties= new ArrayList<Property>();
         try{
@@ -151,6 +90,13 @@ public final class DatabaseController {
         return userProperties;
     }
 
+
+    /**
+     * gets all listed properties between start and end date
+     * @param String start - takes in start date
+     * @param String end - takes in end date
+     * @return ArrayList<Property>
+     */
     public ArrayList<Property> getListedProperties(String start, String end) {
         ArrayList<Property> periodProperties= new ArrayList<Property>();
         try{
@@ -178,6 +124,12 @@ public final class DatabaseController {
         return periodProperties;
     }
 
+    /**
+     * gets all rented properties between start and end date
+     * @param String start - takes in start date
+     * @param String end - takes in end date
+     * @return ArrayList<Property>
+     */
     public ArrayList<Property> getRentedProperties(String start, String end) {
         ArrayList<Property> periodProperties= new ArrayList<Property>();
         try{
@@ -205,6 +157,10 @@ public final class DatabaseController {
         return periodProperties;
     }
 
+    /**
+     * gets a hashmap of all accounts with account_id as key
+     * @return HashMap<Integer,Account>
+     */
     public HashMap<Integer,Account> getAccountsHashMap() {
         HashMap<Integer,Account> accounts = new HashMap<Integer,Account>();
         try{
@@ -241,6 +197,10 @@ public final class DatabaseController {
         return accounts;
     }
 
+    /**
+     * gets a hashmap of all properties with account_id as key
+     * @return HashMap<Integer,Property>
+     */
     public HashMap<Integer,Property> getPropertiesHashMap() {
         HashMap<Integer,Property> properties = new HashMap<Integer,Property>();
         try{
@@ -272,6 +232,12 @@ public final class DatabaseController {
         return properties;
     }
 
+    /**
+     * checks if the entered username and password are correct and returns corresponding account_id
+     * @param String username - takes in username
+     * @param String password - takes in password
+     * @return int
+     */
     public int verifyLogin(String username, String password)
     {
         try{
@@ -286,6 +252,13 @@ public final class DatabaseController {
         return -1;
     }
 
+    /**
+     * checks if the entered username and email are already taken or not
+     * return 1 if email exists or 2 if username exists. If non exist, return 0.
+     * @param String email - takes in email
+     * @param String username - takes in username
+     * @return int
+     */
     public int verifyRegistration(String email, String username)
     {
         try
@@ -306,6 +279,12 @@ public final class DatabaseController {
         return 0;
     }
 
+    /**
+     * adds the given account to the SQL database
+     * returns account_id
+     * @param Account account - takes in Account object
+     * @return int
+     */
     public int addAccount(Account account)
     {
         String email = account.getEmail();
@@ -336,7 +315,10 @@ public final class DatabaseController {
         return 0;
     }
 
-
+    /**
+     * updates the given property on the SQL database
+     * @param Property property - takes in Property object
+     */
     public void updateListing(Property property)
     {
         try{
@@ -362,7 +344,12 @@ public final class DatabaseController {
         return;
     }
 
-
+    /**
+     * adds the given property to the SQL database
+     * returns property_id
+     * @param Property property - takes in Property object
+     * @return int
+     */
     public int addProperty(Property property)
     {
         int property_id = -1;
@@ -395,6 +382,10 @@ public final class DatabaseController {
         return -1;
     }
 
+    /**
+     * returns the fee from the SQL database
+     * @return int
+     */
     public int getFee() {
         try {
             Statement myStmt = database.createStatement();
@@ -408,6 +399,10 @@ public final class DatabaseController {
         return -1;
     };
 
+    /**
+     * returns the period from the SQL database
+     * @return int
+     */
     public int getPeriod() {
         try {
             Statement myStmt = database.createStatement();
@@ -421,6 +416,10 @@ public final class DatabaseController {
         return -1;
     };
 
+    /**
+     * returns the balance from the SQL database
+     * @return int
+     */
     public int getBalance() {
         try {
             Statement myStmt = database.createStatement();
@@ -434,6 +433,10 @@ public final class DatabaseController {
         return -1;
     };
 
+    /**
+     * updates the fee on the SQL database
+     * @param int fee - takes in new fee
+     */
     public void updateFee(int fee) {
         try{
             Statement myStmt = database.createStatement();
@@ -445,6 +448,10 @@ public final class DatabaseController {
         return;
     };
 
+    /**
+     * updates the period on the SQL database
+     * @param int period - takes in new period
+     */
     public void updatePeriod(int period) {
         try{
             Statement myStmt = database.createStatement();
@@ -456,6 +463,10 @@ public final class DatabaseController {
         return;
     };
 
+    /**
+     * updates the balance on the SQL database
+     * @param int balance - takes in new balance
+     */
     public void updateBalance(int deposit) {
         try{
             Statement myStmt = database.createStatement();
@@ -467,6 +478,11 @@ public final class DatabaseController {
         return;
     };
 
+    /**
+     * gets all filters of the given account_id from the SQL database
+     * @param int account_id - takes in account_id
+     * @return Filter
+     */
     public Filter getFilter(int account_id){
         FilterBuilder filter = new FilterBuilder();
         try {
@@ -496,6 +512,11 @@ public final class DatabaseController {
         return filter.build();
     }
 
+    /**
+     * updates the filters of the given account_id on the SQL database
+     * @param int account_id - takes in account_id
+     * @param Filter filter - takes in Filter object
+     */
     public void updateFilter(int account_id, Filter filter){
         try{
             Statement myStmt = database.createStatement();
@@ -527,6 +548,12 @@ public final class DatabaseController {
         return;
     }
 
+    /**
+     * gets the subscription of the given account_id from the SQL database
+     * returns true if subscribed, false if not.
+     * @param int account_id - takes in account_id
+     * @return boolean
+     */
     public boolean getSubscription(int account_id){
         boolean sub = true;
         try {
@@ -541,6 +568,11 @@ public final class DatabaseController {
         return sub;
     }
 
+    /**
+     * updates the subscription of the given account_id on the SQL database
+     * @param int account_id - takes in account_id
+     * @param boolean sub - takes in subscription boolean
+     */
     public void updateSubscription(int account_id, boolean sub){
         int subbed=(sub) ? 1 : 0;
         try{
@@ -553,6 +585,11 @@ public final class DatabaseController {
         return;
     }
 
+    /**
+     * updates the "date listed" of the given property_id on the SQL database
+     * @param int property_id - takes in property_id
+     * @param String date - takes in date
+     */
     public void updateDateListed(int property_id, String date){
         try{
             Statement myStmt = database.createStatement();
@@ -564,6 +601,11 @@ public final class DatabaseController {
         return;
     }
 
+    /**
+     * updates the "date rented" of the given property_id on the SQL database
+     * @param int property_id - takes in property_id
+     * @param String date - takes in date       
+     */
     public void updateDateRented(int property_id, String date){
         try{
             Statement myStmt = database.createStatement();
@@ -575,6 +617,11 @@ public final class DatabaseController {
         return;
     }
 
+    /**
+     * gets the "date listed" of the given property_id from the SQL database
+     * @param int property_id - takes in property_id
+     * @return String
+     */
     public String getDateListed(int property_id){
         String date=null;
         try {
@@ -590,6 +637,11 @@ public final class DatabaseController {
     }
 
 
+    /**
+     * gets the "date rented" of the given property_id from the SQL database
+     * @param int property_id - takes in property_id
+     * @return String
+     */
     public String getDateRented(int property_id){
         String date=null;
         try {
