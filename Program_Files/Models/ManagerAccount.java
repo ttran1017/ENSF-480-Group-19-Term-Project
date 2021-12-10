@@ -21,7 +21,7 @@ public class ManagerAccount extends Account{
     private DatabaseController database = DatabaseController.getInstance();
     private Period summaryPeriod;
     private LocalDate startDate = LocalDate.of(1990, 1, 1);
-    private LocalDate endDate = LocalDate.MAX;
+    private LocalDate endDate = LocalDate.of(9999, 1, 1);;
 
 
     public ManagerAccount(String email, String username, String password) {
@@ -70,7 +70,7 @@ public class ManagerAccount extends Account{
 
       // Get name
       HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
-      Account[] accountArray = (Account[])accounts.values().toArray();
+      Account[] accountArray = Arrays.copyOf(accounts.values().toArray(), accounts.size(), Account[].class);
 
       for(int g = 0; g < rented.size(); g++){
         row_data[g][0] = String.valueOf(rented.get(g).getPropertyID());
