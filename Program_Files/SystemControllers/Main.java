@@ -138,15 +138,17 @@ public class Main {
             case "Update Fees":
                 mAccount.updateFees();
                 break;
-            case "View Property Info":
-                mAccount.viewPropertyInfo();
-                break;
             case "Update Posting Period":
                 mAccount.updateFeePeriod();
+                break;
+            case "View Property Info":
+                mAccount.viewPropertyInfo();
                 break;
             case "View User Info":
                 mAccount.viewUserInfo();
                 break;
+            case "Update Summary Period":
+                mAccount.updateSummaryPeriod();
             case "Generate Summary":
                 mAccount.generateSummary();
                 break;

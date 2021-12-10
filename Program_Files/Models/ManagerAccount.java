@@ -41,8 +41,7 @@ public class ManagerAccount extends Account{
       FeeController.setFee();
     }
 
-    public void updateFilterPeriod(){
-      // Set period
+    public void updateSummaryPeriod(){
       startDate = Input.getDateInput("Enter start date");
       endDate = Input.getDateInput("Enter end date");
     }

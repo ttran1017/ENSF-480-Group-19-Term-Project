@@ -253,8 +253,4 @@ public final class PropertyHub implements Subject {
         for(Observer o : observers)
             o.updateObserver(getPropertyList(),PropertyID);
     }
-
-    public static void main(String[] args)
-    {
-    }
 }
