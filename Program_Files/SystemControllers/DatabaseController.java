@@ -546,6 +546,28 @@ public final class DatabaseController {
         return;
     }
 
+    public void updateDateListed(int property_id, String date){
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `properties` set `date listed` =\""+date+"\" where property_id=\""+property_id+"\"");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    }
+
+    public void updateDateRented(int property_id, String date){
+        try{
+            Statement myStmt = database.createStatement();
+            myStmt.executeUpdate("update `properties` set `date rented` =\""+date+"\" where property_id=\""+property_id+"\"");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return;
+    }
+
 
     public static void main(String[] args)
     {
