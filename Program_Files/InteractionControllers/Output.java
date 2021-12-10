@@ -53,7 +53,7 @@ public class Output {
 
     public static void displaySummary(String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
       JPanel myPanel = new JPanel();
-      myPanel.setPreferredSize(new Dimension(800, 300));
+      // myPanel.setPreferredSize(new Dimension(800, 300));
 
       JTable table = new JTable(row_data, col_headers);
       JScrollPane pane = new JScrollPane(table);
