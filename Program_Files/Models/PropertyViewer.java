@@ -80,8 +80,7 @@ public class PropertyViewer implements Observer {
         viewableProperties = filter.filterAll(newProperties); 
         if(subscribed && viewableProperties.size() > oldSize)
         {
-                System.out.println("Send email");
-                //EmailController.sendNotification(ownerEmail, newProperty.getPropertyID());
+            EmailController.getInstance().sendNotification(ownerEmail, propertyID);
         }
     }
 

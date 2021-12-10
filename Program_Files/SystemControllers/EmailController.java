@@ -7,21 +7,22 @@
 
 package SystemControllers;
 import InteractionControllers.*;
+
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.time.LocalDate;
 
 
 public class EmailController {
-  static Properties prop = new Properties();
-  private static String username = "5e0ccfeb8924ab";
-  private static String password = "c7f4caa9e658d9";
+  private static EmailController INSTANCE;
+  private Properties prop = new Properties();
+  private String username = "5e0ccfeb8924ab";
+  private String password = "c7f4caa9e658d9";
+  private String tag = "\n\n\n\n - ENSF Team";
 
-  private static String tag = "\n\n\n\n - ENSF Team";
-
-  public EmailController(){
+  private EmailController(){
    prop.put("mail.smtp.auth", true);
    prop.put("mail.smtp.starttls.enable", "false");
    prop.put("mail.smtp.host", "smtp.mailtrap.io");
@@ -29,19 +30,27 @@ public class EmailController {
    prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
   }
 
+  public static EmailController getInstance()
+  {
+    if(INSTANCE == null)
+    {
+      INSTANCE = new EmailController();
+    }
+    return INSTANCE;
+  }
 
-  public static void sendEmail(String userEmail, String ownerEmail, int propertyID) {
+  public void sendEmail(String userEmail, String ownerEmail, int propertyID) {
 
     if(userEmail == "UNREGISTERED"){
       userEmail = "emailcontroller@ensf.com";
     }
 
-    if(!EmailController.checkFormat(userEmail)){
+    if(!checkFormat(userEmail)){
       Output.outputMessage("Email controller failed - user address incorrectly formatted.");
       return;
     }
 
-    if(!EmailController.checkFormat(ownerEmail)){
+    if(!checkFormat(ownerEmail)){
       Output.outputMessage("Email controller failed - owner address incorrectly formatted.");
       return;
     }
@@ -86,19 +95,19 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
-  public static void setupMeeting(String userEmail, String ownerEmail, int propertyID) {
+  public void setupMeeting(String userEmail, String ownerEmail, int propertyID) {
 
     if(userEmail == "UNREGISTERED"){
       userEmail = "emailcontroller@ensf.com";
     }
 
     // Check for valid email
-    if(!EmailController.checkFormat(userEmail)){
+    if(!checkFormat(userEmail)){
       Output.outputMessage("Email controller failed - user address incorrectly formatted.");
       return;
     }
 
-    if(!EmailController.checkFormat(ownerEmail)){
+    if(!checkFormat(ownerEmail)){
       Output.outputMessage("Email controller failed - owner address incorrectly formatted.");
       return;
     }
@@ -146,9 +155,9 @@ public class EmailController {
   }
 
   // Send to address that a property has been posted with a specified ID
-  public static void sendNotification(String address, int ID)
+  public void sendNotification(String address, int ID)
   {
-    if(!EmailController.checkFormat(address)){
+    if(!checkFormat(address)){
       Output.outputMessage("Email controller failed - address incorrectly formatted.");
       return;
     }
@@ -172,7 +181,7 @@ public class EmailController {
        // Add MimeBodyPart
        MimeBodyPart mimeBodyPart = new MimeBodyPart();
 
-       String msg = "SET UP MEETING\n\n" + "A property has been posted that matches your criteria!"
+       String msg = "A property has been posted that matches your criteria!"
        + "\n\n\nPROPERTY ID: " + String.valueOf(ID) + tag;
 
 
@@ -190,7 +199,7 @@ public class EmailController {
      }
   }
 
-  public static boolean checkFormat(String email)
+  public boolean checkFormat(String email)
   {
       if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
           return true;
@@ -198,9 +207,9 @@ public class EmailController {
       return false;
   }
 
-  public static void main(String[] args)
+  public static void main(String[] args) throws MessagingException
   {
-    EmailController.sendNotification("Okay@gmail.com",1);
+    EmailController.getInstance().sendNotification("ok@s", 1);
   }
 
 }

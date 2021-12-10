@@ -99,7 +99,7 @@ public class ManagerAccount extends Account{
       String col_headers[] = new String[]{"Account ID", "Account Type", "Email", "Username", "Owned Properties"};
 
       // Get all Values - Integer should be hidden from user
-      Account[] accountArray = (Account[])accounts.values().toArray();
+      Account[] accountArray = Arrays.copyOf(accounts.values().toArray(),accounts.size(), Account[].class);
 
       // Place into rows
       for(int q = 0; q < accountArray.length; q++){
@@ -110,7 +110,7 @@ public class ManagerAccount extends Account{
         row_data[q][3] = accountArray[q].getUsername();
 
         if(row_data[q][1].equals("User")){
-          ArrayList<Property> owned = ((UserAccount)accountArray[q]).getOwnedProperties();
+          ArrayList<Property> owned = database.getAllProperties(((UserAccount)accountArray[q]).getAccountID());
           ArrayList<Integer> propertyIDs = new ArrayList<Integer>(owned.stream().map(o -> o.getPropertyID()).collect(Collectors.toList()));
           String stringOwned = propertyIDs.stream().map(Object::toString).collect(Collectors.joining(", "));
           row_data[q][4] = stringOwned;
@@ -121,5 +121,11 @@ public class ManagerAccount extends Account{
       }
 
       Output.displayStringArray(row_data, col_headers);
+    }
+
+    public static void main(String[] args)
+    {
+      ManagerAccount acc = new ManagerAccount("something", "username", "password");
+      acc.viewUserInfo();
     }
 }

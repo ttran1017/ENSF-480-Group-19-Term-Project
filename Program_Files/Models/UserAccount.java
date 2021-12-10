@@ -120,7 +120,7 @@ public class UserAccount extends Account {
   public void sendEmail()
   {
     Property selectedProperty = PropertyHub.getInstance().selectProperty();
-    EmailController.sendEmail(email, selectedProperty.getOwnerEmail(), selectedProperty.getPropertyID());
+    EmailController.getInstance().sendEmail(email, selectedProperty.getOwnerEmail(), selectedProperty.getPropertyID());
     return;
   }
 
