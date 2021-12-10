@@ -568,6 +568,34 @@ public final class DatabaseController {
         return;
     }
 
+    public String getDateListed(int property_id){
+        String date=null;
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from properties where property_id=\""+property_id+"\"");
+            if(myRs.next())
+                date= myRs.getString("date listed");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return date;
+    }
+
+
+    public String getDateRented(int property_id){
+        String date=null;
+        try {
+            Statement myStmt = database.createStatement();
+            ResultSet myRs = myStmt.executeQuery("select * from properties where property_id=\""+property_id+"\"");
+            if(myRs.next())
+                date= myRs.getString("date rented");
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return date;
+    }
 
     public static void main(String[] args)
     {
