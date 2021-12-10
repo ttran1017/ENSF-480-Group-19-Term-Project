@@ -27,7 +27,7 @@ public class Input {
     private static final int FIELD_SIZE = 5;
 
     /**
-     * 
+     *
      * Receives an input from a pop up dialog box and returns it
      * @param prompt Input prompt/question
      * @return String in text field
@@ -37,9 +37,9 @@ public class Input {
         String returnString = JOptionPane.showInputDialog(prompt);
         return returnString;
     }
-    
+
     /**
-     * 
+     *
      * Receives an input from a pop up dialog box and returns it
      * @param prompt Input prompt/question
      * @return LocalDate object
@@ -54,7 +54,6 @@ public class Input {
     }
 
     /**
-     * 
      * Receives an input from a pop up dialog box and returns it
      * @param prompt Input prompt/question
      * @return Int from field
