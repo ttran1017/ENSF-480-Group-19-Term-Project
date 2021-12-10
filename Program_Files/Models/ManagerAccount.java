@@ -86,6 +86,20 @@ public class ManagerAccount extends Account{
         row_data[g][2] = rented.get(g).getPropertyAddress();
       }
 
+      for(int g = rented.size(); g < listed.size(); g++){
+        row_data[g][0] = String.valueOf(listed.get(g).getPropertyID());
+
+
+        for(Account account : accountArray){
+          if(account.getAccountID() == listed.get(g).getOwnerID()){
+            row_data[g][1] = account.getUsername();
+            break;
+          }
+        }
+
+        row_data[g][2] = listed.get(g).getPropertyAddress();
+      }
+
       Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
