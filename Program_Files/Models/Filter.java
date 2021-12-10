@@ -7,7 +7,7 @@
 
 package Models;
 
-import java.time.Period;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -31,7 +31,8 @@ public class Filter {
   private Integer minBathroom;
   private Integer maxBathroom;
   private Boolean isFurnished;
-  private Period period;
+  private LocalDate startDate;
+  private LocalDate endDate;
 
   /**
    * Filter Constructor
@@ -51,7 +52,8 @@ public class Filter {
     Integer minBathroom,
     Integer maxBathroom,
     Boolean isFurnished,
-    Period period )
+    LocalDate startDate,
+    LocalDate endDate )
   {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
@@ -60,7 +62,8 @@ public class Filter {
     this.minBathroom = minBathroom;
     this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
-    this.period = period;
+    this.startDate = startDate;
+    this.endDate = endDate;
   }
 
   /**
@@ -76,16 +79,51 @@ public class Filter {
       .collect(Collectors.toList()));
   }
 
-  // GETTER METHODS - To be commented
+  // GETTER METHODS
+  /**
+   * Getter method for property type, returns propertyType
+   * @return the object's propertyType
+   */
   public PropertyType getPropertyType() { return propertyType; }
+  /**
+   * Getter method for property quadrant, returns propertyQuad
+   * @return the object's propertQuad
+   */
   public PropertyQuadrant getPropertyQuad() {return propertyQuad; }
+  /**
+   * Getter method for the minimum bedroom integer
+   * @return the object's minBedroom
+   */
   public Integer getMinBedroom() { return minBedroom; }
+   /**
+   * Getter method for the maximum bedroom integer
+   * @return the object's maxBedroom
+   */
   public Integer getMaxBedroom() { return maxBedroom; }
+  /**
+   * Getter method for the minimum bathroom integer
+   * @return the object's minBathroom
+   */
   public Integer getMinBathroom() { return minBathroom; }
+  /**
+   * Getter method for the maximum bathroom integer
+   * @return the object's maxBathroom
+   */
   public Integer getMaxBathroom() { return maxBathroom; }
+   /**
+   * Getter method for the boolean that indicates whether the property is furnished or not
+   * @return the object's isFurnished
+   */
   public Boolean getFurnished() { return isFurnished; }
 
+  // Manager
+  public LocalDate getStartDate() { return startDate;  }
+  public LocalDate getEndDate() { return endDate;  }
 
+   /**
+   * Getter method for Period
+   * @return the object's period
+   */
   public Period getPeriod() 
   {
     return period;
@@ -97,7 +135,7 @@ public class Filter {
    * @param property Property to be checked
    * @return true if matches criteria, false otherwise
    */
-  
+
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)

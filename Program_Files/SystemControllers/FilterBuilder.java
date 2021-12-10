@@ -26,11 +26,18 @@ public class FilterBuilder {
     private Boolean isFurnished = null;
 
     // Only accessed by manager class
-    private Period period = null;
+    private LocalDate startDate = LocalDate.MIN;
+    private LocalDate endDate = LocalDate.MAX;
 
-    public FilterBuilder setPeriod(Period period)
+    public FilterBuilder setStartDate(LocalDate date)
     {
-      this.period = period;
+      this.startDate = date;
+      return this;
+    }
+
+    public FilterBuilder setEndDate(LocalDate date)
+    {
+      this.endDate = date;
       return this;
     }
     // Only accessed by manager class
@@ -70,15 +77,15 @@ public class FilterBuilder {
         this.maxBathroom = m;
         return this;
     }
-  
-    public FilterBuilder setIsFurnished(Boolean m) 
+
+    public FilterBuilder setIsFurnished(Boolean m)
     {
       this.isFurnished = m;
       return this;
     }
 
     public Filter build(){
-      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished, period);
+      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished, startDate, endDate);
     }
 
     public static Filter buildFilter()

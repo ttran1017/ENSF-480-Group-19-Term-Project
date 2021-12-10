@@ -6,8 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="e0a0b9b3-9ac5-4dbf-b57e-a9c85fd37e69" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Program_Files/SystemControllers/DatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/create-database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/create-database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/InteractionControllers/Input.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Interfaces/Observer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Interfaces/Observer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Interfaces/Subject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/Interfaces/Subject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/EmailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/EmailController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/SystemControllers/accountInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Apartment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Apartment_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/AttachedHouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/AttachedHouse_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Condo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Condo_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Apartment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Apartment_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/AttachedHouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/AttachedHouse_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Condo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Condo_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/DetachedHouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/DetachedHouse_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Townhouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Copies/Townhouse_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/DetachedHouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/DetachedHouse_Color.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Townhouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ENSF-480-Group-19-Term-Project/out/production/Program_Files/assets/Townhouse_Color.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,13 +41,56 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  <component name="ProjectId" id="21uCLUxO9QekNeIHZlzGUsUbAPr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Program_Files" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0a0b9b3-9ac5-4dbf-b57e-a9c85fd37e69" name="Changes" comment="" />
+      <created>1638781533212</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638781533212</updated>
+      <workItem from="1638781536344" duration="2369000" />
+    </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
