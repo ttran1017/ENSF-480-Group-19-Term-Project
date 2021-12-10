@@ -25,23 +25,6 @@ public class FilterBuilder {
     private Integer maxBathroom = null;
     private Boolean isFurnished = null;
 
-    // Only accessed by manager class
-    private LocalDate startDate = LocalDate.MIN;
-    private LocalDate endDate = LocalDate.MAX;
-
-    public FilterBuilder setStartDate(LocalDate date)
-    {
-      this.startDate = date;
-      return this;
-    }
-
-    public FilterBuilder setEndDate(LocalDate date)
-    {
-      this.endDate = date;
-      return this;
-    }
-    // Only accessed by manager class
-
     public FilterBuilder setPropertyType(PropertyType propType)
     {
       this.propertyType = propType;
@@ -85,7 +68,7 @@ public class FilterBuilder {
     }
 
     public Filter build(){
-      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished, startDate, endDate);
+      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished);
     }
 
     public static Filter buildFilter()
