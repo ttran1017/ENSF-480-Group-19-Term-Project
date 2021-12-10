@@ -8,7 +8,6 @@
 package SystemControllers;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 import InteractionControllers.Input;
 import InteractionControllers.Output;
@@ -26,8 +25,8 @@ public class FilterBuilder {
     private Boolean isFurnished = null;
 
     // Only accessed by manager class
-    private LocalDate startDate = LocalDate.MIN;
-    private LocalDate endDate = LocalDate.MAX;
+    private LocalDate startDate = LocalDate.of(1990, 1, 1);
+    private LocalDate endDate = LocalDate.of(9999, 1, 1);
 
     public FilterBuilder setStartDate(LocalDate date)
     {
