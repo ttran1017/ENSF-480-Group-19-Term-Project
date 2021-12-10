@@ -46,12 +46,12 @@ public class EmailController {
     }
 
     if(!checkFormat(userEmail)){
-      Output.outputMessage("Email controller failed - user address incorrectly formatted.");
+      IO.outputMessage("Email controller failed - user address incorrectly formatted.");
       return;
     }
 
     if(!checkFormat(ownerEmail)){
-      Output.outputMessage("Email controller failed - owner address incorrectly formatted.");
+      IO.outputMessage("Email controller failed - owner address incorrectly formatted.");
       return;
     }
 
@@ -63,7 +63,7 @@ public class EmailController {
          }
      });
 
-     ArrayList<String> emailData = Input.getMultiStringInput("Composing Email", new String[]{"Subject","Message"});
+     ArrayList<String> emailData = IO.getMultiStringInput("Composing Email", new String[]{"Subject","Message"});
      String subject = "Regarding " + String.valueOf(propertyID) + ": "+ emailData.get(0);
      String msg = emailData.get(1) + tag;
 
@@ -92,7 +92,7 @@ public class EmailController {
      }
 
      // Let user know if successful
-     Output.outputMessage("Email sent successfully");
+     IO.outputMessage("Email sent successfully");
   }
 
   public void setupMeeting(String userEmail, String ownerEmail, int propertyID) {
@@ -103,16 +103,16 @@ public class EmailController {
 
     // Check for valid email
     if(!checkFormat(userEmail)){
-      Output.outputMessage("Email controller failed - user address incorrectly formatted.");
+      IO.outputMessage("Email controller failed - user address incorrectly formatted.");
       return;
     }
 
     if(!checkFormat(ownerEmail)){
-      Output.outputMessage("Email controller failed - owner address incorrectly formatted.");
+      IO.outputMessage("Email controller failed - owner address incorrectly formatted.");
       return;
     }
 
-    LocalDate day = Input.getDateInput("When would you like to set up a meeting?");
+    LocalDate day = IO.getDateInput("When would you like to set up a meeting?");
 
      // Create Session
      Session session = Session.getInstance(prop, new Authenticator() {
@@ -151,14 +151,14 @@ public class EmailController {
      }
 
      // Let user know if successful
-     Output.outputMessage("Email sent successfully");
+     IO.outputMessage("Email sent successfully");
   }
 
   // Send to address that a property has been posted with a specified ID
   public void sendNotification(String address, int ID)
   {
     if(!checkFormat(address)){
-      Output.outputMessage("Email controller failed - address incorrectly formatted.");
+      IO.outputMessage("Email controller failed - address incorrectly formatted.");
       return;
     }
 

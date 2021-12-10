@@ -14,8 +14,7 @@ import SystemControllers.FilterBuilder;
 import SystemControllers.PropertyHub;
 import java.util.ArrayList;
 
-import InteractionControllers.Input;
-import InteractionControllers.Output;
+import InteractionControllers.IO;
 
 /**
  * PropertyViewers observe PropertyHub and updates viewable
@@ -90,7 +89,7 @@ public class PropertyViewer implements Observer {
      */
     public void updateSubscription(int accountID) 
     { 
-        subscribed = Input.getBoolInput("Continue Subscribing?");
+        subscribed = IO.getBoolInput("Continue Subscribing?");
         DatabaseController.getInstance().updateSubscription(accountID, subscribed);
     }
 
@@ -102,7 +101,7 @@ public class PropertyViewer implements Observer {
     /**
      * Method to view all filter viewable properties
      */
-    public void viewProperties() { Output.displayProperties(viewableProperties); }
+    public void viewProperties() { IO.displayProperties(viewableProperties); }
 
     // =================
     // STATIC METHODS
@@ -116,7 +115,7 @@ public class PropertyViewer implements Observer {
         ArrayList<Property> properties = PropertyHub.getPropertyList();
         Filter tempFilter = FilterBuilder.buildFilter();
         properties = tempFilter.filterAll(properties);
-        Output.displayProperties(properties);
+        IO.displayProperties(properties);
     }
     
     /**
@@ -125,7 +124,7 @@ public class PropertyViewer implements Observer {
      */
     public static void viewProperties(ArrayList<Property> properties)
     {
-        Output.displayProperties(properties);
+        IO.displayProperties(properties);
     }
 
     public static void main(String[] args)

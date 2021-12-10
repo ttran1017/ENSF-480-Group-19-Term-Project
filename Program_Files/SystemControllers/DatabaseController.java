@@ -7,15 +7,16 @@
 
 package SystemControllers;
 
-import Interfaces.PropertyType;
-import Interfaces.AccountType;
-import Interfaces.PropertyQuadrant;
-import Interfaces.PropertyStatus;
 import Models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Enums.AccountType;
+import Enums.PropertyQuadrant;
+import Enums.PropertyStatus;
+import Enums.PropertyType;
 
 public final class DatabaseController {
     private static DatabaseController INSTANCE;

@@ -11,8 +11,9 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import Enums.AccountType;
+import Enums.PropertyStatus;
 import SystemControllers.*;
-import Interfaces.*;
 import InteractionControllers.*;
 
 public class ManagerAccount extends Account{
@@ -41,8 +42,8 @@ public class ManagerAccount extends Account{
     }
 
     public void updateSummaryPeriod(){
-      startDate = Input.getDateInput("Enter start date");
-      endDate = Input.getDateInput("Enter end date");
+      startDate = IO.getDateInput("Enter start date");
+      endDate = IO.getDateInput("Enter end date");
     }
 
 
@@ -83,7 +84,7 @@ public class ManagerAccount extends Account{
         row_data[currRow][4] = database.getDateListed(listed.get(g).getPropertyID());
       }
 
-      Output.displaySummary(startDate.toString(),endDate.toString(),row_data, col_headers, totListed, totRented, totActiveListed);
+      IO.displaySummary(startDate.toString(),endDate.toString(),row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
     public void modifyListing() {
@@ -127,7 +128,7 @@ public class ManagerAccount extends Account{
         }
       }
 
-      Output.displayStringArray(row_data, col_headers);
+      IO.displayStringArray(row_data, col_headers);
     }
 
     public static void main(String[] args)

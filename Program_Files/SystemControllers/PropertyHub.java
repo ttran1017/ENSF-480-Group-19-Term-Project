@@ -10,6 +10,10 @@ package SystemControllers;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import Enums.PropertyQuadrant;
+import Enums.PropertyStatus;
+import Enums.PropertyType;
 import InteractionControllers.*;
 import Models.*;
 import Interfaces.*;
@@ -64,10 +68,15 @@ public final class PropertyHub implements Subject {
      */
     public Property selectProperty()
     {
-        Integer propertyID = (Integer)Input.getDropdownInput("Property Select", "Select a Property", propertyList.keySet().toArray());
+        Integer propertyID = (Integer)IO.getDropdownInput("Property Select", "Select a Property", 
+        propertyList.values().stream()
+        .filter(prop -> prop.getPropertyStatus() == PropertyStatus.Active)
+        .map(prop -> prop.getPropertyID())
+        .collect(Collectors.toList())
+        .toArray());
         if(propertyID == null)
         {
-            Output.outputMessage("Failed to Select Property");
+            IO.outputMessage("Failed to Select Property");
             return null;
         }
         return propertyList.get(propertyID);
@@ -80,23 +89,23 @@ public final class PropertyHub implements Subject {
      */
     public Property createProperty(Account ownerAccount) 
     {
-        PropertyType type = (PropertyType)Input.getDropdownInput(
+        PropertyType type = (PropertyType)IO.getDropdownInput(
             "Property Type Select", 
             "Select Type:",
             PropertyType.values()
         );
-        String address = Input.getStringInput("Enter Street Address (W/O Quadrant)");
-        PropertyQuadrant quadrant = (PropertyQuadrant)Input.getDropdownInput(
+        String address = IO.getStringInput("Enter Street Address (W/O Quadrant)");
+        PropertyQuadrant quadrant = (PropertyQuadrant)IO.getDropdownInput(
             "Quadrant Select", 
             "Select Type:",
             PropertyQuadrant.values()
         );
-        int numBedrooms = Input.getIntInput("Enter Number of Bedrooms");
-        int numBathrooms = Input.getIntInput("Enter Number of Bathrooms");
-        boolean isFurnished = Input.getBoolInput("Is Property Furnished?");
+        int numBedrooms = IO.getIntInput("Enter Number of Bedrooms");
+        int numBathrooms = IO.getIntInput("Enter Number of Bathrooms");
+        boolean isFurnished = IO.getBoolInput("Is Property Furnished?");
         if(type == null || address == null || quadrant == null)
         {
-            Output.outputMessage("Registration Failed");
+            IO.outputMessage("Registration Failed");
             return null;
         }
         Property newProperty = new Property(
@@ -129,11 +138,11 @@ public final class PropertyHub implements Subject {
         .collect(Collectors.toList());
         if(IDs.size() == 0)
         {
-            Output.outputMessage("No Properties to Post");
+            IO.outputMessage("No Properties to Post");
             return;
         }
-        int selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
-        if(Input.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
+        int selectedID = (Integer)IO.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        if(IO.getBoolInput("The payment fee is $" + FeeController.getFee() + ". Confirm?"))
         {
             FeeController.charge();
             for(int i = 0; i < properties.size(); i++)
@@ -151,7 +160,7 @@ public final class PropertyHub implements Subject {
         }
         else
         {
-            Output.outputMessage("Transaction cancelled");
+            IO.outputMessage("Transaction cancelled");
         }
     }
 
@@ -163,16 +172,16 @@ public final class PropertyHub implements Subject {
         List<Integer> IDs = getPropertyList().stream().map(prop -> prop.getPropertyID()).collect(Collectors.toList());
         if(IDs.size() == 0)
         {
-            Output.outputMessage("No Properties to Update");
+            IO.outputMessage("No Properties to Update");
             return;
         }
-        Integer selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        Integer selectedID = (Integer)IO.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
         if(selectedID == null)
         {
-            Output.outputMessage("Failed to Select Property");
+            IO.outputMessage("Failed to Select Property");
             return;
         }
-        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput(
+        PropertyStatus selectedStatus = (PropertyStatus)IO.getDropdownInput(
             "Select From the Following Properties", 
             "Property IDs", 
             PropertyStatus.values()
@@ -197,16 +206,16 @@ public final class PropertyHub implements Subject {
         .collect(Collectors.toList());
         if(IDs.size() == 0)
         {
-            Output.outputMessage("No Properties to Update");
+            IO.outputMessage("No Properties to Update");
             return;
         }
-        Integer selectedID = (Integer)Input.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
+        Integer selectedID = (Integer)IO.getDropdownInput("Select From the Following Properties", "Property IDs", IDs.toArray());
         if(selectedID == null)
         {
-            Output.outputMessage("Failed to Select Property");
+            IO.outputMessage("Failed to Select Property");
             return;
         }
-        PropertyStatus selectedStatus = (PropertyStatus)Input.getDropdownInput(
+        PropertyStatus selectedStatus = (PropertyStatus)IO.getDropdownInput(
             "Select From the Following Properties", 
             "Property IDs", 
             Arrays.copyOfRange(PropertyStatus.values(), 1, PropertyStatus.values().length)

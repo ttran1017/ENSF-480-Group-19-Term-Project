@@ -7,13 +7,12 @@
 
 package Models;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import Interfaces.PropertyQuadrant;
-import Interfaces.PropertyStatus;
-import Interfaces.PropertyType;
+import Enums.PropertyQuadrant;
+import Enums.PropertyStatus;
+import Enums.PropertyType;
 
 /**
  * Handles filtering Properties by
@@ -31,8 +30,6 @@ public class Filter {
   private Integer minBathroom;
   private Integer maxBathroom;
   private Boolean isFurnished;
-  private LocalDate startDate;
-  private LocalDate endDate;
 
   /**
    * Filter Constructor

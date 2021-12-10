@@ -7,7 +7,7 @@
 
 package Models;
 
-import Interfaces.AccountType;
+import Enums.AccountType;
 
 /**
  * Account Abstract class

@@ -5,7 +5,7 @@
  * Professor: M. Moussavi
  */
 
-package Interfaces;
+package Enums;
 
 /**
  * Property Status

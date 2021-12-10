@@ -7,9 +7,9 @@
 
 package Models;
 
-import Interfaces.PropertyQuadrant;
-import Interfaces.PropertyStatus;
-import Interfaces.PropertyType;
+import Enums.PropertyQuadrant;
+import Enums.PropertyStatus;
+import Enums.PropertyType;
 
 public class Property {
 

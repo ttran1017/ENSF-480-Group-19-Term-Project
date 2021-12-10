@@ -9,7 +9,7 @@ package Models;
 
 import java.util.*;
 
-import Interfaces.AccountType;
+import Enums.AccountType;
 import SystemControllers.EmailController;
 import SystemControllers.PropertyHub;
 

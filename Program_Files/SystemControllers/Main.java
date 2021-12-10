@@ -7,8 +7,8 @@
 
 package SystemControllers;
 import Models.*;
+import Enums.AccountType;
 import InteractionControllers.*;
-import Interfaces.AccountType;
 
 public class Main {
     private static Account user = null;
@@ -30,7 +30,7 @@ public class Main {
 
     public static void handleUnregistered()
     {
-        String option = (String)Input.getDropdownInput(
+        String option = (String)IO.getDropdownInput(
             "Unregistered User Options", 
             "Select From:", 
             new String[]{
@@ -67,7 +67,7 @@ public class Main {
     public static void handleUser()
     {
         UserAccount uAccount = (UserAccount)user;
-        String option = (String)Input.getDropdownInput(
+        String option = (String)IO.getDropdownInput(
             "Registered User Options", 
             "Select From:", 
             new String[]{
@@ -119,7 +119,7 @@ public class Main {
     public static void handleManager()
     {
         ManagerAccount mAccount = (ManagerAccount)user;
-        String option = (String)Input.getDropdownInput(
+        String option = (String)IO.getDropdownInput(
             "Manager Options", 
             "Select From:", 
             new String[]{
