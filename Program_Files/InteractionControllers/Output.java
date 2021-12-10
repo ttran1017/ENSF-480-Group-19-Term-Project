@@ -51,8 +51,9 @@ public class Output {
       JOptionPane.showMessageDialog(null, pane);
     }
 
-    public static void displaySummary(String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
+    public static void displaySummary(String startDate, String endDate, String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
       JPanel myPanel = new JPanel();
+      JLabel title = new JLabel("Summary between "+startDate+" & "+endDate);
       myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
       myPanel.setPreferredSize(new Dimension(800, 300));
 
@@ -68,6 +69,7 @@ public class Output {
       JLabel totActiveListed = new JLabel();
       totActiveListed.setText("Total Active Listings: " + tActiveListed);
 
+      myPanel.add(title);
       myPanel.add(pane);
       myPanel.add(totListed);
       myPanel.add(totRented);

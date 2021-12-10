@@ -6,9 +6,6 @@
  */
 
 package Interfaces;
-import java.util.ArrayList;
-
-import Models.Property;
 
 /**
  * Subject Interface

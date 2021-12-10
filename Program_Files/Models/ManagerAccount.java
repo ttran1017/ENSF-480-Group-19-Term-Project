@@ -8,7 +8,6 @@
 package Models;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -84,7 +83,7 @@ public class ManagerAccount extends Account{
         row_data[currRow][4] = database.getDateListed(listed.get(g).getPropertyID());
       }
 
-      Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
+      Output.displaySummary(startDate.toString(),endDate.toString(),row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
     public void modifyListing() {
