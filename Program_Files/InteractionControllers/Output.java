@@ -58,14 +58,17 @@ public class Output {
 
     /**
      * Displays Summary
+     * @param String startDate - takes in the start date of the search period
+     * @param String endDate - takes in the end date of the search period
      * @param String[][] row_data - takes in rows of Strings
      * @param String[] col_headers - takes in the headers as Strings
      * @param int tListed - total number of listed properties
      * @param int tRented - total number of rented properties
      * @param int tActiveListed- total number of active listed properties
      */
-    public static void displaySummary(String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
+    public static void displaySummary(String startDate, String endDate, String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
       JPanel myPanel = new JPanel();
+      JLabel title = new JLabel("Summary between "+startDate+" & "+endDate);
       myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
       myPanel.setPreferredSize(new Dimension(800, 300));
 
@@ -81,6 +84,7 @@ public class Output {
       JLabel totActiveListed = new JLabel();
       totActiveListed.setText("Total Active Listings: " + tActiveListed);
 
+      myPanel.add(title);
       myPanel.add(pane);
       myPanel.add(totListed);
       myPanel.add(totRented);

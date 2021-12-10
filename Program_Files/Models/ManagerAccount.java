@@ -8,7 +8,6 @@
 package Models;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,8 +63,7 @@ public class ManagerAccount extends Account{
      * Update the period
      *
      */
-    public void updateFilterPeriod(){
-      // Set period
+    public void updateSummaryPeriod(){
       startDate = Input.getDateInput("Enter start date");
       endDate = Input.getDateInput("Enter end date");
     }
@@ -115,7 +113,7 @@ public class ManagerAccount extends Account{
       }
 
       // Display result
-      Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
+      Output.displaySummary(startDate.toString(),endDate.toString(),row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
     /**
