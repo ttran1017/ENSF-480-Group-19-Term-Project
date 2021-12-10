@@ -23,35 +23,62 @@ public class ManagerAccount extends Account{
     private LocalDate endDate = LocalDate.of(9999, 1, 1);;
 
 
+    /**
+     * ManagerAccount constructor
+     * @param String email - takes in email
+     * @param String username - takes in username
+     * @param String password - sets user's password
+     */
     public ManagerAccount(String email, String username, String password) {
       super(email,username,password,AccountType.Manager);
     }
 
+    /**
+     * ManagerAccount constructor
+     * @param String email - takes in email
+     * @param String username - takes in username
+     * @param String password - sets user's password
+     * @param int accountID - sets user's account ID
+     *
+     */
     public ManagerAccount(String email, String username, String password, int accountID) {
       super(email,username,password,AccountType.Manager);
       setAccountID(accountID);
     }
 
+    /**
+     * Update Fee period by calling the fee controller's setPeriod method
+     */
     public void updateFeePeriod() {
       FeeController.setPeriod();
     }
 
-
+    /**
+     * Update fees by calling the fee controller's setFee method
+     */
     public void updateFees() {
       FeeController.setFee();
     }
 
+    /**
+     * Update the period
+     *
+     */
     public void updateSummaryPeriod(){
       startDate = IO.getDateInput("Enter start date");
       endDate = IO.getDateInput("Enter end date");
     }
 
-
+    /**
+     * Generate summary using the database
+     *
+     */
     public void generateSummary() {
       // Convert filter period to string
       ArrayList<Property> rented = database.getRentedProperties(startDate.toString(), endDate.toString());
       ArrayList<Property> listed = database.getListedProperties(startDate.toString(), endDate.toString());
 
+      // Get total numbers
       int totListed = listed.size();
       int totRented = rented.size();
       int totActiveListed = 0;
@@ -64,10 +91,11 @@ public class ManagerAccount extends Account{
         }
       }
 
-      // Convert to String array
+      // Initialize String arrays
       String[][] row_data = new String[totListed + totRented][5];
       String[] col_headers = new String[]{"Property ID", "Landlord Username", "Address","Type","Date"};
 
+      // Get rented rows
       for(int g = 0; g < rented.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(rented.get(g).getPropertyID());
         row_data[currRow][1] = AccountHandler.getAccountByID(rented.get(g).getOwnerID()).getUsername();
@@ -76,6 +104,7 @@ public class ManagerAccount extends Account{
         row_data[currRow][4] = database.getDateRented(rented.get(g).getPropertyID());
       }
 
+      // Get listed rows
       for(int g = 0; g < listed.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(listed.get(g).getPropertyID());
         row_data[currRow][1] = AccountHandler.getAccountByID(listed.get(g).getOwnerID()).getUsername();
@@ -87,18 +116,25 @@ public class ManagerAccount extends Account{
       IO.displaySummary(startDate.toString(),endDate.toString(),row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
+    /**
+     * Modify the property listing status
+     *
+     */
     public void modifyListing() {
       PropertyHub.getInstance().managerUpdatePropertyStatus();
     }
 
+    /**
+     * View the properties by calling viewProperties method
+     */
     public void viewPropertyInfo()
     {
       PropertyViewer.viewProperties(PropertyHub.getPropertyList());
     }
 
-
-// *** If this doesn't work, we may have to get User accounts only by SQL
-
+    /**
+     * View the properties by calling viewProperties method
+     */
     public void viewUserInfo() {
 
       HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
