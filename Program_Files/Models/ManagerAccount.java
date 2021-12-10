@@ -78,13 +78,7 @@ public class ManagerAccount extends Account{
       for(int g = currRow; g < rented.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(rented.get(g).getPropertyID());
 
-
-        for(Account account : accountArray){
-          if(account.getAccountID() == rented.get(g).getOwnerID()){
-            row_data[currRow][1] = account.getUsername();
-            break;
-          }
-        }
+        row_data[currRow][1] = AccountHandler.getAccountById(rented.get(g).getOwnerID());
 
         row_data[currRow][2] = rented.get(g).getPropertyAddress();
 
@@ -94,13 +88,8 @@ public class ManagerAccount extends Account{
       for(int g = 0; g < listed.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(listed.get(g).getPropertyID());
 
-      
-        for(Account account : accountArray){
-          if(account.getAccountID() == rented.get(g).getOwnerID()){
-            row_data[currRow][1] = account.getUsername();
-            break;
-          }
-        }
+
+        row_data[currRow][1] = AccountHandler.getAccountById(rented.get(g).getOwnerID());
 
         row_data[currRow][2] = listed.get(g).getPropertyAddress();
         row_data[currRow][3] = "Listed";
