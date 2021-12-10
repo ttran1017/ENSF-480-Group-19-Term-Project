@@ -24,23 +24,6 @@ public class FilterBuilder {
     private Integer maxBathroom = null;
     private Boolean isFurnished = null;
 
-    // Only accessed by manager class
-    private LocalDate startDate = LocalDate.of(1990, 1, 1);
-    private LocalDate endDate = LocalDate.of(9999, 1, 1);
-
-    public FilterBuilder setStartDate(LocalDate date)
-    {
-      this.startDate = date;
-      return this;
-    }
-
-    public FilterBuilder setEndDate(LocalDate date)
-    {
-      this.endDate = date;
-      return this;
-    }
-    // Only accessed by manager class
-
     public FilterBuilder setPropertyType(PropertyType propType)
     {
       this.propertyType = propType;
@@ -84,7 +67,7 @@ public class FilterBuilder {
     }
 
     public Filter build(){
-      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished, startDate, endDate);
+      return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished);
     }
 
     public static Filter buildFilter()
@@ -135,16 +118,6 @@ public class FilterBuilder {
         if(furnished != null)
             newFilter.setIsFurnished(furnished.equals("Furnished"));
         Output.outputMessage("Filter Successfully Updated");
-        return newFilter.build();
-    }
-
-    public static Filter buildPeriodFilter()
-    {
-        FilterBuilder newFilter = new FilterBuilder();
-        LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
-        LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
-        newFilter.setStartDate(summaryInitDate);
-        newFilter.setEndDate(nextSummaryDate);
         return newFilter.build();
     }
 

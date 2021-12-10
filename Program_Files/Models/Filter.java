@@ -51,9 +51,7 @@ public class Filter {
     Integer maxBedroom,
     Integer minBathroom,
     Integer maxBathroom,
-    Boolean isFurnished,
-    LocalDate startDate,
-    LocalDate endDate )
+    Boolean isFurnished)
   {
     this.propertyType = propertyType;
     this.propertyQuad = propertyQuad;
@@ -62,8 +60,6 @@ public class Filter {
     this.minBathroom = minBathroom;
     this.maxBathroom = maxBathroom;
     this.isFurnished = isFurnished;
-    this.startDate = startDate;
-    this.endDate = endDate;
   }
 
   /**
@@ -116,9 +112,6 @@ public class Filter {
    */
   public Boolean getFurnished() { return isFurnished; }
 
-  // Manager
-  public LocalDate getStartDate() { return startDate;  }
-  public LocalDate getEndDate() { return endDate;  }
 
   /**
    * Checks if individual property matches filter criteria

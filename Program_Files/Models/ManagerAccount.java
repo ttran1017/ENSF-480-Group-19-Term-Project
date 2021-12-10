@@ -20,7 +20,8 @@ public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
     private Period summaryPeriod;
-    private Filter filter;
+    private LocalDate startDate = LocalDate.of(1990, 1, 1);
+    private LocalDate endDate = LocalDate.MAX;
 
 
     public ManagerAccount(String email, String username, String password) {
@@ -43,15 +44,12 @@ public class ManagerAccount extends Account{
 
     public void updateFilterPeriod(){
       // Set period
-      filter = FilterBuilder.buildPeriodFilter();
+      startDate = Input.getDateInput("Enter start date");
+      endDate = Input.getDateInput("Enter end date");
     }
 
 
     public void generateSummary() {
-      // Convert filter period to string
-      LocalDate startDate = filter.getStartDate();
-      LocalDate endDate = filter.getEndDate();
-
       ArrayList<Property> rented = database.getRentedProperties(startDate.toString(), endDate.toString());
       ArrayList<Property> listed = database.getListedProperties(startDate.toString(), endDate.toString());
 
