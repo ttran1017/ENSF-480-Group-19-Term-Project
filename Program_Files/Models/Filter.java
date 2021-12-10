@@ -79,17 +79,55 @@ public class Filter {
       .collect(Collectors.toList()));
   }
 
-  // GETTER METHODS - To be commented
+  // GETTER METHODS
+  /**
+   * Getter method for property type, returns propertyType
+   * @return the object's propertyType
+   */
   public PropertyType getPropertyType() { return propertyType; }
+  /**
+   * Getter method for property quadrant, returns propertyQuad
+   * @return the object's propertQuad
+   */
   public PropertyQuadrant getPropertyQuad() {return propertyQuad; }
+  /**
+   * Getter method for the minimum bedroom integer
+   * @return the object's minBedroom
+   */
   public Integer getMinBedroom() { return minBedroom; }
+   /**
+   * Getter method for the maximum bedroom integer
+   * @return the object's maxBedroom
+   */
   public Integer getMaxBedroom() { return maxBedroom; }
+  /**
+   * Getter method for the minimum bathroom integer
+   * @return the object's minBathroom
+   */
   public Integer getMinBathroom() { return minBathroom; }
+  /**
+   * Getter method for the maximum bathroom integer
+   * @return the object's maxBathroom
+   */
   public Integer getMaxBathroom() { return maxBathroom; }
+   /**
+   * Getter method for the boolean that indicates whether the property is furnished or not
+   * @return the object's isFurnished
+   */
   public Boolean getFurnished() { return isFurnished; }
+
   // Manager
   public LocalDate getStartDate() { return startDate;  }
   public LocalDate getEndDate() { return endDate;  }
+
+   /**
+   * Getter method for Period
+   * @return the object's period
+   */
+  public Period getPeriod() 
+  {
+    return period;
+  }
 
 
   /**

@@ -33,7 +33,7 @@ public final class AccountHandler {
         String email = accountInfo.get(0);
       
        // Check for valid email
-        if(!EmailController.checkFormat(email)){
+        if(!EmailController.getInstance().checkFormat(email)){
           Output.outputMessage("Invalid Email!");
           return;
         }

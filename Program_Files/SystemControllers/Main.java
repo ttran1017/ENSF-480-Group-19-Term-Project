@@ -50,7 +50,7 @@ public class Main {
                 break;
             case "Send Email":
                 Property temp = PropertyHub.getInstance().selectProperty();
-                EmailController.sendEmail("UNREGISTERED", temp.getOwnerEmail(), temp.getPropertyID());
+                EmailController.getInstance().sendEmail("UNREGISTERED", temp.getOwnerEmail(), temp.getPropertyID());
                 break;
             case "Register":
                 AccountHandler.createAccount();
