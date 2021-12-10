@@ -19,8 +19,8 @@ import InteractionControllers.*;
 public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
-    private Period summaryPeriod;
     private FilterBuilder filter;
+    private Period summaryPeriod;
 
     public ManagerAccount(String email, String username, String password) {
       super(email,username,password,AccountType.Manager);
@@ -46,30 +46,55 @@ public class ManagerAccount extends Account{
 
     public void updateFilterPeriod(){
       // Set period
-      LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
-      LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
-      summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
+      filter.setStartDate(Input.getDateInput("When does the filter period start?"));
+      filter.setEndDate(Input.getDateInput("When does the filter period end?"));
+
       filter.setPeriod(summaryPeriod);
     }
 
 
     public void generateSummary() {
+      // Convert filter period to string
+      LocalDate startDate = filter.build().getStartDate();
+      LocalDate endDate = filter.build().getEndDate();
 
-      
+      ArrayList<Property> rented = database.getInstance().getRentedProperties(startDate.toString(), endDate.toString());
+      ArrayList<Property> listed = database.getInstance().getListedProperties(startDate.toString(), endDate.toString());
+
+      int totListed = listed.size();
+      int totRented = rented.size();
+      int totActiveListed = 0;
+
+      // Get total active listing
+      for(Property listing : listed){
+        if(listing.getDaysRemaining() > 0){
+          totActiveListed++;
+        }
+      }
+
+      // Convert to String array
+      String[][] row_data;
+      String[] col_headers = = new String[]{"Property ID", "Landlord Name", "Address"};
+
+      // Get name
+      HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
+      Account[] accountArray = (Account[])accounts.values().toArray();
+
+      for(int g = 0; g < rented.size(); g++){
+        row_data[g][0] = rented[g].getPropertyID();
 
 
+        for(Account account : accountArray){
+          if(account.getAccountID() == rented[g].getOwnerID()){
+            row_data[g][1] = account.getUsername();
+            break;
+          }
+        }
 
+        row_data[g][2] = rented[g].getPropertyAddress();
+      }
 
-//       Total number of houses listed in the period.
-
-// o Total number of houses rented in the period
-// o Total number of active listing.
-// o List of houses rented in the period. Which displays, the landlord’s name, the house’s id number,
-// followed by its address.
-
-
-
-
+      Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
     }
 
     // Initializes periodic summaries
