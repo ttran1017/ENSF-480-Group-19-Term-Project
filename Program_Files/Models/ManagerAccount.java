@@ -73,7 +73,7 @@ public class ManagerAccount extends Account{
         row_data[currRow][1] = AccountHandler.getAccountByID(rented.get(g).getOwnerID()).getUsername();
         row_data[currRow][2] = rented.get(g).getPropertyAddress();
         row_data[currRow][3] = "Rented";
-        row_data[currRow][4] = "dd-mm-yy";
+        row_data[currRow][4] = database.getDateRented(rented.get(g).getPropertyID());
       }
 
       for(int g = 0; g < listed.size(); g++, currRow++){
@@ -81,7 +81,7 @@ public class ManagerAccount extends Account{
         row_data[currRow][1] = AccountHandler.getAccountByID(listed.get(g).getOwnerID()).getUsername();
         row_data[currRow][2] = listed.get(g).getPropertyAddress();
         row_data[currRow][3] = "Listed";
-        row_data[currRow][4] = "dd-mm-yy";
+        row_data[currRow][4] = database.getDateListed(listed.get(g).getPropertyID());
       }
 
       Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
