@@ -44,6 +44,11 @@ public class Output {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    /**
+     * Displays string array
+     * @param String[][] row_data - takes in rows of Strings
+     * @param String[] col_headers - takes in the headers as Strings
+     */
     public static void displayStringArray(String[][] row_data, String [] col_headers){
       JTable table = new JTable(row_data, col_headers);
       JScrollPane pane = new JScrollPane(table);
@@ -51,6 +56,14 @@ public class Output {
       JOptionPane.showMessageDialog(null, pane);
     }
 
+    /**
+     * Displays Summary
+     * @param String[][] row_data - takes in rows of Strings
+     * @param String[] col_headers - takes in the headers as Strings
+     * @param int tListed - total number of listed properties
+     * @param int tRented - total number of rented properties
+     * @param int tActiveListed- total number of active listed properties
+     */
     public static void displaySummary(String[][] row_data, String [] col_headers, int tListed, int tRented, int tActiveListed){
       JPanel myPanel = new JPanel();
       myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));

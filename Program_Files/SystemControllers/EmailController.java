@@ -15,6 +15,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 
+
 public class EmailController {
   private static EmailController INSTANCE;
   private Properties prop = new Properties();
@@ -22,6 +23,9 @@ public class EmailController {
   private String password = "d7d3accee2cc02";
   private String tag = "\n\n\n\n - ENSF Team";
 
+  /**
+   * Instantiates EmailController
+   */
   private EmailController(){
    prop.put("mail.smtp.auth", true);
    prop.put("mail.smtp.starttls.enable", "false");
@@ -30,6 +34,9 @@ public class EmailController {
    prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
   }
 
+  /**
+   * Creates email controller instance
+   */
   public static EmailController getInstance()
   {
     if(INSTANCE == null)
@@ -39,12 +46,20 @@ public class EmailController {
     return INSTANCE;
   }
 
+  /**
+   * Creates and sends an email
+   * @param String userEmail - takes in email of the user
+   * @param String ownerEmail - takes in email of the owner
+   * @param int propertyID - sets which property the email is regarding
+   */
   public void sendEmail(String userEmail, String ownerEmail, int propertyID) {
 
+    // Checks if the account is UNREGISTERED
     if(userEmail == "UNREGISTERED"){
       userEmail = "emailcontroller@ensf.com";
     }
 
+    // Checks format of the emails
     if(!checkFormat(userEmail)){
       Output.outputMessage("Email controller failed - user address incorrectly formatted.");
       return;
@@ -63,6 +78,7 @@ public class EmailController {
          }
      });
 
+     // Create Message to send
      ArrayList<String> emailData = Input.getMultiStringInput("Composing Email", new String[]{"Subject","Message"});
      String subject = "Regarding " + String.valueOf(propertyID) + ": "+ emailData.get(0);
      String msg = emailData.get(1) + tag;
@@ -95,6 +111,12 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
+  /**
+   * Creates and sends an email that requests a meeting
+   * @param String userEmail - takes in email of the user
+   * @param String ownerEmail - takes in email of the owner
+   * @param int propertyID - sets which property the email is regarding
+   */
   public void setupMeeting(String userEmail, String ownerEmail, int propertyID) {
 
     if(userEmail == "UNREGISTERED"){
@@ -154,7 +176,11 @@ public class EmailController {
      Output.outputMessage("Email sent successfully");
   }
 
-  // Send to address that a property has been posted with a specified ID
+  /**
+   * Creates and sends an email to notify user of some property
+   * @param String address - sets address of the property the email is regarding
+   * @param int ID - sets which property the email is regarding
+   */
   public void sendNotification(String address, int ID)
   {
     if(!checkFormat(address)){
@@ -199,6 +225,11 @@ public class EmailController {
      }
   }
 
+  /**
+   * Checks if email is correctly formatted
+   * @param String email - sets the email to check
+   * @returns true if the email is correctly formatted
+   */
   public boolean checkFormat(String email)
   {
       if(Pattern.compile("^(?:.+)@(?:\\S+)$").matcher(email).matches()){
