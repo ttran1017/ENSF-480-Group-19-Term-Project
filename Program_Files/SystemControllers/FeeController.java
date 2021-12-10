@@ -7,6 +7,8 @@
 
 package SystemControllers;
 
+import InteractionControllers.Input;
+
 public class FeeController {
     private static DatabaseController database = DatabaseController.getInstance();
     private static int fee = database.getFee();
@@ -15,14 +17,16 @@ public class FeeController {
     public static int getFee() { return fee; }
     public static int getPeriod() { return period; }
 
-    public static void setFee(int newFee)
+    public static void setFee()
     {
+        int newFee = Input.getIntInput("Current Fees: $" + fee + "\nEnter New Fee:");
         fee = newFee;
         database.updateFee(newFee);
     }
 
-    public static void setPeriod(int newPeriod)
+    public static void setPeriod()
     {
+        int newPeriod = Input.getIntInput("Enter new posting period");
         period = newPeriod;
         database.updatePeriod(newPeriod);
     }

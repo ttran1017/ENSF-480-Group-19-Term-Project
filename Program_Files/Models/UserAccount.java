@@ -78,7 +78,6 @@ public class UserAccount extends Account {
    */
   public void updateProperty()
   {
-    viewMyProperties();
     PropertyHub.getInstance().userUpdatePropertyStatus(ownedProperties);
   }
 

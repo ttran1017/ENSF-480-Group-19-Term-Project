@@ -7,6 +7,7 @@
 
 package SystemControllers;
 
+import java.time.LocalDate;
 import java.time.Period;
 
 import InteractionControllers.Input;
@@ -128,6 +129,15 @@ public class FilterBuilder {
         if(furnished != null)
             newFilter.setIsFurnished(furnished.equals("Furnished"));
         Output.outputMessage("Filter Successfully Updated");
+        return newFilter.build();
+    }
+
+    public static Filter buildPeriodFilter()
+    {
+        FilterBuilder newFilter = new FilterBuilder();
+        LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
+        LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
+        newFilter.setPeriod(Period.between(summaryInitDate, nextSummaryDate));
         return newFilter.build();
     }
 

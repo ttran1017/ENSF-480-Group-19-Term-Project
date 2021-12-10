@@ -20,7 +20,7 @@ public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
     private Period summaryPeriod;
-    private FilterBuilder filter;
+    private Filter filter;
 
     public ManagerAccount(String email, String username, String password) {
       super(email,username,password,AccountType.Manager);
@@ -32,24 +32,17 @@ public class ManagerAccount extends Account{
     }
 
     public void updateFeePeriod(Period feePeriod) {
-      int newPeriod = Input.getIntInput("Enter new period start date");
-      FeeController.setPeriod(newPeriod);
+      FeeController.setPeriod();
     }
 
 
     public void updateFees() {
-      int fee = FeeController.getFee();
-      String message = "Current Fees: " + fee + "\nEnter New Fee:";
-      int newFee = Input.getIntInput(message);
-      FeeController.setFee(newFee);
+      FeeController.setFee();
     }
 
     public void updateFilterPeriod(){
       // Set period
-      LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
-      LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
-      summaryPeriod = Period.between(summaryInitDate, nextSummaryDate);
-      filter.setPeriod(summaryPeriod);
+      filter = FilterBuilder.buildPeriodFilter();
     }
 
 
