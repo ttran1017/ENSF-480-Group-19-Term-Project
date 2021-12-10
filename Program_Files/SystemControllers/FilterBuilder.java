@@ -13,6 +13,7 @@ import InteractionControllers.IO;
 import Models.*;
 
 public class FilterBuilder {
+    /* Properties that can the search can be filtered by */
     private PropertyType propertyType = null;
     private PropertyQuadrant propertyQuad = null;
     private Integer minBedroom = null;
@@ -21,6 +22,7 @@ public class FilterBuilder {
     private Integer maxBathroom = null;
     private Boolean isFurnished = null;
 
+    /* Setters */
     public FilterBuilder setPropertyType(PropertyType propType)
     {
       this.propertyType = propType;
@@ -63,10 +65,16 @@ public class FilterBuilder {
       return this;
     }
 
+    /* Take make filter from FilterBuilder class
+    * @returns Filter initialized by FilterBuilder object
+    */
     public Filter build(){
       return new Filter(propertyType, propertyQuad, minBedroom, maxBedroom, minBathroom, maxBathroom, isFurnished);
     }
 
+    /* Creates Filter by taking in inputs from the user
+    * @returns Filter initialized by user input
+    */
     public static Filter buildFilter()
     {
         FilterBuilder newFilter = new FilterBuilder();
