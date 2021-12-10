@@ -142,10 +142,13 @@ public class Main {
                 mAccount.viewPropertyInfo();
                 break;
             case "Update Posting Period":
+                mAccount.updateFilterPeriod();
                 break;
             case "View User Info":
+                mAccount.viewUserInfo();
                 break;
             case "Generate Summary":
+                mAccount.generateSummary();
                 break;
             case "Modify Listing":
                 mAccount.modifyListing();

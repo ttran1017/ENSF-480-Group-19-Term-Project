@@ -18,8 +18,8 @@ import javax.mail.internet.*;
 public class EmailController {
   private static EmailController INSTANCE;
   private Properties prop = new Properties();
-  private String username = "5e0ccfeb8924ab";
-  private String password = "c7f4caa9e658d9";
+  private String username = "e1ef4b3cdd3122";
+  private String password = "d7d3accee2cc02";
   private String tag = "\n\n\n\n - ENSF Team";
 
   private EmailController(){

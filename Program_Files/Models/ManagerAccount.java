@@ -19,8 +19,9 @@ import InteractionControllers.*;
 public class ManagerAccount extends Account{
 
     private DatabaseController database = DatabaseController.getInstance();
-    private FilterBuilder filter;
     private Period summaryPeriod;
+    private Filter filter;
+
 
     public ManagerAccount(String email, String username, String password) {
       super(email,username,password,AccountType.Manager);
@@ -32,31 +33,24 @@ public class ManagerAccount extends Account{
     }
 
     public void updateFeePeriod(Period feePeriod) {
-      int newPeriod = Input.getIntInput("Enter new period start date");
-      FeeController.setPeriod(newPeriod);
+      FeeController.setPeriod();
     }
 
 
     public void updateFees() {
-      int fee = FeeController.getFee();
-      String message = "Current Fees: " + fee + "\nEnter New Fee:";
-      int newFee = Input.getIntInput(message);
-      FeeController.setFee(newFee);
+      FeeController.setFee();
     }
 
     public void updateFilterPeriod(){
       // Set period
-      filter.setStartDate(Input.getDateInput("When does the filter period start?"));
-      filter.setEndDate(Input.getDateInput("When does the filter period end?"));
-
-      filter.setPeriod(summaryPeriod);
+      filter = FilterBuilder.buildPeriodFilter();
     }
 
 
     public void generateSummary() {
       // Convert filter period to string
-      LocalDate startDate = filter.build().getStartDate();
-      LocalDate endDate = filter.build().getEndDate();
+      LocalDate startDate = filter.getStartDate();
+      LocalDate endDate = filter.getEndDate();
 
       ArrayList<Property> rented = database.getInstance().getRentedProperties(startDate.toString(), endDate.toString());
       ArrayList<Property> listed = database.getInstance().getListedProperties(startDate.toString(), endDate.toString());
