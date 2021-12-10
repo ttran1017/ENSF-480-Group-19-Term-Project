@@ -7,6 +7,7 @@
 
 package SystemControllers;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import InteractionControllers.*;
@@ -180,7 +181,8 @@ public final class PropertyHub implements Subject {
         if(modProperty.getPropertyStatus() == PropertyStatus.Rented || modProperty.getPropertyStatus() == PropertyStatus.Cancelled)
             modProperty.setDaysRemaining(0);
         modProperty.setPropertyStatus(selectedStatus);
-        database.updateListing(modProperty);     
+        database.updateListing(modProperty);
+        database.updateDateListed(selectedID, LocalDate.now().toString());
         notifyAllObservers(selectedID);
     }
     
@@ -214,10 +216,15 @@ public final class PropertyHub implements Subject {
             if(properties.get(i).getPropertyID() == selectedID)
             {
                 properties.get(i).setPropertyStatus(selectedStatus);
-                if(properties.get(i).getPropertyStatus() == PropertyStatus.Rented || properties.get(i).getPropertyStatus() == PropertyStatus.Cancelled)
+                if(properties.get(i).getPropertyStatus() == PropertyStatus.Cancelled)
                     properties.get(i).setDaysRemaining(0);
+                else if(properties.get(i).getPropertyStatus() == PropertyStatus.Rented)
+                {
+                    properties.get(i).setDaysRemaining(0);
+                    database.updateDateRented(selectedID, LocalDate.now().toString());
+                }
                 propertyList.replace(selectedID,properties.get(i));
-                database.updateListing(properties.get(i));     
+                database.updateListing(properties.get(i));   
                 break;
             }
         }
