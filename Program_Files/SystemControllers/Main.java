@@ -14,9 +14,14 @@ public class Main {
     private static Account user = null;
     private static boolean continueProgram = true;
 
-    // main loop - DO NOT MODIFY
     public static void main(String[] args)
     {
+        if(args.length < 2)
+        {
+            IO.outputMessage("ERROR: Ensure Database Username and Password are Entered");
+            System.exit(1);
+        }
+        DatabaseController.initialize(args[0], args[1]);
         while(continueProgram)
         {
             if(user == null)                                        // Unregistered User
@@ -36,6 +41,7 @@ public class Main {
             new String[]{
                 "View Listed Properties",
                 "Send Email",
+                "Arrange Meeting",
                 "Register",
                 "Login",
                 "Exit",
@@ -51,6 +57,10 @@ public class Main {
             case "Send Email":
                 Property temp = PropertyHub.getInstance().selectProperty();
                 EmailController.getInstance().sendEmail("UNREGISTERED", temp.getOwnerEmail(), temp.getPropertyID());
+                break;
+            case "Arrange Meeting":
+                Property temp2 = PropertyHub.getInstance().selectProperty();
+                EmailController.getInstance().setupMeeting("UNREGISTERED", temp2.getOwnerEmail(), temp2.getPropertyID());
                 break;
             case "Register":
                 AccountHandler.createAccount();
@@ -79,6 +89,7 @@ public class Main {
                 "Post Property",
                 "Update Property",
                 "Send Email",
+                "Arrange Meeting",
                 "Logout"}
             );
         if(option == null)
@@ -108,6 +119,9 @@ public class Main {
                 break;
             case "Send Email":
                 uAccount.sendEmail();
+                break;
+            case "Arrange Meeting":
+                uAccount.arrangeMeeting();
                 break;
             case "Logout":
                 user = AccountHandler.logout();

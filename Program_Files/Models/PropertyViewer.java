@@ -65,7 +65,7 @@ public class PropertyViewer implements Observer {
      */
     public void updateFilter(int accountID) 
     { 
-        filter = FilterBuilder.buildFilter();
+        this.filter = FilterBuilder.buildFilter();
         viewableProperties = filter.filterAll(PropertyHub.getPropertyList());
         DatabaseController.getInstance().updateFilter(accountID, filter);
     }
@@ -125,9 +125,5 @@ public class PropertyViewer implements Observer {
     public static void viewProperties(ArrayList<Property> properties)
     {
         IO.displayProperties(properties);
-    }
-
-    public static void main(String[] args)
-    {
     }
 }

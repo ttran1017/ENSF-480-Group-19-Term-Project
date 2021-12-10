@@ -38,6 +38,7 @@ public final class PropertyHub implements Subject {
      */
     private PropertyHub() 
     {
+        database = DatabaseController.getInstance();
         propertyList = database.getPropertiesHashMap();
         observers = new ArrayList<Observer>();
     }
@@ -50,7 +51,6 @@ public final class PropertyHub implements Subject {
     {
         if(INSTANCE == null)
         {
-            database = DatabaseController.getInstance();
             INSTANCE = new PropertyHub();
         }
         return INSTANCE;

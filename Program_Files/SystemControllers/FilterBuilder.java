@@ -117,9 +117,4 @@ public class FilterBuilder {
         IO.outputMessage("Filter Successfully Updated");
         return newFilter.build();
     }
-
-    public static void main(String[] args)
-    {
-        buildFilter();
-    }
 }
