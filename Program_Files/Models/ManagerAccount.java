@@ -51,11 +51,9 @@ public class ManagerAccount extends Account{
 
     public void generateSummary() {
       // Convert filter period to string
-      LocalDate startDate = filter.build().getStartDate();
-      LocalDate endDate = filter.build().getEndDate();
 
-      ArrayList<Property> rented = database.getInstance().getRentedProperties(startDate.toString(), endDate.toString());
-      ArrayList<Property> listed = database.getInstance().getListedProperties(startDate.toString(), endDate.toString());
+      ArrayList<Property> rented = database.getRentedProperties(startDate.toString(), endDate.toString());
+      ArrayList<Property> listed = database.getListedProperties(startDate.toString(), endDate.toString());
 
       int totListed = listed.size();
       int totRented = rented.size();
@@ -75,7 +73,7 @@ public class ManagerAccount extends Account{
 
       // Get name
       HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
-      Account[] accountArray = (Account[])accounts.values().toArray();
+      Account[] accountArray =  Arrays.copyOf(accounts.values().toArray(),accounts.size(), Account[].class);
 
       for(int g = currRow; g < rented.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(rented.get(g).getPropertyID());
@@ -96,15 +94,15 @@ public class ManagerAccount extends Account{
       for(int g = 0; g < listed.size(); g++, currRow++){
         row_data[currRow][0] = String.valueOf(listed.get(g).getPropertyID());
 
-
+      
         for(Account account : accountArray){
-          if(account.getAccountID() == rented[g].getOwnerID()){
+          if(account.getAccountID() == rented.get(g).getOwnerID()){
             row_data[currRow][1] = account.getUsername();
             break;
           }
         }
 
-        row_data[currRow][2] = listed[g].getPropertyAddress();
+        row_data[currRow][2] = listed.get(g).getPropertyAddress();
         row_data[currRow][3] = "Listed";
       }
 

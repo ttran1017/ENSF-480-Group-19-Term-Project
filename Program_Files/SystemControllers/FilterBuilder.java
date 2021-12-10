@@ -7,8 +7,6 @@
 
 package SystemControllers;
 
-import java.time.LocalDate;
-
 import InteractionControllers.Input;
 import InteractionControllers.Output;
 import Interfaces.PropertyQuadrant;

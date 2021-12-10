@@ -95,4 +95,6 @@ public final class AccountHandler {
      * @return All accounts
      */
     public static ArrayList<Account> getAccountList(){ return new ArrayList<Account>(accountList.values()); }
+
+    public static Account getAccountByID(Integer ID) { return accountList.get(ID); }
 }

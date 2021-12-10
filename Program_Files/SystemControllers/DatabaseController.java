@@ -21,7 +21,7 @@ public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "09125132465";
+    private static final String PASSWORD = "12qwaszx";
     private Connection database;
 
     private DatabaseController() {
