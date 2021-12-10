@@ -123,9 +123,10 @@ public class UserAccount extends Account {
     return;
   }
 
-  public static void main(String[] args)
+  public void arrangeMeeting() 
   {
-    UserAccount user = new UserAccount("oo@gmail.com","000","12qwaszx");
-    user.sendEmail();
+    Property selectedProperty = PropertyHub.getInstance().selectProperty();
+    EmailController.getInstance().setupMeeting(email, selectedProperty.getOwnerEmail(), selectedProperty.getPropertyID());
+    return;
   }
 }

@@ -21,8 +21,8 @@ import Enums.PropertyType;
 public final class DatabaseController {
     private static DatabaseController INSTANCE;
     private static final String DBURL = "jdbc:mysql://localhost/prms_database";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "12qwaszx";
+    private static String USERNAME;
+    private static String PASSWORD;
     private Connection database;
 
     private DatabaseController() {
@@ -41,6 +41,12 @@ public final class DatabaseController {
             INSTANCE = new DatabaseController();
         }
         return INSTANCE;
+    }
+
+    public static void initialize(String username, String password)
+    {
+        USERNAME = username;
+        PASSWORD = password;
     }
 
 /* NOT NEEDED YET COMMENTED OUT DUE TO COMPILE ISSUES
@@ -596,11 +602,5 @@ public final class DatabaseController {
             exc.printStackTrace();
         }
         return date;
-    }
-
-    public static void main(String[] args)
-    {
-        DatabaseController database = DatabaseController.getInstance();
-        database.updateBalance(20);
     }
 }

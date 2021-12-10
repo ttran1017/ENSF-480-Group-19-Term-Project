@@ -236,10 +236,4 @@ public class EmailController {
       }
       return false;
   }
-
-  public static void main(String[] args) throws MessagingException
-  {
-    EmailController.getInstance().sendNotification("ok@s", 1);
-  }
-
 }

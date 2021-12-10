@@ -166,10 +166,4 @@ public class ManagerAccount extends Account{
 
       IO.displayStringArray(row_data, col_headers);
     }
-
-    public static void main(String[] args)
-    {
-      ManagerAccount acc = new ManagerAccount("something", "username", "password");
-      acc.generateSummary();
-    }
 }
