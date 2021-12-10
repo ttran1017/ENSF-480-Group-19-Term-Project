@@ -175,7 +175,7 @@ public final class DatabaseController {
         ArrayList<Property> periodProperties= new ArrayList<Property>();
         try{
             Statement myStmt = database.createStatement();
-            ResultSet myRs = myStmt.executeQuery("select * from properties where properties.`date rented`>=\""+start+"\" and properties.`date rented` <=\""+end+"\"");
+            ResultSet myRs = myStmt.executeQuery("select * from properties join accounts on properties.account_id = accounts.account_id where properties.`date rented`>=\""+start+"\" and properties.`date rented` <=\""+end+"\"");
             while (myRs.next()){
                 Property selectedProperty = new Property();
                 selectedProperty.setPropertyId(myRs.getInt("property_id"));
