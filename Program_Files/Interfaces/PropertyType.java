@@ -15,7 +15,8 @@ public enum PropertyType {
     AttachedHouse("assets/AttachedHouse_Color.png"),
     DetachedHouse("assets/DetachedHouse_Color.png"),
     Condo("assets/Condo_Color.png"),
-    Townhouse("assets/Townhouse_Color.png");
+    Townhouse("assets/Townhouse_Color.png"),
+    Mansion("assets/Mansion_Color.png");
 
     /**
      * Enum Constructor
