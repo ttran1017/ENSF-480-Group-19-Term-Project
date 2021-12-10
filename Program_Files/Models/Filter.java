@@ -120,22 +120,11 @@ public class Filter {
   public LocalDate getStartDate() { return startDate;  }
   public LocalDate getEndDate() { return endDate;  }
 
-   /**
-   * Getter method for Period
-   * @return the object's period
-   */
-  public Period getPeriod() 
-  {
-    return period;
-  }
-
-
   /**
    * Checks if individual property matches filter criteria
    * @param property Property to be checked
    * @return true if matches criteria, false otherwise
    */
-
   public boolean checkPass(Property property)
   {
     if(property.getPropertyStatus() != PropertyStatus.Active)

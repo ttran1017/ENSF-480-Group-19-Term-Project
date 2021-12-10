@@ -144,7 +144,8 @@ public class FilterBuilder {
         FilterBuilder newFilter = new FilterBuilder();
         LocalDate summaryInitDate = Input.getDateInput("When does the filter period start?");
         LocalDate nextSummaryDate = Input.getDateInput("When does the filter period end?");
-        newFilter.setPeriod(Period.between(summaryInitDate, nextSummaryDate));
+        newFilter.setStartDate(summaryInitDate);
+        newFilter.setEndDate(nextSummaryDate);
         return newFilter.build();
     }
 

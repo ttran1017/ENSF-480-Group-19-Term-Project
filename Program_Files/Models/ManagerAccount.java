@@ -52,8 +52,8 @@ public class ManagerAccount extends Account{
       LocalDate startDate = filter.getStartDate();
       LocalDate endDate = filter.getEndDate();
 
-      ArrayList<Property> rented = database.getInstance().getRentedProperties(startDate.toString(), endDate.toString());
-      ArrayList<Property> listed = database.getInstance().getListedProperties(startDate.toString(), endDate.toString());
+      ArrayList<Property> rented = database.getRentedProperties(startDate.toString(), endDate.toString());
+      ArrayList<Property> listed = database.getListedProperties(startDate.toString(), endDate.toString());
 
       int totListed = listed.size();
       int totRented = rented.size();
@@ -67,25 +67,25 @@ public class ManagerAccount extends Account{
       }
 
       // Convert to String array
-      String[][] row_data;
-      String[] col_headers = = new String[]{"Property ID", "Landlord Name", "Address"};
+      String[][] row_data = new String[rented.size()][3];
+      String[] col_headers = new String[]{"Property ID", "Landlord Name", "Address"};
 
       // Get name
       HashMap<Integer,Account> accounts = DatabaseController.getInstance().getAccountsHashMap();
       Account[] accountArray = (Account[])accounts.values().toArray();
 
       for(int g = 0; g < rented.size(); g++){
-        row_data[g][0] = rented[g].getPropertyID();
+        row_data[g][0] = String.valueOf(rented.get(g).getPropertyID());
 
 
         for(Account account : accountArray){
-          if(account.getAccountID() == rented[g].getOwnerID()){
+          if(account.getAccountID() == rented.get(g).getOwnerID()){
             row_data[g][1] = account.getUsername();
             break;
           }
         }
 
-        row_data[g][2] = rented[g].getPropertyAddress();
+        row_data[g][2] = rented.get(g).getPropertyAddress();
       }
 
       Output.displaySummary(row_data, col_headers, totListed, totRented, totActiveListed);
@@ -145,6 +145,6 @@ public class ManagerAccount extends Account{
     public static void main(String[] args)
     {
       ManagerAccount acc = new ManagerAccount("something", "username", "password");
-      acc.viewUserInfo();
+      acc.generateSummary();
     }
 }
