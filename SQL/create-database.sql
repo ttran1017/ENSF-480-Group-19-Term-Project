@@ -36,10 +36,10 @@ CREATE TABLE `Properties` (
   CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (1,'64 Zoo Lane','Apartment',2,1,TRUE,'SW',5,'Active','2021-12-5',null);
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (1,'1435 korobeiniki Drive','AttachedHouse',3,2,TRUE,'SE',6,'Active','2021-12-4',null);
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (2,'42 Wallaby Way','DetachedHouse',4,3,FALSE,'SE',3,'Active','2021-12-7',null);
-INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (2,'15 Yemen Road','Townhouse',3,2,FALSE,'NE',2,'Active','2021-12-8',null);
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (1,'64 Zoo Lane','Apartment',2,1,TRUE,'SW',5,'Active','2019-12-5',null);
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (1,'1435 korobeiniki Drive','AttachedHouse',3,2,TRUE,'SE',6,'Rented','2020-12-4','2020-12-9');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (2,'42 Wallaby Way','DetachedHouse',4,3,FALSE,'SE',3,'Active','2021-12-7','2021-12-10');
+INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (2,'15 Yemen Road','Townhouse',3,2,FALSE,'NE',2,'Rented','2021-12-8',null);
 INSERT INTO `Properties`(account_id,address,type,`# of bedrooms`,`# of bathrooms`,`is furnished`,`city quadrant`,days,status,`date listed`,`date rented`) VALUES (1,'4 Privet Drive','Condo',2,1,TRUE,'NW',1,'Active','2021-12-9',null);
 
 CREATE TABLE `Financing` (
@@ -64,8 +64,8 @@ CREATE TABLE `Filters` (
   -- CONSTRAINT `FKK_account_id` FOREIGN KEY (`account_id`) REFERENCES `Accounts` (`account_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-INSERT INTO `Filters`VALUES (1,'Apartment','SW',1,5,2,3,True);
-INSERT INTO `Filters`VALUES (2,'null','null',-1,-1,-1,-1,-1);
+INSERT INTO `Filters`VALUES (1,'Mansion','null',-1,-1,-1,-1,True);
+INSERT INTO `Filters`VALUES (2,'Mansion','null',-1,-1,-1,-1,True);
 INSERT INTO `Filters`VALUES (5,'null','null',-1,-1,-1,-1,-1);
 
 CREATE TABLE `Subscriptions` (
@@ -77,7 +77,7 @@ CREATE TABLE `Subscriptions` (
 );
 
 INSERT INTO `Subscriptions`VALUES (1,True);
-INSERT INTO `Subscriptions`VALUES (2,True);
+INSERT INTO `Subscriptions`VALUES (2,False);
 INSERT INTO `Subscriptions`VALUES (5,True);
 
 

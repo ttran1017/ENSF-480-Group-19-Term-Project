@@ -141,6 +141,7 @@ public class Main {
                 "Update Posting Period",
                 "View Property Info",
                 "View User Info",
+                "Update Summary Period",
                 "Generate Summary",
                 "Modify Listing",
                 "Logout"}
@@ -163,6 +164,7 @@ public class Main {
                 break;
             case "Update Summary Period":
                 mAccount.updateSummaryPeriod();
+                break;
             case "Generate Summary":
                 mAccount.generateSummary();
                 break;

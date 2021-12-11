@@ -153,6 +153,7 @@ public final class PropertyHub implements Subject {
                     properties.get(i).setDaysRemaining(FeeController.getPeriod());
                     propertyList.put(selectedID,properties.get(i));
                     database.updateListing(properties.get(i));
+                    database.updateDateListed(selectedID, LocalDate.now().toString());
                     break;
                 }
             }

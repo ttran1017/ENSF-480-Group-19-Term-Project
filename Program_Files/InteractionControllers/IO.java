@@ -62,11 +62,17 @@ public class IO {
      */
     public static LocalDate getDateInput(String prompt)
     {
-      prompt = prompt + "\nPlease format as dd-mm-yyyy";
-      String dateInString = JOptionPane.showInputDialog(prompt);
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d,MM,yyyy", Locale.ENGLISH);
-      LocalDate returnDate = LocalDate.parse(dateInString, formatter);
-      return returnDate;
+        while(true)
+        {
+            try
+            {
+                String dateInString = JOptionPane.showInputDialog(prompt + "\nPlease format as dd-mm-yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy", Locale.ENGLISH);
+                LocalDate returnDate = LocalDate.parse(dateInString, formatter);
+                return returnDate;
+            }
+            catch(Exception e) {}
+        }
     }
 
     /**
@@ -129,7 +135,7 @@ public class IO {
         for(int i = 0; i < options.length; i++)
             modifiedOptions[i+1] = options[i];
         Object selected = JOptionPane.showInputDialog(null, prompt, title, JOptionPane.QUESTION_MESSAGE, null, modifiedOptions, modifiedOptions[0]);
-        if(selected.equals("No Preference"))
+        if(selected == null || selected.equals("No Preference"))
             return null;
         return selected;
     }
